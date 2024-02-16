@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "30939584117",
+    "project_id": "contend-7fa3c",
+    "storage_bucket": "contend-7fa3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30939584117:android:1e22621bcc1905bcb18a3c",
+        "android_client_info": {
+          "package_name": "com.example.contend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpuHzojt19g1Dzr5QscvvEpcDQoo9yPKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
