@@ -315,12 +315,9 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   ClipOval(
-                                    child: Image.asset(
-                                      'images/user2.png',
-                                      width: 70, // Set your desired width
-                                      height: 70, // Set your desired height
-                                      fit: BoxFit
-                                          .cover, // Adjust the fit as needed
+                                    child: CircleAvatar(
+                                      radius: 20,
+                                      backgroundImage: AssetImage('images/user3.png'),
                                     ),
                                   ),
                                   Container(

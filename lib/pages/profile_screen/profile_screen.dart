@@ -235,17 +235,20 @@ class ProfileScreen extends BaseStatelessWidget<ProfileScreenController,
                       ),
                       label: '',
                     ),
+                    // BottomNavigationBarItem(
+                    //   icon: InkWell(
+                    //     child: Icon(
+                    //       Icons.search,
+                    //       color: AppColors.bmiTracker,
+                    //     ),
+                    //   ),
+                    //   label: '',
+                    // ),
                     BottomNavigationBarItem(
                       icon: InkWell(
-                        child: Icon(
-                          Icons.search,
-                          color: AppColors.bmiTracker,
-                        ),
-                      ),
-                      label: '',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/analytics');
+                        },
                         child: Icon(
                           Icons.auto_graph_outlined,
                           color: AppColors.bmiTracker,

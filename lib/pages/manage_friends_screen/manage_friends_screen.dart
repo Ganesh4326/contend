@@ -74,7 +74,9 @@ class ManageFriendsScreen extends BaseScreenWidget<
                             itemCount: state.users!.length,
                             itemBuilder: (context, index) {
                               return !(state.friendsList!.contains(
-                                      state.users![index]!['userName']))
+                                      state.users![index]!['userId']) &&
+                                          state.users![index]!['userId'] !=
+                                              state.userId)
                                   ? Container(
                                       margin: edge_insets_t_12,
                                       child: Row(
@@ -84,10 +86,9 @@ class ManageFriendsScreen extends BaseScreenWidget<
                                           Container(
                                             child: Row(
                                               children: [
-                                                Image.asset(
-                                                  'images/user2.png',
-                                                  width: 50,
-                                                  height: 50,
+                                                CircleAvatar(
+                                                  radius: 20,
+                                                  backgroundImage: AssetImage('images/user3.png'),
                                                 ),
                                                 Container(
                                                   margin: edge_insets_l_9,
@@ -147,7 +148,16 @@ class ManageFriendsScreen extends BaseScreenWidget<
                                   'images/illustration.jpeg',
                                   width: 200,
                                   height: 200,
-                                )
+                                ),
+                                Container(
+                                    margin: edge_insets_y_24,
+                                    child: Text(
+                                      "No users found!",
+                                      style: TextStyle(
+                                          fontSize: Fonts.fontSize20,
+                                          fontWeight: Fonts.f500,
+                                          color: AppColors.primary),
+                                    ))
                               ],
                             ),
                           ),

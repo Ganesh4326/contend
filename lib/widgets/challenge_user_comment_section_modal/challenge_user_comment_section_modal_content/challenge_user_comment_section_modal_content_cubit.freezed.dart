@@ -18,22 +18,25 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ChallengeUserCommentSectionModalContentState {
   String? get challengeId => throw _privateConstructorUsedError;
   List<ChallengeComment>? get comments => throw _privateConstructorUsedError;
+  String? get userName => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? challengeId, List<ChallengeComment>? comments)
+    required TResult Function(String? challengeId,
+            List<ChallengeComment>? comments, String? userName)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? challengeId, List<ChallengeComment>? comments)?
+    TResult? Function(String? challengeId, List<ChallengeComment>? comments,
+            String? userName)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? challengeId, List<ChallengeComment>? comments)?
+    TResult Function(String? challengeId, List<ChallengeComment>? comments,
+            String? userName)?
         initial,
     required TResult orElse(),
   }) =>
@@ -69,7 +72,10 @@ abstract class $ChallengeUserCommentSectionModalContentStateCopyWith<$Res> {
       _$ChallengeUserCommentSectionModalContentStateCopyWithImpl<$Res,
           ChallengeUserCommentSectionModalContentState>;
   @useResult
-  $Res call({String? challengeId, List<ChallengeComment>? comments});
+  $Res call(
+      {String? challengeId,
+      List<ChallengeComment>? comments,
+      String? userName});
 }
 
 /// @nodoc
@@ -89,6 +95,7 @@ class _$ChallengeUserCommentSectionModalContentStateCopyWithImpl<$Res,
   $Res call({
     Object? challengeId = freezed,
     Object? comments = freezed,
+    Object? userName = freezed,
   }) {
     return _then(_value.copyWith(
       challengeId: freezed == challengeId
@@ -99,6 +106,10 @@ class _$ChallengeUserCommentSectionModalContentStateCopyWithImpl<$Res,
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
               as List<ChallengeComment>?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -111,7 +122,10 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? challengeId, List<ChallengeComment>? comments});
+  $Res call(
+      {String? challengeId,
+      List<ChallengeComment>? comments,
+      String? userName});
 }
 
 /// @nodoc
@@ -127,6 +141,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? challengeId = freezed,
     Object? comments = freezed,
+    Object? userName = freezed,
   }) {
     return _then(_$InitialImpl(
       challengeId: freezed == challengeId
@@ -137,6 +152,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value._comments
           : comments // ignore: cast_nullable_to_non_nullable
               as List<ChallengeComment>?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -145,7 +164,7 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
-      {this.challengeId, final List<ChallengeComment>? comments})
+      {this.challengeId, final List<ChallengeComment>? comments, this.userName})
       : _comments = comments;
 
   @override
@@ -161,8 +180,11 @@ class _$InitialImpl implements _Initial {
   }
 
   @override
+  final String? userName;
+
+  @override
   String toString() {
-    return 'ChallengeUserCommentSectionModalContentState.initial(challengeId: $challengeId, comments: $comments)';
+    return 'ChallengeUserCommentSectionModalContentState.initial(challengeId: $challengeId, comments: $comments, userName: $userName)';
   }
 
   @override
@@ -172,12 +194,14 @@ class _$InitialImpl implements _Initial {
             other is _$InitialImpl &&
             (identical(other.challengeId, challengeId) ||
                 other.challengeId == challengeId) &&
-            const DeepCollectionEquality().equals(other._comments, _comments));
+            const DeepCollectionEquality().equals(other._comments, _comments) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, challengeId, const DeepCollectionEquality().hash(_comments));
+  int get hashCode => Object.hash(runtimeType, challengeId,
+      const DeepCollectionEquality().hash(_comments), userName);
 
   @JsonKey(ignore: true)
   @override
@@ -188,31 +212,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String? challengeId, List<ChallengeComment>? comments)
+    required TResult Function(String? challengeId,
+            List<ChallengeComment>? comments, String? userName)
         initial,
   }) {
-    return initial(challengeId, comments);
+    return initial(challengeId, comments, userName);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? challengeId, List<ChallengeComment>? comments)?
+    TResult? Function(String? challengeId, List<ChallengeComment>? comments,
+            String? userName)?
         initial,
   }) {
-    return initial?.call(challengeId, comments);
+    return initial?.call(challengeId, comments, userName);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? challengeId, List<ChallengeComment>? comments)?
+    TResult Function(String? challengeId, List<ChallengeComment>? comments,
+            String? userName)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(challengeId, comments);
+      return initial(challengeId, comments, userName);
     }
     return orElse();
   }
@@ -250,12 +276,15 @@ abstract class _Initial
     implements ChallengeUserCommentSectionModalContentState {
   const factory _Initial(
       {final String? challengeId,
-      final List<ChallengeComment>? comments}) = _$InitialImpl;
+      final List<ChallengeComment>? comments,
+      final String? userName}) = _$InitialImpl;
 
   @override
   String? get challengeId;
   @override
   List<ChallengeComment>? get comments;
+  @override
+  String? get userName;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

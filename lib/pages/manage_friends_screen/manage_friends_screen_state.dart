@@ -10,6 +10,6 @@ class ManageFriendsScreenState with _$ManageFriendsScreenState {
     List<String>? friendRequests,
     List<Users>? requestUsers,
     List<Users>? friendRequestsUsers,
-    List<String>? friendsList
+    List<String>? friendsList,
 }) = _Initial;
 }

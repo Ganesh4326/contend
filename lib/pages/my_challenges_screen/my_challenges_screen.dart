@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../themes/borders.dart';
 
+import '../../core/logger/log.dart';
 import '../../core/widgets/base_screen_widget.dart';
 import '../../services/fire_store.dart';
 import '../../styles/edge_insets.dart';
@@ -38,11 +39,11 @@ class MyChallengesScreen extends BaseStatelessWidget<
                   backgroundColor: Colors.white,
                   body: SingleChildScrollView(
                     child: Container(
-                      padding: EdgeInsets.only(left: 25, right: 25),
+                      padding: EdgeInsets.only(left: 25, right: 25, bottom: 40),
                       child: Column(
                         children: [
                           Container(
-                            margin: EdgeInsets.only(top: 50, left: 20),
+                            margin: EdgeInsets.only(top: 50),
                             child: Row(
                               children: [
                                 InkWell(
@@ -82,8 +83,10 @@ class MyChallengesScreen extends BaseStatelessWidget<
 
                               List<QueryDocumentSnapshot> challenges =
                                   snapshot.data!.docs;
+                              logger.d(snapshot.data!.docs[0].data());
 
                               int noOfDocs = snapshot.data!.docs.length;
+                              logger.d(noOfDocs);
 
                               return noOfDocs > 0
                                   ? ListView.builder(
@@ -310,9 +313,24 @@ class MyChallengesScreen extends BaseStatelessWidget<
                                             : Container();
                                       })
                                   : Container(
-                                      margin: EdgeInsets.only(top: 100),
-                                      child: Text(
-                                        "No challenges created!",
+                                      margin: edge_insets_t_70,
+                                      child: Column(
+                                        children: [
+                                          Image.asset(
+                                            'images/illustration.jpeg',
+                                            width: 200,
+                                            height: 200,
+                                          ),
+                                          Container(
+                                              margin: edge_insets_y_24,
+                                              child: Text(
+                                                "You haven't created any challenges yet!",
+                                                style: TextStyle(
+                                                    fontSize: Fonts.fontSize20,
+                                                    fontWeight: Fonts.f500,
+                                                    color: AppColors.primary),
+                                              ))
+                                        ],
                                       ),
                                     );
                             },

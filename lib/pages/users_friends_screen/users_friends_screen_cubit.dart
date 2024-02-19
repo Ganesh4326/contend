@@ -14,7 +14,7 @@ class UsersFriendsScreenCubit extends BaseCubit<UsersFriendsScreenState> {
   UsersFriendsScreenCubit({required super.context})
       : super(
             initialState: UsersFriendsScreenState.initial(
-                friendListIds: [], friendListUsers: [])) {
+                friendListIds: [], friendListUsers: [], friendsNames: [])) {
     getUserId();
   }
 
@@ -28,12 +28,20 @@ class UsersFriendsScreenCubit extends BaseCubit<UsersFriendsScreenState> {
     emitState(state.copyWith(
         friendListIds:
             await FireStoreService().getUserFriendList(state.userId!)));
-    List<Users> users = [];
+    List<String> users = [];
     for (int i = 0; i < state.friendListIds!.length; i++) {
-      Users? user =
-          await FireStoreService().getUserData(state.friendListIds![i]);
-      users.add(user);
+      // Users? user =
+      //     await FireStoreService().getUserData(state.friendListIds![i]);
+      // users.add(user);
+      String? username = await FireStoreService()
+          .getUserNameFromFirebase(state.friendListIds![i]);
+      users.add(username);
     }
-    emitState(state.copyWith(friendListUsers: users));
+    emitState(state.copyWith(friendsNames: users));
+  }
+
+  removeFriend(String? friendId) {
+    FireStoreService().removeFriendFromFriendList(state.userId!, friendId!);
+    getUserFriendList();
   }
 }

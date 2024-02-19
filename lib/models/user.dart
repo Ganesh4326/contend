@@ -11,6 +11,7 @@ class Users {
   int coins;
   String about;
   List<String>? acceptedChallenges;
+  List<String>? dailyChallenges;
   String? address;
 
   Users(
@@ -23,6 +24,7 @@ class Users {
       required this.coins,
       required this.about,
         required this.emailId,
+        this.dailyChallenges,
       this.acceptedChallenges,
       this.address});
 
@@ -39,6 +41,7 @@ class Users {
       about: map['about'],
       acceptedChallenges: map['acceptedChallenges'],
       address: map['address'],
+      dailyChallenges: map['daily_challenges']
     );
   }
 
@@ -58,6 +61,7 @@ class Users {
           ?.map((dynamic item) => item.toString())
           .toList(),
       address: data['address'],
+      dailyChallenges: data['daily_challenges']
     );
   }
 

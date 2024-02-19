@@ -30,6 +30,7 @@ class Assets {
   static const String imagesTwo = 'images/two.png';
   static const String imagesUser1 = 'images/user1.png';
   static const String imagesUser2 = 'images/user2.png';
+  static const String imagesUser3 = 'images/user3.png';
   static const String nunitoNunitoBlack = 'fonts/Nunito/Nunito-Black.ttf';
   static const String nunitoNunitoBlackItalic = 'fonts/Nunito/Nunito-BlackItalic.ttf';
   static const String nunitoNunitoBold = 'fonts/Nunito/Nunito-Bold.ttf';

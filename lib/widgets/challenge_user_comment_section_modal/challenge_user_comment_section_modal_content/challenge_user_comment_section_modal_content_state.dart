@@ -5,6 +5,7 @@ class ChallengeUserCommentSectionModalContentState
     with _$ChallengeUserCommentSectionModalContentState {
   const factory ChallengeUserCommentSectionModalContentState.initial({
     String? challengeId,
-    List<ChallengeComment>? comments
+    List<ChallengeComment>? comments,
+    String? userName
 }) = _Initial;
 }

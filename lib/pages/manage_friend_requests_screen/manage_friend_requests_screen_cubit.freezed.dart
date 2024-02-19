@@ -19,24 +19,34 @@ mixin _$ManageFriendRequestsScreenState {
   List<String>? get friendRequests => throw _privateConstructorUsedError;
   List<Users>? get friendRequestsUsers => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
+  List<String>? get friendRequestNames => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String>? friendRequests,
-            List<Users>? friendRequestsUsers, String? userId)
+    required TResult Function(
+            List<String>? friendRequests,
+            List<Users>? friendRequestsUsers,
+            String? userId,
+            List<String>? friendRequestNames)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String>? friendRequests,
-            List<Users>? friendRequestsUsers, String? userId)?
+    TResult? Function(
+            List<String>? friendRequests,
+            List<Users>? friendRequestsUsers,
+            String? userId,
+            List<String>? friendRequestNames)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String>? friendRequests,
-            List<Users>? friendRequestsUsers, String? userId)?
+    TResult Function(
+            List<String>? friendRequests,
+            List<Users>? friendRequestsUsers,
+            String? userId,
+            List<String>? friendRequestNames)?
         initial,
     required TResult orElse(),
   }) =>
@@ -74,7 +84,8 @@ abstract class $ManageFriendRequestsScreenStateCopyWith<$Res> {
   $Res call(
       {List<String>? friendRequests,
       List<Users>? friendRequestsUsers,
-      String? userId});
+      String? userId,
+      List<String>? friendRequestNames});
 }
 
 /// @nodoc
@@ -94,6 +105,7 @@ class _$ManageFriendRequestsScreenStateCopyWithImpl<$Res,
     Object? friendRequests = freezed,
     Object? friendRequestsUsers = freezed,
     Object? userId = freezed,
+    Object? friendRequestNames = freezed,
   }) {
     return _then(_value.copyWith(
       friendRequests: freezed == friendRequests
@@ -108,6 +120,10 @@ class _$ManageFriendRequestsScreenStateCopyWithImpl<$Res,
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      friendRequestNames: freezed == friendRequestNames
+          ? _value.friendRequestNames
+          : friendRequestNames // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -123,7 +139,8 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {List<String>? friendRequests,
       List<Users>? friendRequestsUsers,
-      String? userId});
+      String? userId,
+      List<String>? friendRequestNames});
 }
 
 /// @nodoc
@@ -140,6 +157,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? friendRequests = freezed,
     Object? friendRequestsUsers = freezed,
     Object? userId = freezed,
+    Object? friendRequestNames = freezed,
   }) {
     return _then(_$InitialImpl(
       friendRequests: freezed == friendRequests
@@ -154,6 +172,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      friendRequestNames: freezed == friendRequestNames
+          ? _value._friendRequestNames
+          : friendRequestNames // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -164,9 +186,11 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {final List<String>? friendRequests,
       final List<Users>? friendRequestsUsers,
-      this.userId})
+      this.userId,
+      final List<String>? friendRequestNames})
       : _friendRequests = friendRequests,
-        _friendRequestsUsers = friendRequestsUsers;
+        _friendRequestsUsers = friendRequestsUsers,
+        _friendRequestNames = friendRequestNames;
 
   final List<String>? _friendRequests;
   @override
@@ -191,10 +215,20 @@ class _$InitialImpl implements _Initial {
 
   @override
   final String? userId;
+  final List<String>? _friendRequestNames;
+  @override
+  List<String>? get friendRequestNames {
+    final value = _friendRequestNames;
+    if (value == null) return null;
+    if (_friendRequestNames is EqualUnmodifiableListView)
+      return _friendRequestNames;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'ManageFriendRequestsScreenState.initial(friendRequests: $friendRequests, friendRequestsUsers: $friendRequestsUsers, userId: $userId)';
+    return 'ManageFriendRequestsScreenState.initial(friendRequests: $friendRequests, friendRequestsUsers: $friendRequestsUsers, userId: $userId, friendRequestNames: $friendRequestNames)';
   }
 
   @override
@@ -206,7 +240,9 @@ class _$InitialImpl implements _Initial {
                 .equals(other._friendRequests, _friendRequests) &&
             const DeepCollectionEquality()
                 .equals(other._friendRequestsUsers, _friendRequestsUsers) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            const DeepCollectionEquality()
+                .equals(other._friendRequestNames, _friendRequestNames));
   }
 
   @override
@@ -214,7 +250,8 @@ class _$InitialImpl implements _Initial {
       runtimeType,
       const DeepCollectionEquality().hash(_friendRequests),
       const DeepCollectionEquality().hash(_friendRequestsUsers),
-      userId);
+      userId,
+      const DeepCollectionEquality().hash(_friendRequestNames));
 
   @JsonKey(ignore: true)
   @override
@@ -225,33 +262,45 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String>? friendRequests,
-            List<Users>? friendRequestsUsers, String? userId)
+    required TResult Function(
+            List<String>? friendRequests,
+            List<Users>? friendRequestsUsers,
+            String? userId,
+            List<String>? friendRequestNames)
         initial,
   }) {
-    return initial(friendRequests, friendRequestsUsers, userId);
+    return initial(
+        friendRequests, friendRequestsUsers, userId, friendRequestNames);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String>? friendRequests,
-            List<Users>? friendRequestsUsers, String? userId)?
+    TResult? Function(
+            List<String>? friendRequests,
+            List<Users>? friendRequestsUsers,
+            String? userId,
+            List<String>? friendRequestNames)?
         initial,
   }) {
-    return initial?.call(friendRequests, friendRequestsUsers, userId);
+    return initial?.call(
+        friendRequests, friendRequestsUsers, userId, friendRequestNames);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String>? friendRequests,
-            List<Users>? friendRequestsUsers, String? userId)?
+    TResult Function(
+            List<String>? friendRequests,
+            List<Users>? friendRequestsUsers,
+            String? userId,
+            List<String>? friendRequestNames)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(friendRequests, friendRequestsUsers, userId);
+      return initial(
+          friendRequests, friendRequestsUsers, userId, friendRequestNames);
     }
     return orElse();
   }
@@ -289,7 +338,8 @@ abstract class _Initial implements ManageFriendRequestsScreenState {
   const factory _Initial(
       {final List<String>? friendRequests,
       final List<Users>? friendRequestsUsers,
-      final String? userId}) = _$InitialImpl;
+      final String? userId,
+      final List<String>? friendRequestNames}) = _$InitialImpl;
 
   @override
   List<String>? get friendRequests;
@@ -297,6 +347,8 @@ abstract class _Initial implements ManageFriendRequestsScreenState {
   List<Users>? get friendRequestsUsers;
   @override
   String? get userId;
+  @override
+  List<String>? get friendRequestNames;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

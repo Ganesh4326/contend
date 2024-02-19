@@ -37,9 +37,14 @@ class CreateOrderScreen extends BaseStatelessWidget {
                             margin: EdgeInsets.only(top: 50),
                             child: Row(
                               children: [
-                                Icon(
-                                  Icons.arrow_back_ios_new,
-                                  color: AppColors.bmiTracker,
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, '/home');
+                                  },
+                                  child: Icon(
+                                    Icons.arrow_back_ios_new,
+                                    color: AppColors.bmiTracker,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -107,7 +112,12 @@ class CreateOrderScreen extends BaseStatelessWidget {
                                                       ),
                                                       Row(
                                                         children: [
-                                                          Icon(Icons.star, size: 20, color: AppColors.orange,),
+                                                          Icon(
+                                                            Icons.star,
+                                                            size: 20,
+                                                            color: AppColors
+                                                                .orange,
+                                                          ),
                                                           SizedBox(
                                                             width: 10,
                                                           ),
@@ -131,7 +141,8 @@ class CreateOrderScreen extends BaseStatelessWidget {
                                                                     .grey1),
                                                           ),
                                                           Text(
-                                                            order.quantityLeft.toString(),
+                                                            order.quantityLeft
+                                                                .toString(),
                                                             style: TextStyle(
                                                               fontSize: Fonts
                                                                   .fontSize14,
@@ -150,7 +161,8 @@ class CreateOrderScreen extends BaseStatelessWidget {
                                                                     .grey1),
                                                           ),
                                                           Text(
-                                                            order.coinsReq.toString(),
+                                                            order.coinsReq
+                                                                .toString(),
                                                             style: TextStyle(
                                                               fontSize: Fonts
                                                                   .fontSize14,
@@ -192,17 +204,17 @@ class CreateOrderScreen extends BaseStatelessWidget {
                                     );
                                   })
                               : Container(
-                            margin: edge_insets_t_70,
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'images/illustration.jpeg',
-                                  width: 200,
-                                  height: 200,
-                                )
-                              ],
-                            ),
-                          ),
+                                  margin: edge_insets_t_70,
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        'images/illustration.jpeg',
+                                        width: 200,
+                                        height: 200,
+                                      )
+                                    ],
+                                  ),
+                                ),
                         ],
                       ),
                     ),

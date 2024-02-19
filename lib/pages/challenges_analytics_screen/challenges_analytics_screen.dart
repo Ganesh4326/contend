@@ -39,6 +39,20 @@ class ChallengesAnalyticsScreen extends BaseStatelessWidget<
                 margin: edge_insets_x_24,
                 child: Column(
                   children: [
+                    Container(
+                      margin: edge_insets_x_16,
+                      padding: edge_insets_t_32,
+                      child: Row(
+                        children: [
+                          Text(
+                            "Challenge analytics",
+                            style: TextStyle(
+                                fontSize: Fonts.fontSize24,
+                                fontWeight: Fonts.f700),
+                          )
+                        ],
+                      ),
+                    ),
                     state.allChallenges != null
                         ? ListView.builder(
                             shrinkWrap: true,
@@ -138,7 +152,25 @@ class ChallengesAnalyticsScreen extends BaseStatelessWidget<
                               );
                             })
                         : Container(
-                            child: Text("Loading"),
+                            margin: edge_insets_t_70,
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'images/illustration.jpeg',
+                                  width: 200,
+                                  height: 200,
+                                ),
+                                Container(
+                                    margin: edge_insets_y_24,
+                                    child: Text(
+                                      "You don't have any active challenges!",
+                                      style: TextStyle(
+                                          fontSize: Fonts.fontSize20,
+                                          fontWeight: Fonts.f500,
+                                          color: AppColors.primary),
+                                    ))
+                              ],
+                            ),
                           ),
                   ],
                 ),
@@ -158,19 +190,18 @@ class ChallengesAnalyticsScreen extends BaseStatelessWidget<
                   ),
                   label: '',
                 ),
-                BottomNavigationBarItem(
-                  icon: InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, '/signup');
-                    },
-                    child: Icon(
-                      Icons.search,
-                      color: AppColors.bmiTracker,
-                    ),
-                  ),
-                  label: '',
-                ),
+                // BottomNavigationBarItem(
+                //   icon: InkWell(
+                //     onTap: () {
+                //       Navigator.pushNamed(context, '/signup');
+                //     },
+                //     child: Icon(
+                //       Icons.search,
+                //       color: AppColors.bmiTracker,
+                //     ),
+                //   ),
+                //   label: '',
+                // ),
                 BottomNavigationBarItem(
                   icon: InkWell(
                     onTap: () {
@@ -186,8 +217,7 @@ class ChallengesAnalyticsScreen extends BaseStatelessWidget<
                 BottomNavigationBarItem(
                   icon: InkWell(
                       onTap: () {
-                        Navigator.pushNamed(
-                            context, '/profile');
+                        Navigator.pushNamed(context, '/profile');
                       },
                       child: Icon(
                         Icons.person,

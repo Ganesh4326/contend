@@ -19,24 +19,28 @@ mixin _$UsersFriendsScreenState {
   List<String>? get friendListIds => throw _privateConstructorUsedError;
   List<Users>? get friendListUsers => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
+  List<String>? get friendsNames => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String>? friendListIds,
-            List<Users>? friendListUsers, String? userId)
+    required TResult Function(
+            List<String>? friendListIds,
+            List<Users>? friendListUsers,
+            String? userId,
+            List<String>? friendsNames)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<String>? friendListIds, List<Users>? friendListUsers,
-            String? userId)?
+            String? userId, List<String>? friendsNames)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<String>? friendListIds, List<Users>? friendListUsers,
-            String? userId)?
+            String? userId, List<String>? friendsNames)?
         initial,
     required TResult orElse(),
   }) =>
@@ -72,7 +76,8 @@ abstract class $UsersFriendsScreenStateCopyWith<$Res> {
   $Res call(
       {List<String>? friendListIds,
       List<Users>? friendListUsers,
-      String? userId});
+      String? userId,
+      List<String>? friendsNames});
 }
 
 /// @nodoc
@@ -92,6 +97,7 @@ class _$UsersFriendsScreenStateCopyWithImpl<$Res,
     Object? friendListIds = freezed,
     Object? friendListUsers = freezed,
     Object? userId = freezed,
+    Object? friendsNames = freezed,
   }) {
     return _then(_value.copyWith(
       friendListIds: freezed == friendListIds
@@ -106,6 +112,10 @@ class _$UsersFriendsScreenStateCopyWithImpl<$Res,
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      friendsNames: freezed == friendsNames
+          ? _value.friendsNames
+          : friendsNames // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -121,7 +131,8 @@ abstract class _$$InitialImplCopyWith<$Res>
   $Res call(
       {List<String>? friendListIds,
       List<Users>? friendListUsers,
-      String? userId});
+      String? userId,
+      List<String>? friendsNames});
 }
 
 /// @nodoc
@@ -138,6 +149,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? friendListIds = freezed,
     Object? friendListUsers = freezed,
     Object? userId = freezed,
+    Object? friendsNames = freezed,
   }) {
     return _then(_$InitialImpl(
       friendListIds: freezed == friendListIds
@@ -152,6 +164,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      friendsNames: freezed == friendsNames
+          ? _value._friendsNames
+          : friendsNames // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -162,9 +178,11 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {final List<String>? friendListIds,
       final List<Users>? friendListUsers,
-      this.userId})
+      this.userId,
+      final List<String>? friendsNames})
       : _friendListIds = friendListIds,
-        _friendListUsers = friendListUsers;
+        _friendListUsers = friendListUsers,
+        _friendsNames = friendsNames;
 
   final List<String>? _friendListIds;
   @override
@@ -188,10 +206,19 @@ class _$InitialImpl implements _Initial {
 
   @override
   final String? userId;
+  final List<String>? _friendsNames;
+  @override
+  List<String>? get friendsNames {
+    final value = _friendsNames;
+    if (value == null) return null;
+    if (_friendsNames is EqualUnmodifiableListView) return _friendsNames;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'UsersFriendsScreenState.initial(friendListIds: $friendListIds, friendListUsers: $friendListUsers, userId: $userId)';
+    return 'UsersFriendsScreenState.initial(friendListIds: $friendListIds, friendListUsers: $friendListUsers, userId: $userId, friendsNames: $friendsNames)';
   }
 
   @override
@@ -203,7 +230,9 @@ class _$InitialImpl implements _Initial {
                 .equals(other._friendListIds, _friendListIds) &&
             const DeepCollectionEquality()
                 .equals(other._friendListUsers, _friendListUsers) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            const DeepCollectionEquality()
+                .equals(other._friendsNames, _friendsNames));
   }
 
   @override
@@ -211,7 +240,8 @@ class _$InitialImpl implements _Initial {
       runtimeType,
       const DeepCollectionEquality().hash(_friendListIds),
       const DeepCollectionEquality().hash(_friendListUsers),
-      userId);
+      userId,
+      const DeepCollectionEquality().hash(_friendsNames));
 
   @JsonKey(ignore: true)
   @override
@@ -222,33 +252,36 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String>? friendListIds,
-            List<Users>? friendListUsers, String? userId)
+    required TResult Function(
+            List<String>? friendListIds,
+            List<Users>? friendListUsers,
+            String? userId,
+            List<String>? friendsNames)
         initial,
   }) {
-    return initial(friendListIds, friendListUsers, userId);
+    return initial(friendListIds, friendListUsers, userId, friendsNames);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<String>? friendListIds, List<Users>? friendListUsers,
-            String? userId)?
+            String? userId, List<String>? friendsNames)?
         initial,
   }) {
-    return initial?.call(friendListIds, friendListUsers, userId);
+    return initial?.call(friendListIds, friendListUsers, userId, friendsNames);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<String>? friendListIds, List<Users>? friendListUsers,
-            String? userId)?
+            String? userId, List<String>? friendsNames)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(friendListIds, friendListUsers, userId);
+      return initial(friendListIds, friendListUsers, userId, friendsNames);
     }
     return orElse();
   }
@@ -286,7 +319,8 @@ abstract class _Initial implements UsersFriendsScreenState {
   const factory _Initial(
       {final List<String>? friendListIds,
       final List<Users>? friendListUsers,
-      final String? userId}) = _$InitialImpl;
+      final String? userId,
+      final List<String>? friendsNames}) = _$InitialImpl;
 
   @override
   List<String>? get friendListIds;
@@ -294,6 +328,8 @@ abstract class _Initial implements UsersFriendsScreenState {
   List<Users>? get friendListUsers;
   @override
   String? get userId;
+  @override
+  List<String>? get friendsNames;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

@@ -5,6 +5,7 @@ class UsersFriendsScreenState with _$UsersFriendsScreenState {
   const factory UsersFriendsScreenState.initial({
     List<String>? friendListIds,
     List<Users>? friendListUsers,
-    String? userId
+    String? userId,
+    List<String>? friendsNames
 }) = _Initial;
 }

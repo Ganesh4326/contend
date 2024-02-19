@@ -46,10 +46,9 @@ class UsersUserRequestsFriends extends BaseStatelessWidget<
                               Container(
                                 child: Row(
                                   children: [
-                                    Image.asset(
-                                      'images/user2.png',
-                                      width: 50,
-                                      height: 50,
+                                    CircleAvatar(
+                                      radius: 20,
+                                      backgroundImage: AssetImage('images/user3.png'),
                                     ),
                                     Container(
                                       margin: edge_insets_l_9,

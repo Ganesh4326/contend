@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:contend/models/challenge.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../auth/AuthService.dart';
 import '../../core/blocs/base_cubit.dart';
 import '../../core/logger/log.dart';
 import '../../services/fire_store.dart';
@@ -17,8 +18,9 @@ class ChallengesAnalyticsScreenCubit
   }
 
   getAllAcceptedChallengesIdsList() async {
+    String? userId = await AuthService.getUserId();
     List<String>? allAcceptedChallengesIds =
-        await FireStoreService().getAllAcceptedChallengeIds('');
+        await FireStoreService().getAllAcceptedChallengeIds(userId!);
     emit(state.copyWith(allAcceptedChallengeIdsList: allAcceptedChallengesIds));
     logger.d(state.allAcceptedChallengeIdsList);
     getAllChallengesData();

@@ -65,9 +65,9 @@ class ManageFriendRequestsScreen extends BaseStatelessWidget<
               Expanded(
                 child: Container(
                   margin: edge_insets_x_24_y_17,
-                  child: state.friendRequests!.length > 0
+                  child: state.friendRequestNames!.length > 0
                       ? ListView.builder(
-                          itemCount: state.friendRequests!.length,
+                          itemCount: state.friendRequestNames!.length,
                           itemBuilder: (context, index) {
                             return Container(
                               margin: edge_insets_t_12,
@@ -78,16 +78,14 @@ class ManageFriendRequestsScreen extends BaseStatelessWidget<
                                   Container(
                                     child: Row(
                                       children: [
-                                        Image.asset(
-                                          'images/user2.png',
-                                          width: 50,
-                                          height: 50,
+                                        CircleAvatar(
+                                          radius: 20,
+                                          backgroundImage: AssetImage('images/user3.png'),
                                         ),
                                         Container(
                                           margin: edge_insets_l_9,
                                           child: Text(
-                                            state.friendRequestsUsers![index]
-                                                .userName,
+                                            state.friendRequestNames![index],
                                             style: TextStyle(
                                                 fontSize: Fonts.fontSize18),
                                           ),
@@ -97,11 +95,14 @@ class ManageFriendRequestsScreen extends BaseStatelessWidget<
                                   ),
                                   InkWell(
                                       onTap: () {
-                                        getCubit(context).addToFriendList(state
-                                            .friendRequestsUsers![index]
-                                            .userId);
+                                        getCubit(context).addToFriendList(
+                                            state.friendRequests![index]);
                                       },
-                                      child: Text("Accept"))
+                                      child: Text("Accept", style: TextStyle(
+                                        fontWeight: Fonts.f500,
+                                        fontSize: Fonts.fontSize14,
+                                        color: AppColors.bmiTracker
+                                      ),))
                                 ],
                               ),
                             );
@@ -114,7 +115,16 @@ class ManageFriendRequestsScreen extends BaseStatelessWidget<
                                 'images/illustration.jpeg',
                                 width: 200,
                                 height: 200,
-                              )
+                              ),
+                              Container(
+                                  margin: edge_insets_y_24,
+                                  child: Text(
+                                    "No requests for you!",
+                                    style: TextStyle(
+                                        fontSize: Fonts.fontSize20,
+                                        fontWeight: Fonts.f500,
+                                        color: AppColors.primary),
+                                  ))
                             ],
                           ),
                         ),

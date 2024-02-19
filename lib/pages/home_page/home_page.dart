@@ -41,15 +41,18 @@ import '../signup_screen/signup_screen.dart';
 import '../test_screen.dart';
 import '../users_friends_screen/users_friends_screen.dart';
 
-class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
-    HomePageState> {
-  HomePage({super.key});
+class HomePage
+    extends BaseScreenWidget<HomePageController, HomePageCubit, HomePageState> {
+  HomePage(
+      {super.key, required super.pageContext, required super.goRouterState});
 
   //firestore
   final FireStoreService fireStoreService = FireStoreService();
 
   final ChallengeDurationManager challengeDurationManager =
       ChallengeDurationManager();
+
+  TextEditingController searchText = TextEditingController();
 
   //text controller
   final TextEditingController textEditingController = TextEditingController();
@@ -116,7 +119,9 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                 create: (create) => createCubitAndAssignToController(context),
                 child: BlocConsumer<HomePageCubit, HomePageState>(
                   listener: (context, state) {
-                    // TODO: implement listener
+                    if (onStateChanged != null) {
+                      onStateChanged!(state);
+                    }
                   },
                   builder: (context, state) {
                     // this.getCubit(context).getUserName();
@@ -124,7 +129,10 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                     return MaterialApp(
                         routes: {
                           '/splash': (context) => SplashScreen(),
-                          '/home': (context) => HomePage(),
+                          '/home': (context) => HomePage(
+                                goRouterState: GoRouterState(),
+                                pageContext: context,
+                              ),
                           '/profile': (context) => ProfileScreen(),
                           '/login': (context) => LoginScreen(),
                           '/signup': (context) => SignupScreen(),
@@ -184,15 +192,6 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                                                     context, '/mychallenges');
                                               },
                                               child: Text("My challenges")),
-                                        ),
-                                        PopupMenuItem<String>(
-                                          value: 'option2',
-                                          child: InkWell(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, '/profile');
-                                              },
-                                              child: Text("Rewards")),
                                         ),
                                         PopupMenuItem<String>(
                                           value: 'option3',
@@ -305,25 +304,41 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                                               ],
                                             )),
                                         Container(
-                                            decoration: BoxDecoration(
-                                              border: borders.b_1px_primary,
-                                              borderRadius: borderRadius.br_20,
-                                            ),
-                                            padding: edge_insets_x_12_y_12,
-                                            margin: edge_insets_x_12_y_20,
-                                            child: Row(
-                                              children: [
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    Icon(Icons.search)
-                                                  ],
+                                          decoration: BoxDecoration(
+                                            border: borders.b_1px_primary,
+                                            borderRadius: borderRadius.br_10,
+                                          ),
+                                          padding: EdgeInsets.only(
+                                              left: 12,
+                                              right: 12,
+                                              top: 0,
+                                              bottom: 0),
+                                          margin: edge_insets_x_12_y_20,
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: TextField(
+                                                  controller: searchText,
+                                                  onChanged: (text) {
+                                                    getCubit(context)
+                                                        .updateSearchTerm(text);
+                                                  },
+                                                  decoration: InputDecoration(
+                                                    hintText: 'Search...',
+                                                    border: InputBorder
+                                                        .none, // Remove border for the text field
+                                                  ),
                                                 ),
-                                              ],
-                                            )),
+                                              ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  // Perform search action here
+                                                },
+                                                icon: Icon(Icons.search),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                         Container(
                                           child: Row(
                                             children: [
@@ -508,8 +523,15 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                                                                   dynamic>;
 
                                                       return challengeData[
-                                                                  'privacy'] ==
-                                                              'PUBLIC'
+                                                                      'privacy'] ==
+                                                                  'PUBLIC' &&
+                                                              challengeData[
+                                                                      'challengeTitle']
+                                                                  .toString()
+                                                                  .toLowerCase()
+                                                                  .contains(state
+                                                                      .searchTerm!
+                                                                      .toLowerCase())
                                                           ? GestureDetector(
                                                               onTap: () {
                                                                 Navigator.push(
@@ -694,19 +716,19 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                                       ),
                                       label: '',
                                     ),
-                                    BottomNavigationBarItem(
-                                      icon: InkWell(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, '/signup');
-                                        },
-                                        child: Icon(
-                                          Icons.search,
-                                          color: AppColors.bmiTracker,
-                                        ),
-                                      ),
-                                      label: '',
-                                    ),
+                                    // BottomNavigationBarItem(
+                                    //   icon: InkWell(
+                                    //     onTap: () {
+                                    //       Navigator.pushNamed(
+                                    //           context, '/signup');
+                                    //     },
+                                    //     child: Icon(
+                                    //       Icons.search,
+                                    //       color: AppColors.bmiTracker,
+                                    //     ),
+                                    //   ),
+                                    //   label: '',
+                                    // ),
                                     BottomNavigationBarItem(
                                       icon: InkWell(
                                         onTap: () {
@@ -744,7 +766,7 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
 
   @override
   HomePageCubit createCubitAndAssignToController(BuildContext context) {
-    HomePageCubit cubit = HomePageCubit();
+    HomePageCubit cubit = HomePageCubit(context: context);
     controller?.cubit = cubit;
     return cubit;
   }

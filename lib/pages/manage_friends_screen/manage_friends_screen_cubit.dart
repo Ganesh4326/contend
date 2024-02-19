@@ -62,6 +62,7 @@ class ManageFriendsScreenCubit extends BaseCubit<ManageFriendsScreenState> {
   }
 
   getUserRequestedList() async {
+
     emitState(state.copyWith(
         friendRequests:
             await FireStoreService().getUserRequestsForFriend(state.userId!)));

@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/logger/log.dart';
+import 'core/widgets/base_screen_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/home': (context) => HomePage(),
+        '/home': (context) => HomePage(goRouterState: GoRouterState(), pageContext: context,),
         '/analytics': (context) => ChallengesAnalyticsScreen(),
         '/profile': (context) => ProfileScreen(),
         '/login': (context) => LoginScreen(),
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
         '/createchallenge': (context) => CreateChallengeScreen(),
       },
       debugShowCheckedModeBanner: false,
-      home: isUserAuthenticated ? HomePage() : SplashScreen(),
+      home: isUserAuthenticated ? HomePage(goRouterState: GoRouterState(), pageContext: context,) : SplashScreen(),
     );
   }
 }

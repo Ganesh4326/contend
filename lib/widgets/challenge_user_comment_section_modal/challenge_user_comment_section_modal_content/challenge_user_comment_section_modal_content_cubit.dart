@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:contend/auth/AuthService.dart';
 import 'package:contend/services/fire_store.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -17,7 +18,19 @@ class ChallengeUserCommentSectionModalContentCubit
       : super(
             initialState: ChallengeUserCommentSectionModalContentState.initial(
                 challengeId: challengeId, comments: [])) {
+    getUserName();
     getChallengeComments();
+  }
+
+  getUserName() async {
+    String? userId = await AuthService.getUserId();
+    await getUserNameFromFirebase(userId!);
+  }
+
+  getUserNameFromFirebase(String userId) async {
+    String userName = await FireStoreService().getUserNameFromFirebase(userId);
+    emit(state.copyWith(userName: userName));
+    logger.d(state.userName!);
   }
 
   getChallengeComments() async {
@@ -25,6 +38,16 @@ class ChallengeUserCommentSectionModalContentCubit
         await FireStoreService().getChallengeComments(state.challengeId!);
     logger.d(comments.toList());
     emitState(state.copyWith(comments: comments));
-    logger.d(comments[0].username);
+    logger.d(state.comments![0].username);
+  }
+
+  postComment(String? comment) async {
+    logger.d(comment);
+    await FireStoreService().addChallengeComment(
+      state.challengeId!,
+      state.userName!,
+      comment!,
+    );
+    getChallengeComments();
   }
 }

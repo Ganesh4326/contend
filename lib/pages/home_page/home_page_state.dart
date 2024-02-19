@@ -8,5 +8,5 @@ class HomePageState with _$HomePageState {
       String? userId,
       bool? isUserExist,
       int? coins,
-      List<QueryDocumentSnapshot>? challenges}) = _Initial;
+      List<QueryDocumentSnapshot>? challenges, String? searchTerm}) = _Initial;
 }

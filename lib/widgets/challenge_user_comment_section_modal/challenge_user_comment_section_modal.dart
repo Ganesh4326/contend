@@ -1,3 +1,6 @@
+import 'package:contend/styles/edge_insets.dart';
+import 'package:contend/themes/app_colors.dart';
+import 'package:contend/themes/fonts.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,11 +41,21 @@ class ChallengeUserCommentSectionModal
         builder: (context, state) {
           initializeController(context);
           return Container(
-            child: InkWell(
-              onTap: (){
-                openModal(context: context, cubit: getCubit(context));
-              },
-              child: Text("...Comments"),
+            margin: edge_insets_x_16_y_32,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: (){
+                    openModal(context: context, cubit: getCubit(context));
+                  },
+                  child: Text("...See comments", style: TextStyle(
+                    fontSize: Fonts.fontSize18,
+                    color: AppColors.bmiTracker,
+                    fontWeight: Fonts.f700
+                  ),),
+                ),
+              ],
             ),
           );
         },

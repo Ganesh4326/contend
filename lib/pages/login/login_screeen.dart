@@ -1,4 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:contend/core/widgets/base_screen_widget.dart';
+import 'package:contend/pages/home_page/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -32,7 +34,11 @@ class LoginScreen extends BaseStatelessWidget<LoginScreenController,
     if (loginSuccess != '') {
       logger.d(emailController.text);
       print('Navigate to home screen');
-      Navigator.pushNamed(context, '/home');
+      // Navigator.pushNamed(context, '/home');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage(goRouterState: GoRouterState(), pageContext: context,)),
+      );
       await AuthService.saveUserId(loginSuccess,
           await fireStoreService.getUserName(emailController.text));
     } else {

@@ -6,5 +6,6 @@ class ManageFriendRequestsScreenState with _$ManageFriendRequestsScreenState {
     List<String>? friendRequests,
     List<Users>? friendRequestsUsers,
     String? userId,
+    List<String>? friendRequestNames
 }) = _Initial;
 }

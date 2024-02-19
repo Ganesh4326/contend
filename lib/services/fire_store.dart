@@ -1008,13 +1008,16 @@ class FireStoreService {
     }
   }
 
-  Future<List<ChallengeComment>> getChallengeComments(String challengeId) async {
-    logger.d('Fetching challenge comments for challengeId: $challengeId');
-
+  Future<List<ChallengeComment>> getChallengeComments(
+      String challengeId) async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('challenges')
+      logger.d('Fetching challenge comments for challengeId: $challengeId');
+
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('challenges')
           .where('challengeId', isEqualTo: challengeId)
           .get();
+      logger.d(querySnapshot);
 
       if (querySnapshot.docs.isEmpty) {
         logger.d('No challenge found with ID: $challengeId');
@@ -1022,20 +1025,80 @@ class FireStoreService {
       }
 
       final data = querySnapshot.docs.first.data();
-      if (data != null && data is Map<String, dynamic> && data.containsKey('challenge_comments')) {
+      if (data != null &&
+          data is Map<String, dynamic> &&
+          data.containsKey('challenge_comments')) {
         final comments = data['challenge_comments'] as List<dynamic>;
-        List<ChallengeComment> challengeComments = comments.map((comment) => ChallengeComment.fromMap(comment)).toList();
+        logger.d(comments[0]);
 
-        return challengeComments;
+        final Map<String, dynamic> commentMap =
+            comments[0] as Map<String, dynamic>;
+        final String username = commentMap.keys.first;
+        final String comment = commentMap.values.first;
+
+        logger.d(username);
+        logger.d(comment);
+        final challengeComment =
+            ChallengeComment(username: username, comment: comment);
+        logger.d(challengeComment.username);
+        List<ChallengeComment> allComments = [];
+
+        for (int i = 0; i < comments.length; i++) {
+          final Map<String, dynamic> commentMap =
+              comments[i] as Map<String, dynamic>;
+          final String username = commentMap.keys.first;
+          final String comment = commentMap.values.first;
+
+          final challengeComment =
+              ChallengeComment(username: username, comment: comment);
+          allComments.add(challengeComment);
+        }
+
+        return allComments;
       } else {
         logger.d('Challenge comments data not found in document');
         return [];
       }
     } catch (e, stackTrace) {
-      // Handle error
       logger.e('Error getting challenge comments: $e');
       return [];
     }
   }
 
+  Future<void> removeFriendFromFriendList(
+      String? userId, String? friendId) async {
+    try {
+      DocumentReference userRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+
+      DocumentReference userRef2 =
+          FirebaseFirestore.instance.collection('users').doc(friendId);
+
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot userSnapshot = await transaction.get(userRef);
+        if (userSnapshot.exists) {
+          Map<String, dynamic>? userData =
+              userSnapshot.data() as Map<String, dynamic>?;
+          List<dynamic>? friendsData = userData?['friend_list']?.toList() ?? [];
+          friendsData?.remove(friendId);
+          transaction.update(userRef, {'friend_list': friendsData});
+        }
+      });
+
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot userSnapshot = await transaction.get(userRef2);
+        if (userSnapshot.exists) {
+          Map<String, dynamic>? userData =
+              userSnapshot.data() as Map<String, dynamic>?;
+          List<dynamic>? friendsData = userData?['friend_list']?.toList() ?? [];
+          friendsData?.remove(userId);
+          transaction.update(userRef, {'friend_list': friendsData});
+        }
+      });
+
+      print('friend removed from friends list successfully');
+    } catch (e) {
+      print('Error removing friend from list challenges: $e');
+    }
+  }
 }

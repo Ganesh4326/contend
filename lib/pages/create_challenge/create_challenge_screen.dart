@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../core/widgets/base_screen_widget.dart';
 import '../../services/fire_store.dart';
 import '../../services/user_provider.dart';
 import '../../themes/app_colors.dart';
@@ -692,7 +693,7 @@ class CreateChallengeScreen extends BaseStatelessWidget<
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        HomePage()));
+                                                        HomePage(goRouterState: GoRouterState(), pageContext: context,)));
                                             showSnackBar(
                                                 context, 'Challenge created!');
                                           },

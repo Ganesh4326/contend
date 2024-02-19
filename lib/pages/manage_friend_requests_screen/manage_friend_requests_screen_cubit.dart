@@ -15,7 +15,9 @@ class ManageFriendRequestsScreenCubit
   ManageFriendRequestsScreenCubit({required super.context})
       : super(
             initialState: ManageFriendRequestsScreenState.initial(
-                friendRequests: [], friendRequestsUsers: [])) {
+                friendRequests: [],
+                friendRequestsUsers: [],
+                friendRequestNames: [])) {
     getUserId();
   }
 
@@ -30,13 +32,16 @@ class ManageFriendRequestsScreenCubit
         friendRequests:
             await FireStoreService().getUserRequestsForFriend(state.userId!)));
     logger.d(state.friendRequests);
-    List<Users> users = [];
+    List<String> users = [];
     for (int i = 0; i < state.friendRequests!.length; i++) {
-      Users? user =
-          await FireStoreService().getUserData(state.friendRequests![i]);
-      users.add(user);
+      // Users? user =
+      //     await FireStoreService().getUserData(state.friendRequests![i]);
+      // users.add(user);
+      String? userName = await FireStoreService()
+          .getUserNameFromFirebase(state.friendRequests![i]);
+      users.add(userName);
     }
-    emitState(state.copyWith(friendRequestsUsers: users));
+    emitState(state.copyWith(friendRequestNames: users));
   }
 
   addToFriendList(String? userIdToAdd) async {
