@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../auth/AuthService.dart';
+import '../../core/logger/log.dart';
 import '../../models/user.dart';
 import '../../services/fire_store.dart';
 
@@ -24,6 +25,7 @@ class ProfileScreenCubit extends Cubit<ProfileScreenState> {
   getUserData() async {
     Users? user = await FireStoreService().getUserData(state.userId!);
     emit(state.copyWith(userData: user));
+    logger.d(state.userData);
   }
 
   logoutUser() {

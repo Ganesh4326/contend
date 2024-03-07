@@ -19,22 +19,25 @@ mixin _$CreateChallengeScreenState {
   int? get no_of_tasks => throw _privateConstructorUsedError;
   String? get no_of_days => throw _privateConstructorUsedError;
   String? get privacy => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            int? no_of_tasks, String? no_of_days, String? privacy)
+    required TResult Function(int? no_of_tasks, String? no_of_days,
+            String? privacy, String? userId)
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int? no_of_tasks, String? no_of_days, String? privacy)?
+    TResult? Function(int? no_of_tasks, String? no_of_days, String? privacy,
+            String? userId)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int? no_of_tasks, String? no_of_days, String? privacy)?
+    TResult Function(int? no_of_tasks, String? no_of_days, String? privacy,
+            String? userId)?
         initial,
     required TResult orElse(),
   }) =>
@@ -68,7 +71,8 @@ abstract class $CreateChallengeScreenStateCopyWith<$Res> {
       _$CreateChallengeScreenStateCopyWithImpl<$Res,
           CreateChallengeScreenState>;
   @useResult
-  $Res call({int? no_of_tasks, String? no_of_days, String? privacy});
+  $Res call(
+      {int? no_of_tasks, String? no_of_days, String? privacy, String? userId});
 }
 
 /// @nodoc
@@ -88,6 +92,7 @@ class _$CreateChallengeScreenStateCopyWithImpl<$Res,
     Object? no_of_tasks = freezed,
     Object? no_of_days = freezed,
     Object? privacy = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_value.copyWith(
       no_of_tasks: freezed == no_of_tasks
@@ -102,6 +107,10 @@ class _$CreateChallengeScreenStateCopyWithImpl<$Res,
           ? _value.privacy
           : privacy // ignore: cast_nullable_to_non_nullable
               as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -114,7 +123,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? no_of_tasks, String? no_of_days, String? privacy});
+  $Res call(
+      {int? no_of_tasks, String? no_of_days, String? privacy, String? userId});
 }
 
 /// @nodoc
@@ -131,6 +141,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? no_of_tasks = freezed,
     Object? no_of_days = freezed,
     Object? privacy = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_$InitialImpl(
       no_of_tasks: freezed == no_of_tasks
@@ -145,6 +156,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.privacy
           : privacy // ignore: cast_nullable_to_non_nullable
               as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -152,7 +167,8 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl implements _Initial {
-  const _$InitialImpl({this.no_of_tasks, this.no_of_days, this.privacy});
+  const _$InitialImpl(
+      {this.no_of_tasks, this.no_of_days, this.privacy, this.userId});
 
   @override
   final int? no_of_tasks;
@@ -160,10 +176,12 @@ class _$InitialImpl implements _Initial {
   final String? no_of_days;
   @override
   final String? privacy;
+  @override
+  final String? userId;
 
   @override
   String toString() {
-    return 'CreateChallengeScreenState.initial(no_of_tasks: $no_of_tasks, no_of_days: $no_of_days, privacy: $privacy)';
+    return 'CreateChallengeScreenState.initial(no_of_tasks: $no_of_tasks, no_of_days: $no_of_days, privacy: $privacy, userId: $userId)';
   }
 
   @override
@@ -175,12 +193,13 @@ class _$InitialImpl implements _Initial {
                 other.no_of_tasks == no_of_tasks) &&
             (identical(other.no_of_days, no_of_days) ||
                 other.no_of_days == no_of_days) &&
-            (identical(other.privacy, privacy) || other.privacy == privacy));
+            (identical(other.privacy, privacy) || other.privacy == privacy) &&
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, no_of_tasks, no_of_days, privacy);
+      Object.hash(runtimeType, no_of_tasks, no_of_days, privacy, userId);
 
   @JsonKey(ignore: true)
   @override
@@ -191,31 +210,33 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            int? no_of_tasks, String? no_of_days, String? privacy)
+    required TResult Function(int? no_of_tasks, String? no_of_days,
+            String? privacy, String? userId)
         initial,
   }) {
-    return initial(no_of_tasks, no_of_days, privacy);
+    return initial(no_of_tasks, no_of_days, privacy, userId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int? no_of_tasks, String? no_of_days, String? privacy)?
+    TResult? Function(int? no_of_tasks, String? no_of_days, String? privacy,
+            String? userId)?
         initial,
   }) {
-    return initial?.call(no_of_tasks, no_of_days, privacy);
+    return initial?.call(no_of_tasks, no_of_days, privacy, userId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int? no_of_tasks, String? no_of_days, String? privacy)?
+    TResult Function(int? no_of_tasks, String? no_of_days, String? privacy,
+            String? userId)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(no_of_tasks, no_of_days, privacy);
+      return initial(no_of_tasks, no_of_days, privacy, userId);
     }
     return orElse();
   }
@@ -253,7 +274,8 @@ abstract class _Initial implements CreateChallengeScreenState {
   const factory _Initial(
       {final int? no_of_tasks,
       final String? no_of_days,
-      final String? privacy}) = _$InitialImpl;
+      final String? privacy,
+      final String? userId}) = _$InitialImpl;
 
   @override
   int? get no_of_tasks;
@@ -261,6 +283,8 @@ abstract class _Initial implements CreateChallengeScreenState {
   String? get no_of_days;
   @override
   String? get privacy;
+  @override
+  String? get userId;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

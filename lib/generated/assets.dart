@@ -4,6 +4,7 @@ class Assets {
 
   static const String imagesAddFriend = 'images/add_friend.png';
   static const String imagesChecked = 'images/checked.png';
+  static const String imagesCoin = 'images/coin.png';
   static const String imagesContendLogo = 'images/contend-logo.png';
   static const String imagesDeadline = 'images/deadline.png';
   static const String imagesEmpty = 'images/empty.png';

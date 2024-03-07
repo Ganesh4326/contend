@@ -78,8 +78,7 @@ class SplashScreen extends BaseStatelessWidget<SplashScreenController,
                           padding: EdgeInsets.symmetric(
                             horizontal: 130.0,
                             vertical: 17.0,
-                          ),
-                          primary: Colors.white,
+                          ), backgroundColor: Colors.white,
                         ),
                         child: Text(
                           'Login',
@@ -102,8 +101,7 @@ class SplashScreen extends BaseStatelessWidget<SplashScreenController,
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          onPrimary: Colors.black,
+                          foregroundColor: Colors.black, backgroundColor: Colors.transparent,
                           padding: EdgeInsets.symmetric(
                             horizontal: 125.0,
                             vertical: 16.0,

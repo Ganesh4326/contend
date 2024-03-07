@@ -17,6 +17,7 @@ class HomePageCubit extends BaseCubit<HomePageState> {
             initialState: HomePageState.initial(
                 challenge_filter: 'ALL', userId: '', isUserExist: false, searchTerm: '')) {
     getUserId();
+    getUserLikedChallenges();
   }
 
   getUserId() async {
@@ -52,5 +53,20 @@ class HomePageCubit extends BaseCubit<HomePageState> {
     logger.d(searchTerm!);
     emitState(state.copyWith(searchTerm: searchTerm));
     logger.d(state.searchTerm!);
+  }
+
+  getUserLikedChallenges() async {
+    List<String> likedChallenges =
+    await FireStoreService().getUserLikedChallenges(state.userId!);
+    emit(state.copyWith(likedChallenges: likedChallenges));
+    logger.d(state.likedChallenges!.toList());
+  }
+
+  removeFromLikedChallenges(String challengeId) {
+    FireStoreService().removeChallengeFromLikedChallenges(state.userId!, challengeId);
+  }
+
+  addToLikedChallenges(String challengeId) {
+    FireStoreService().addToLikedChallenges(state.userId!, challengeId);
   }
 }

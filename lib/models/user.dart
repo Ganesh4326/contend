@@ -11,7 +11,7 @@ class Users {
   int coins;
   String about;
   List<String>? acceptedChallenges;
-  List<String>? dailyChallenges;
+  List<dynamic>? dailyChallenges;
   String? address;
 
   Users(

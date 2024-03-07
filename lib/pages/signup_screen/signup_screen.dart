@@ -204,9 +204,7 @@ class SignupScreen extends BaseStatelessWidget<SignupController,
                             },
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 80.0, vertical: 10.0),
-                              // Set padding
-                              primary: AppColors
+                                  horizontal: 80.0, vertical: 10.0), backgroundColor: AppColors
                                   .bmiTracker, // Set background color to white
                             ),
                             child: Text(

@@ -1101,4 +1101,20 @@ class FireStoreService {
       print('Error removing friend from list challenges: $e');
     }
   }
+
+  Future<void> increaseChallengesCreated(String userId) async {
+    try {
+      final DocumentReference userDocRef =
+      FirebaseFirestore.instance.collection('users').doc(userId);
+
+      // Update the noOfChallengesCreated field by incrementing its value
+      await userDocRef.update({
+        'noOfChallengesCreated': FieldValue.increment(1),
+      });
+
+      print('noOfChallengesCreated incremented successfully');
+    } catch (e) {
+      print('Error incrementing noOfChallengesCreated: $e');
+    }
+  }
 }

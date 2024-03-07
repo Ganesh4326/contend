@@ -689,6 +689,7 @@ class CreateChallengeScreen extends BaseStatelessWidget<
                                                 state.no_of_days!,
                                                 state.no_of_tasks!,
                                                 state.privacy!);
+                                            getCubit(context).updateChallengesCreated();
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -700,8 +701,7 @@ class CreateChallengeScreen extends BaseStatelessWidget<
                                           style: ElevatedButton.styleFrom(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 80.0,
-                                                vertical: 10.0),
-                                            primary: AppColors.bmiTracker,
+                                                vertical: 10.0), backgroundColor: AppColors.bmiTracker,
                                           ),
                                           child: Text(
                                             'Create challenge',

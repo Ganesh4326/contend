@@ -24,6 +24,7 @@ mixin _$HomePageState {
   List<QueryDocumentSnapshot<Object?>>? get challenges =>
       throw _privateConstructorUsedError;
   String? get searchTerm => throw _privateConstructorUsedError;
+  List<String>? get likedChallenges => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -33,7 +34,8 @@ mixin _$HomePageState {
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
-            String? searchTerm)
+            String? searchTerm,
+            List<String>? likedChallenges)
         initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -46,7 +48,8 @@ mixin _$HomePageState {
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
-            String? searchTerm)?
+            String? searchTerm,
+            List<String>? likedChallenges)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -59,7 +62,8 @@ mixin _$HomePageState {
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
-            String? searchTerm)?
+            String? searchTerm,
+            List<String>? likedChallenges)?
         initial,
     required TResult orElse(),
   }) =>
@@ -99,7 +103,8 @@ abstract class $HomePageStateCopyWith<$Res> {
       bool? isUserExist,
       int? coins,
       List<QueryDocumentSnapshot<Object?>>? challenges,
-      String? searchTerm});
+      String? searchTerm,
+      List<String>? likedChallenges});
 }
 
 /// @nodoc
@@ -122,6 +127,7 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     Object? coins = freezed,
     Object? challenges = freezed,
     Object? searchTerm = freezed,
+    Object? likedChallenges = freezed,
   }) {
     return _then(_value.copyWith(
       challenge_filter: freezed == challenge_filter
@@ -152,6 +158,10 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.searchTerm
           : searchTerm // ignore: cast_nullable_to_non_nullable
               as String?,
+      likedChallenges: freezed == likedChallenges
+          ? _value.likedChallenges
+          : likedChallenges // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -171,7 +181,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       bool? isUserExist,
       int? coins,
       List<QueryDocumentSnapshot<Object?>>? challenges,
-      String? searchTerm});
+      String? searchTerm,
+      List<String>? likedChallenges});
 }
 
 /// @nodoc
@@ -192,6 +203,7 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? coins = freezed,
     Object? challenges = freezed,
     Object? searchTerm = freezed,
+    Object? likedChallenges = freezed,
   }) {
     return _then(_$InitialImpl(
       challenge_filter: freezed == challenge_filter
@@ -222,6 +234,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.searchTerm
           : searchTerm // ignore: cast_nullable_to_non_nullable
               as String?,
+      likedChallenges: freezed == likedChallenges
+          ? _value._likedChallenges
+          : likedChallenges // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -236,8 +252,10 @@ class _$InitialImpl implements _Initial {
       this.isUserExist,
       this.coins,
       final List<QueryDocumentSnapshot<Object?>>? challenges,
-      this.searchTerm})
-      : _challenges = challenges;
+      this.searchTerm,
+      final List<String>? likedChallenges})
+      : _challenges = challenges,
+        _likedChallenges = likedChallenges;
 
   @override
   final String? challenge_filter;
@@ -261,10 +279,19 @@ class _$InitialImpl implements _Initial {
 
   @override
   final String? searchTerm;
+  final List<String>? _likedChallenges;
+  @override
+  List<String>? get likedChallenges {
+    final value = _likedChallenges;
+    if (value == null) return null;
+    if (_likedChallenges is EqualUnmodifiableListView) return _likedChallenges;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'HomePageState.initial(challenge_filter: $challenge_filter, userName: $userName, userId: $userId, isUserExist: $isUserExist, coins: $coins, challenges: $challenges, searchTerm: $searchTerm)';
+    return 'HomePageState.initial(challenge_filter: $challenge_filter, userName: $userName, userId: $userId, isUserExist: $isUserExist, coins: $coins, challenges: $challenges, searchTerm: $searchTerm, likedChallenges: $likedChallenges)';
   }
 
   @override
@@ -283,7 +310,9 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality()
                 .equals(other._challenges, _challenges) &&
             (identical(other.searchTerm, searchTerm) ||
-                other.searchTerm == searchTerm));
+                other.searchTerm == searchTerm) &&
+            const DeepCollectionEquality()
+                .equals(other._likedChallenges, _likedChallenges));
   }
 
   @override
@@ -295,7 +324,8 @@ class _$InitialImpl implements _Initial {
       isUserExist,
       coins,
       const DeepCollectionEquality().hash(_challenges),
-      searchTerm);
+      searchTerm,
+      const DeepCollectionEquality().hash(_likedChallenges));
 
   @JsonKey(ignore: true)
   @override
@@ -313,11 +343,12 @@ class _$InitialImpl implements _Initial {
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
-            String? searchTerm)
+            String? searchTerm,
+            List<String>? likedChallenges)
         initial,
   }) {
     return initial(challenge_filter, userName, userId, isUserExist, coins,
-        challenges, searchTerm);
+        challenges, searchTerm, likedChallenges);
   }
 
   @override
@@ -330,11 +361,12 @@ class _$InitialImpl implements _Initial {
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
-            String? searchTerm)?
+            String? searchTerm,
+            List<String>? likedChallenges)?
         initial,
   }) {
     return initial?.call(challenge_filter, userName, userId, isUserExist, coins,
-        challenges, searchTerm);
+        challenges, searchTerm, likedChallenges);
   }
 
   @override
@@ -347,13 +379,14 @@ class _$InitialImpl implements _Initial {
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
-            String? searchTerm)?
+            String? searchTerm,
+            List<String>? likedChallenges)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
       return initial(challenge_filter, userName, userId, isUserExist, coins,
-          challenges, searchTerm);
+          challenges, searchTerm, likedChallenges);
     }
     return orElse();
   }
@@ -395,7 +428,8 @@ abstract class _Initial implements HomePageState {
       final bool? isUserExist,
       final int? coins,
       final List<QueryDocumentSnapshot<Object?>>? challenges,
-      final String? searchTerm}) = _$InitialImpl;
+      final String? searchTerm,
+      final List<String>? likedChallenges}) = _$InitialImpl;
 
   @override
   String? get challenge_filter;
@@ -411,6 +445,8 @@ abstract class _Initial implements HomePageState {
   List<QueryDocumentSnapshot<Object?>>? get challenges;
   @override
   String? get searchTerm;
+  @override
+  List<String>? get likedChallenges;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

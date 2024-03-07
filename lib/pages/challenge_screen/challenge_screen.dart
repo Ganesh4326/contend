@@ -899,9 +899,7 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                         },
                                         style: ElevatedButton.styleFrom(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 40.0, vertical: 10.0),
-                                          // Set padding
-                                          primary: AppColors
+                                              horizontal: 40.0, vertical: 10.0), backgroundColor: AppColors
                                               .bmiTracker, // Set background color to white
                                         ),
                                         child: Row(
@@ -946,8 +944,7 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                             style: ElevatedButton.styleFrom(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 40.0,
-                                                  vertical: 10.0),
-                                              primary: AppColors.bmiTracker,
+                                                  vertical: 10.0), backgroundColor: AppColors.bmiTracker,
                                             ),
                                             child: Row(
                                               children: [
@@ -974,10 +971,8 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                                 style: ElevatedButton.styleFrom(
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 40.0,
-                                                      vertical: 10.0),
-                                                  // Set padding
-                                                  primary: AppColors
-                                                      .bmiTracker, // Set background color to white
+                                                      vertical: 10.0), backgroundColor: AppColors
+                                                      .bmiTracker,
                                                 ),
                                                 child: Row(
                                                   children: [

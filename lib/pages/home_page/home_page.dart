@@ -172,7 +172,14 @@ class HomePage
                                             height: 40,
                                           ),
                                         ),
-                                        Text("${state.coins}")
+                                        Container(
+                                          margin: edge_insets_r_4,
+                                            child: Text("${state.coins}")),
+                                        Image.asset(
+                                          "images/coin.png",
+                                          width: 20,
+                                          height: 20,
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -663,12 +670,42 @@ class HomePage
                                                                             ),
                                                                             Row(
                                                                               children: [
-                                                                                IconButton(
-                                                                                  onPressed: () => {},
-                                                                                  style: IconButton.styleFrom(padding: edge_insets_0),
-                                                                                  icon: const Icon(
-                                                                                    Icons.thumb_up,
-                                                                                    color: Colors.white,
+                                                                                challengeData['userId'] != state.userId
+                                                                                    ? state.likedChallenges != null && state.likedChallenges!.isNotEmpty && state.likedChallenges!
+                                                                                    .contains(challengeData['challengeId'])
+                                                                                    ? InkWell(
+                                                                                  onTap: () {
+                                                                                    getCubit(context)
+                                                                                        .removeFromLikedChallenges(
+                                                                                        challengeData['challengeId']);
+                                                                                    getCubit(context)
+                                                                                        .getUserLikedChallenges();
+                                                                                  },
+                                                                                  child: ClipOval(
+                                                                                    child: Icon(
+                                                                                      Icons.thumb_up_alt_rounded,
+                                                                                      color: AppColors.bmiTracker,
+                                                                                    ),
+                                                                                  ),
+                                                                                )
+                                                                                    : InkWell(
+                                                                                  onTap: () {
+                                                                                    getCubit(context)
+                                                                                        .addToLikedChallenges(
+                                                                                        challengeData['challengeId']);
+                                                                                    getCubit(context)
+                                                                                        .getUserLikedChallenges();
+                                                                                  },
+                                                                                  child: ClipOval(
+                                                                                    child: Icon(Icons
+                                                                                        .thumb_up_alt_outlined),
+                                                                                  ),
+                                                                                )
+                                                                                    : Container(
+                                                                                  child: Text(
+                                                                                    "You",
+                                                                                    style:
+                                                                                    TextStyle(color: Colors.grey),
                                                                                   ),
                                                                                 ),
                                                                                 IconButton(

@@ -93,7 +93,7 @@ class ProfileScreen extends BaseStatelessWidget<ProfileScreenController,
                                       margin: EdgeInsets.only(top: 30),
                                       child: ClipOval(
                                         child: Image.asset(
-                                          'images/user2.png',
+                                          'images/user1.png',
                                           width: 100, // Set your desired width
                                           height:
                                               100, // Set your desired height
