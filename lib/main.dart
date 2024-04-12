@@ -9,12 +9,17 @@ import 'package:contend/pages/test_screen.dart';
 import 'package:contend/auth/AuthService.dart';
 import 'package:contend/pages/create_challenge/create_challenge_screen.dart';
 import 'package:contend/pages/splash_screen/splash_screen.dart';
+import 'package:contend/routes.dart';
+import 'package:contend/themes/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'authentication/authentication_cubit.dart';
 import 'core/logger/log.dart';
 import 'core/widgets/base_screen_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,18 +40,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        '/home': (context) => HomePage(goRouterState: GoRouterState(), pageContext: context,),
-        '/analytics': (context) => ChallengesAnalyticsScreen(),
-        '/profile': (context) => ProfileScreen(),
-        '/login': (context) => LoginScreen(),
-        '/signup': (context) => SignupScreen(),
-        '/test': (context) => ChallengesAnalyticsScreen(),
-        '/createchallenge': (context) => CreateChallengeScreen(),
-      },
-      debugShowCheckedModeBanner: false,
-      home: isUserAuthenticated ? HomePage(goRouterState: GoRouterState(), pageContext: context,) : SplashScreen(),
+    // return MaterialApp(
+    //   routes: {
+    //     '/home': (context) => HomePage(),
+    //     '/analytics': (context) => ChallengesAnalyticsScreen(),
+    //     '/profile': (context) => ProfileScreen(),
+    //     '/login': (context) => LoginScreen(),
+    //     '/signup': (context) => SignupScreen(),
+    //     '/test': (context) => ChallengesAnalyticsScreen(),
+    //     '/createchallenge': (context) => CreateChallengeScreen(),
+    //   },
+    //   debugShowCheckedModeBanner: false,
+    //   home: isUserAuthenticated ? HomePage() : SplashScreen(),
+    // );
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthenticationCubit>(
+          create: (context) => AuthenticationCubit(context: context),
+        ),
+      ],
+      child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+        builder: (context, state) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            builder: FToastBuilder(),
+            routerConfig: router,
+            theme: Themes.lightTheme,
+          );
+        },
+      ),
     );
   }
 }

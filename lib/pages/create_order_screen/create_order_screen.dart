@@ -4,6 +4,7 @@ import 'package:contend/pages/create_order_screen/create_order_screen_cubit.dart
 import 'package:contend/themes/borders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../models/order.dart';
 import '../../styles/edge_insets.dart';
@@ -39,7 +40,7 @@ class CreateOrderScreen extends BaseStatelessWidget {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/home');
+                                    context.push('/home');
                                   },
                                   child: Icon(
                                     Icons.arrow_back_ios_new,

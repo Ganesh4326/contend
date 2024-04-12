@@ -5,6 +5,7 @@ import 'package:contend/services/fire_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/widgets/base_stateless_widget.dart';
 import '../../../../styles/edge_insets.dart';
@@ -66,8 +67,7 @@ class ProfileScreen extends BaseStatelessWidget<ProfileScreenController,
                                     children: [
                                       IconButton(
                                           onPressed: () => {
-                                                Navigator.pushNamed(
-                                                    context, '/second')
+                                            context.push('/second')
                                               },
                                           style: IconButton.styleFrom(
                                               padding: edge_insets_0),
@@ -81,8 +81,8 @@ class ProfileScreen extends BaseStatelessWidget<ProfileScreenController,
                                       ),
                                       IconButton(
                                           onPressed: () => {
-                                                Navigator.pushNamed(
-                                                    context, '/second')
+                                            context.push(
+                                                     '/second')
                                               },
                                           style: IconButton.styleFrom(
                                               padding: edge_insets_0),
@@ -209,11 +209,12 @@ class ProfileScreen extends BaseStatelessWidget<ProfileScreenController,
                                   this.getCubit(context).logoutUser();
                                   // FireStoreService()
                                   //     .getUserData("OpKHoGrpRis7rhFmymRH");
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SplashScreen()));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             SplashScreen()));
+                                  context.push("/splash");
                                 },
                               ),
                             )
@@ -226,7 +227,7 @@ class ProfileScreen extends BaseStatelessWidget<ProfileScreenController,
                     BottomNavigationBarItem(
                       icon: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/home');
+                          context.push('/home');
                         },
                         child: Icon(
                           Icons.home,
@@ -247,7 +248,7 @@ class ProfileScreen extends BaseStatelessWidget<ProfileScreenController,
                     BottomNavigationBarItem(
                       icon: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/analytics');
+                          context.push('/analytics');
                         },
                         child: Icon(
                           Icons.auto_graph_outlined,
@@ -259,7 +260,7 @@ class ProfileScreen extends BaseStatelessWidget<ProfileScreenController,
                     BottomNavigationBarItem(
                       icon: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, '/profile');
+                            context.push('/profile');
                           },
                           child: Icon(
                             Icons.person,

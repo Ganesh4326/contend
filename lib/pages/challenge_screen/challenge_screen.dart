@@ -13,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,30 +24,26 @@ import '../../themes/app_colors.dart';
 import '../../themes/fonts.dart';
 import '../../widgets/challenge_user_comment_section_modal/challenge_user_comment_section_modal.dart';
 
-class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
+class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
     ChallengeScreenCubit, ChallengeScreenState> {
-  late String challengeId = '';
+  late String? challengeId;
 
   CheckboxWidController checkboxWidController = CheckboxWidController();
 
   bool isChecked = false;
 
-  ChallengeScreen(
-      {required this.challengeId,
-      super.key,
-      required super.pageContext,
-      required super.goRouterState});
+  ChallengeScreen({required this.challengeId, super.key});
 
   Future<Challenge?> challenge =
       FireStoreService().getChallengeById('sgganesh@gmail.com');
 
   Future<Challenge?> fetchChallenge() async {
-    return await FireStoreService().getChallengeById(challengeId);
+    return await FireStoreService().getChallengeById(challengeId!);
   }
 
   printChallenge() async {
     Challenge? challenge =
-        await FireStoreService().getChallengeById(challengeId);
+        await FireStoreService().getChallengeById(challengeId!);
     print('CHALLENGE TITLE: ' + challenge!.challengeTitle!);
   }
 
@@ -91,8 +88,7 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
   showAlertDialogForJoinChallenge(BuildContext context) {
     Widget okButton = TextButton(
       child: Text("OK"),
-      onPressed: () {
-      },
+      onPressed: () {},
     );
 
     AlertDialog alert = AlertDialog(
@@ -126,7 +122,8 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.of(context).pop();
+        // Navigator.of(context).pop();
+        context.pop();
       },
     );
 
@@ -221,7 +218,7 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                               //   '',
                                               // );
 
-                                              Navigator.pop(context);
+                                              context.pop();
                                               // Navigator.push(
                                               //   context,
                                               //   MaterialPageRoute(
@@ -249,13 +246,14 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                       ),
                                     ),
                                     challenge.userId != state.userId
-                                        ? state.likedChallenges!.isNotEmpty && state.likedChallenges!
-                                                .contains(challengeId)
+                                        ? state.likedChallenges!.isNotEmpty &&
+                                                state.likedChallenges!
+                                                    .contains(challengeId)
                                             ? InkWell(
                                                 onTap: () {
                                                   getCubit(context)
                                                       .removeFromLikedChallenges(
-                                                          challengeId);
+                                                          challengeId!);
                                                   getCubit(context)
                                                       .getUserLikedChallenges();
                                                 },
@@ -270,7 +268,7 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                                 onTap: () {
                                                   getCubit(context)
                                                       .addToLikedChallenges(
-                                                          challengeId);
+                                                          challengeId!);
                                                   getCubit(context)
                                                       .getUserLikedChallenges();
                                                 },
@@ -317,7 +315,8 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                   ClipOval(
                                     child: CircleAvatar(
                                       radius: 20,
-                                      backgroundImage: AssetImage('images/user3.png'),
+                                      backgroundImage:
+                                          AssetImage('images/user3.png'),
                                     ),
                                   ),
                                   Container(
@@ -543,8 +542,12 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                                           false,
                                                       onChanged: (value) async {
                                                         await fireStoreService
+                                                            .updateCoins(
+                                                                state.userId!,
+                                                                10);
+                                                        await fireStoreService
                                                             .addChallengeToDailyChallenges(
-                                                                challengeId,
+                                                                challengeId!,
                                                                 state.userId!);
                                                         await FireStoreService()
                                                             .reduceDaysLeft(
@@ -875,7 +878,9 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                 ],
                               ),
                             ),
-                            ChallengeUserCommentSectionModal(challengeId: challengeId,),
+                            ChallengeUserCommentSectionModal(
+                              challengeId: challengeId,
+                            ),
                             Container(
                                 padding: EdgeInsets.only(
                                     top: 60, left: 15, right: 15, bottom: 40),
@@ -899,7 +904,8 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                         },
                                         style: ElevatedButton.styleFrom(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 40.0, vertical: 10.0), backgroundColor: AppColors
+                                              horizontal: 40.0, vertical: 10.0),
+                                          backgroundColor: AppColors
                                               .bmiTracker, // Set background color to white
                                         ),
                                         child: Row(
@@ -931,7 +937,7 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                               this
                                                   .getCubit(context)
                                                   .addToAcceptedChallenges(
-                                                      challengeId, noOfDays);
+                                                      challengeId!, noOfDays);
                                               await this
                                                   .getCubit(context)
                                                   .getNoOfDaysLeft();
@@ -944,7 +950,9 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                             style: ElevatedButton.styleFrom(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 40.0,
-                                                  vertical: 10.0), backgroundColor: AppColors.bmiTracker,
+                                                  vertical: 10.0),
+                                              backgroundColor:
+                                                  AppColors.bmiTracker,
                                             ),
                                             child: Row(
                                               children: [
@@ -971,8 +979,9 @@ class ChallengeScreen extends BaseScreenWidget<ChallengeScreenController,
                                                 style: ElevatedButton.styleFrom(
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 40.0,
-                                                      vertical: 10.0), backgroundColor: AppColors
-                                                      .bmiTracker,
+                                                      vertical: 10.0),
+                                                  backgroundColor:
+                                                      AppColors.bmiTracker,
                                                 ),
                                                 child: Row(
                                                   children: [

@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/widgets/base_stateless_widget.dart';
 
 import '../../styles/edge_insets.dart';
@@ -39,7 +40,7 @@ class UsersFriendsScreen extends BaseStatelessWidget<
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/home');
+                        context.push('/home');
                       },
                       child: Icon(
                         Icons.arrow_back_ios_new,

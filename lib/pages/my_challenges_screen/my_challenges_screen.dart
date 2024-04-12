@@ -5,10 +5,12 @@ import 'package:contend/pages/my_challenges_screen/my_challenges_screen_cubit.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../themes/borders.dart';
 
 import '../../core/logger/log.dart';
 import '../../core/widgets/base_screen_widget.dart';
+import '../../models/challenge.dart';
 import '../../services/fire_store.dart';
 import '../../styles/edge_insets.dart';
 import '../../themes/app_colors.dart';
@@ -32,88 +34,401 @@ class MyChallengesScreen extends BaseStatelessWidget<
         builder: (context, state) {
           this.getCubit(context).getUserName();
 
-          return Directionality(
-              textDirection: TextDirection.ltr,
-              child: Builder(
-                builder: (context) => Scaffold(
-                  backgroundColor: Colors.white,
-                  body: SingleChildScrollView(
-                    child: Container(
-                      padding: EdgeInsets.only(left: 25, right: 25, bottom: 40),
-                      child: Column(
+          // return Directionality(
+          //     textDirection: TextDirection.ltr,
+          //     child: Builder(
+          //       builder: (context) => Scaffold(
+          //         backgroundColor: Colors.white,
+          //         body: SingleChildScrollView(
+          //           child: Container(
+          //             padding: EdgeInsets.only(left: 25, right: 25, bottom: 40),
+          //             child: Column(
+          //               children: [
+          //                 Container(
+          //                   margin: EdgeInsets.only(top: 50),
+          //                   child: Row(
+          //                     children: [
+          //                       InkWell(
+          //                         onTap: () {
+          //                           context.push( '/home');
+          //                         },
+          //                         child: Icon(
+          //                           Icons.arrow_back_ios_new,
+          //                           color: AppColors.bmiTracker,
+          //                         ),
+          //                       ),
+          //                       SizedBox(
+          //                         width: 10,
+          //                       ),
+          //                       Text(
+          //                         "My challenges",
+          //                         style: TextStyle(
+          //                             fontSize: 24,
+          //                             fontFamily: Fonts.fontNunito,
+          //                             color: AppColors.bmiTracker,
+          //                             fontWeight: FontWeight.w700),
+          //                       ),
+          //                     ],
+          //                   ),
+          //                 ),
+          //                 StreamBuilder<QuerySnapshot>(
+          //                   stream: fireStoreService.getChallengesStream(),
+          //                   builder: (context, snapshot) {
+          //                     if (snapshot.hasError) {
+          //                       return Text('Error: ${snapshot.error}');
+          //                     }
+          //
+          //                     if (snapshot.connectionState ==
+          //                         ConnectionState.waiting) {
+          //                       return CircularProgressIndicator();
+          //                     }
+          //
+          //                     List<QueryDocumentSnapshot> challenges =
+          //                         snapshot.data!.docs;
+          //                     logger.d(snapshot.data!.docs[0].data());
+          //
+          //                     int noOfDocs = snapshot.data!.docs.length;
+          //                     logger.d(noOfDocs);
+          //
+          //                     return noOfDocs > 0
+          //                         ? ListView.builder(
+          //                             shrinkWrap: true,
+          //                             physics: NeverScrollableScrollPhysics(),
+          //                             itemCount: challenges.length,
+          //                             itemBuilder: (context, index) {
+          //                               var challengeData = challenges[index]
+          //                                   .data() as Map<String, dynamic>;
+          //
+          //                               return challengeData['userId'] ==
+          //                                       state.userId
+          //                                   ? GestureDetector(
+          //                                       onTap: () {
+          //                                         // Navigator.push(
+          //                                         //   context,
+          //                                         //   MaterialPageRoute(
+          //                                         //       builder: (context) =>
+          //                                         //           ChallengeScreen(
+          //                                         //             challengeId:
+          //                                         //                 challengeData[
+          //                                         //                     'challengeId'],
+          //                                         //           )),
+          //                                         // );
+          //                                         context.push("/challengedetails/${challengeData[
+          //                                         'challengeId']}");
+          //                                       },
+          //                                       child: Container(
+          //                                           margin: edge_insets_t_32,
+          //                                           padding:
+          //                                               const EdgeInsets.only(
+          //                                                   top: 20,
+          //                                                   right: 20,
+          //                                                   left: 20,
+          //                                                   bottom: 5),
+          //                                           decoration: BoxDecoration(
+          //                                               gradient:
+          //                                                   LinearGradient(
+          //                                                       colors: [
+          //                                                     AppColors
+          //                                                         .bmiTracker
+          //                                                         .withOpacity(
+          //                                                             0.9),
+          //                                                     AppColors
+          //                                                         .bmiTracker
+          //                                                         .withOpacity(
+          //                                                             0.3)
+          //                                                   ],
+          //                                                       begin: Alignment
+          //                                                           .bottomLeft,
+          //                                                       end: Alignment
+          //                                                           .topRight),
+          //                                               borderRadius: BorderRadius.only(
+          //                                                   bottomLeft:
+          //                                                       Radius.circular(
+          //                                                           10),
+          //                                                   bottomRight:
+          //                                                       Radius.circular(
+          //                                                           10),
+          //                                                   topRight:
+          //                                                       Radius.circular(
+          //                                                           50),
+          //                                                   topLeft:
+          //                                                       Radius.circular(
+          //                                                           10)),
+          //                                               boxShadow: [
+          //                                                 BoxShadow(
+          //                                                     offset: Offset(
+          //                                                         10, 10),
+          //                                                     blurRadius: 20,
+          //                                                     color: AppColors
+          //                                                         .bmiTracker
+          //                                                         .withOpacity(
+          //                                                             0.4))
+          //                                               ]),
+          //                                           child: Column(
+          //                                             children: [
+          //                                               Row(
+          //                                                 mainAxisAlignment:
+          //                                                     MainAxisAlignment
+          //                                                         .spaceBetween,
+          //                                                 children: [
+          //                                                   Row(
+          //                                                     children: [
+          //                                                       Text(
+          //                                                         '${challengeData['challengeTitle']}',
+          //                                                         style: TextStyle(
+          //                                                             fontSize:
+          //                                                                 Fonts
+          //                                                                     .fontSize22,
+          //                                                             color: Colors
+          //                                                                 .white),
+          //                                                       ),
+          //                                                     ],
+          //                                                   ),
+          //                                                   Container(
+          //                                                     child: Row(
+          //                                                       children: [
+          //                                                         Container(
+          //                                                             padding:
+          //                                                                 edge_insets_5,
+          //                                                             decoration: BoxDecoration(
+          //                                                                 color: AppColors
+          //                                                                     .grey2,
+          //                                                                 borderRadius: borderRadius
+          //                                                                     .br_100,
+          //                                                                 border: borders
+          //                                                                     .b_1px_green),
+          //                                                             margin:
+          //                                                                 edge_insets_l_4,
+          //                                                             child:
+          //                                                                 Text(
+          //                                                               '${challengeData['noOfDays']}',
+          //                                                               style: TextStyle(
+          //                                                                   fontSize:
+          //                                                                       Fonts.fontSize14,
+          //                                                                   color: Colors.black),
+          //                                                             ))
+          //                                                       ],
+          //                                                     ),
+          //                                                   )
+          //                                                 ],
+          //                                               ),
+          //                                               Container(
+          //                                                 padding:
+          //                                                     edge_insets_t_12,
+          //                                                 child: Row(
+          //                                                   mainAxisAlignment:
+          //                                                       MainAxisAlignment
+          //                                                           .start,
+          //                                                   children: [
+          //                                                     Icon(
+          //                                                       Icons.person,
+          //                                                       color: Colors
+          //                                                           .white,
+          //                                                     ),
+          //                                                     Container(
+          //                                                       margin:
+          //                                                           edge_insets_l_5,
+          //                                                       child: Text(
+          //                                                         '${challengeData['creatorName']}',
+          //                                                         style: TextStyle(
+          //                                                             fontSize:
+          //                                                                 Fonts
+          //                                                                     .fontSize18,
+          //                                                             color: Colors
+          //                                                                 .white),
+          //                                                       ),
+          //                                                     )
+          //                                                   ],
+          //                                                 ),
+          //                                               ),
+          //                                               Container(
+          //                                                 margin:
+          //                                                     edge_insets_t_24,
+          //                                                 child: Row(
+          //                                                   mainAxisAlignment:
+          //                                                       MainAxisAlignment
+          //                                                           .spaceBetween,
+          //                                                   children: [
+          //                                                     Row(
+          //                                                       children: [
+          //                                                         Icon(
+          //                                                           Icons
+          //                                                               .timelapse_sharp,
+          //                                                           color: Colors
+          //                                                               .white,
+          //                                                         ),
+          //                                                         Container(
+          //                                                           margin:
+          //                                                               edge_insets_l_5,
+          //                                                           child: Text(
+          //                                                             '2 weeks ago',
+          //                                                             style: TextStyle(
+          //                                                                 color: Colors
+          //                                                                     .white,
+          //                                                                 fontSize:
+          //                                                                     Fonts.fontSize12),
+          //                                                           ),
+          //                                                         )
+          //                                                       ],
+          //                                                     ),
+          //                                                     Row(
+          //                                                       children: [
+          //                                                         IconButton(
+          //                                                           onPressed:
+          //                                                               () =>
+          //                                                                   {},
+          //                                                           style: IconButton.styleFrom(
+          //                                                               padding:
+          //                                                                   edge_insets_0),
+          //                                                           icon:
+          //                                                               const Icon(
+          //                                                             Icons
+          //                                                                 .thumb_up,
+          //                                                             color: Colors
+          //                                                                 .white,
+          //                                                           ),
+          //                                                         ),
+          //                                                         IconButton(
+          //                                                           onPressed:
+          //                                                               () =>
+          //                                                                   {},
+          //                                                           style: IconButton.styleFrom(
+          //                                                               padding:
+          //                                                                   edge_insets_0),
+          //                                                           icon:
+          //                                                               const Icon(
+          //                                                             Icons
+          //                                                                 .share,
+          //                                                             color: Colors
+          //                                                                 .white,
+          //                                                           ),
+          //                                                         )
+          //                                                       ],
+          //                                                     )
+          //                                                   ],
+          //                                                 ),
+          //                                               )
+          //                                             ],
+          //                                           )),
+          //                                     )
+          //                                   : Container();
+          //                             })
+          //                         : Container(
+          //                             margin: edge_insets_t_70,
+          //                             child: Column(
+          //                               children: [
+          //                                 Image.asset(
+          //                                   'images/illustration.jpeg',
+          //                                   width: 200,
+          //                                   height: 200,
+          //                                 ),
+          //                                 Container(
+          //                                     margin: edge_insets_y_24,
+          //                                     child: Text(
+          //                                       "You haven't created any challenges yet!",
+          //                                       style: TextStyle(
+          //                                           fontSize: Fonts.fontSize20,
+          //                                           fontWeight: Fonts.f500,
+          //                                           color: AppColors.primary),
+          //                                     ))
+          //                               ],
+          //                             ),
+          //                           );
+          //                   },
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ));
+
+          return Scaffold(
+              backgroundColor: Colors.white,
+              body: Container(
+                margin: EdgeInsets.only(bottom: 40),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 50, left: 20),
+                      child: Row(
                         children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 50),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, '/home');
-                                  },
-                                  child: Icon(
-                                    Icons.arrow_back_ios_new,
-                                    color: AppColors.bmiTracker,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "My challenges",
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      fontFamily: Fonts.fontNunito,
-                                      color: AppColors.bmiTracker,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ],
+                          InkWell(
+                            onTap: () {
+                              context.push('/home');
+                            },
+                            child: Icon(
+                              Icons.arrow_back_ios_new,
+                              color: AppColors.bmiTracker,
                             ),
                           ),
-                          StreamBuilder<QuerySnapshot>(
-                            stream: fireStoreService.getChallengesStream(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              }
-
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return CircularProgressIndicator();
-                              }
-
-                              List<QueryDocumentSnapshot> challenges =
-                                  snapshot.data!.docs;
-                              logger.d(snapshot.data!.docs[0].data());
-
-                              int noOfDocs = snapshot.data!.docs.length;
-                              logger.d(noOfDocs);
-
-                              return noOfDocs > 0
-                                  ? ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemCount: challenges.length,
-                                      itemBuilder: (context, index) {
-                                        var challengeData = challenges[index]
-                                            .data() as Map<String, dynamic>;
-
-                                        return challengeData['userId'] ==
-                                                state.userId
-                                            ? GestureDetector(
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "My challenges",
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontFamily: Fonts.fontNunito,
+                                color: AppColors.bmiTracker,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
+                    ),
+                    state.userId != null
+                        ? Expanded(
+                            child: FutureBuilder<List<dynamic>>(
+                              future: fireStoreService
+                                  .getUserCreatedChallengesByUserId(
+                                state.userId!,
+                              ),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                      child: Text('Error: ${snapshot.error}'));
+                                } else if (!snapshot.hasData ||
+                                    snapshot.data!.isEmpty) {
+                                  return Center(
+                                      child: Text(
+                                          'You have not created any challenges.'));
+                                } else {
+                                  return ListView.builder(
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      String challengeId =
+                                          snapshot.data![index];
+                                      return FutureBuilder<Challenge?>(
+                                        future: fireStoreService
+                                            .getChallengeById(challengeId),
+                                        builder: (context, challengeSnapshot) {
+                                          if (challengeSnapshot
+                                                  .connectionState ==
+                                              ConnectionState.waiting) {
+                                            return CircularProgressIndicator();
+                                          } else if (challengeSnapshot
+                                              .hasError) {
+                                            return Text(
+                                                'Error: ${challengeSnapshot.error}');
+                                          } else if (!challengeSnapshot
+                                                  .hasData ||
+                                              challengeSnapshot.data == null) {
+                                            return Text(
+                                                'Challenge with ID $challengeId not found.');
+                                          } else {
+                                            Challenge challenge =
+                                                challengeSnapshot.data!;
+                                            return Container(
+                                              padding: EdgeInsets.only(
+                                                  left: 25, right: 25),
+                                              child: GestureDetector(
                                                 onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ChallengeScreen(
-                                                                challengeId:
-                                                                    challengeData[
-                                                                        'challengeId'],
-                                                                pageContext:
-                                                                    context,
-                                                                goRouterState:
-                                                                    GoRouterState())),
-                                                  );
+                                                  context.push(
+                                                      "/challengedetails/${challenge.challengeId}");
                                                 },
                                                 child: Container(
                                                     margin: edge_insets_t_32,
@@ -173,7 +488,8 @@ class MyChallengesScreen extends BaseStatelessWidget<
                                                             Row(
                                                               children: [
                                                                 Text(
-                                                                  '${challengeData['challengeTitle']}',
+                                                                  challenge
+                                                                      .challengeTitle,
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           Fonts
@@ -200,7 +516,8 @@ class MyChallengesScreen extends BaseStatelessWidget<
                                                                           edge_insets_l_4,
                                                                       child:
                                                                           Text(
-                                                                        '${challengeData['noOfDays']}',
+                                                                        challenge
+                                                                            .noOfDays,
                                                                         style: TextStyle(
                                                                             fontSize:
                                                                                 Fonts.fontSize14,
@@ -228,7 +545,8 @@ class MyChallengesScreen extends BaseStatelessWidget<
                                                                 margin:
                                                                     edge_insets_l_5,
                                                                 child: Text(
-                                                                  '${challengeData['creatorName']}',
+                                                                  challenge
+                                                                      .creatorName,
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           Fonts
@@ -309,36 +627,39 @@ class MyChallengesScreen extends BaseStatelessWidget<
                                                         )
                                                       ],
                                                     )),
-                                              )
-                                            : Container();
-                                      })
-                                  : Container(
-                                      margin: edge_insets_t_70,
-                                      child: Column(
-                                        children: [
-                                          Image.asset(
-                                            'images/illustration.jpeg',
-                                            width: 200,
-                                            height: 200,
-                                          ),
-                                          Container(
-                                              margin: edge_insets_y_24,
-                                              child: Text(
-                                                "You haven't created any challenges yet!",
-                                                style: TextStyle(
-                                                    fontSize: Fonts.fontSize20,
-                                                    fontWeight: Fonts.f500,
-                                                    color: AppColors.primary),
-                                              ))
-                                        ],
-                                      ),
-                                    );
-                            },
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                            ),
+                          )
+                        : Container(
+                            margin: edge_insets_t_70,
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'images/illustration.jpeg',
+                                  width: 200,
+                                  height: 200,
+                                ),
+                                Container(
+                                    margin: edge_insets_y_24,
+                                    child: Text(
+                                      "You haven't accepted any challenes yet!",
+                                      style: TextStyle(
+                                          fontSize: Fonts.fontSize20,
+                                          fontWeight: Fonts.f500,
+                                          color: AppColors.primary),
+                                    ))
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
               ));
         },

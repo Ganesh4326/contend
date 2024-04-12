@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/widgets/base_stateless_widget.dart';
 
 import '../../styles/edge_insets.dart';
@@ -181,7 +182,7 @@ class ChallengesAnalyticsScreen extends BaseStatelessWidget<
                 BottomNavigationBarItem(
                   icon: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/home');
+                      context.push('/home');
                     },
                     child: Icon(
                       Icons.home,
@@ -205,7 +206,7 @@ class ChallengesAnalyticsScreen extends BaseStatelessWidget<
                 BottomNavigationBarItem(
                   icon: InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/analytics');
+                      context.push('/analytics');
                     },
                     child: Icon(
                       Icons.auto_graph_outlined,
@@ -217,7 +218,7 @@ class ChallengesAnalyticsScreen extends BaseStatelessWidget<
                 BottomNavigationBarItem(
                   icon: InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/profile');
+                        context.push('/profile');
                       },
                       child: Icon(
                         Icons.person,

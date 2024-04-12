@@ -21,6 +21,7 @@ import 'package:contend/widgets/users_user_requests_friends/users_user_requests_
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -41,10 +42,9 @@ import '../signup_screen/signup_screen.dart';
 import '../test_screen.dart';
 import '../users_friends_screen/users_friends_screen.dart';
 
-class HomePage
-    extends BaseScreenWidget<HomePageController, HomePageCubit, HomePageState> {
-  HomePage(
-      {super.key, required super.pageContext, required super.goRouterState});
+class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
+    HomePageState> {
+  HomePage({super.key});
 
   //firestore
   final FireStoreService fireStoreService = FireStoreService();
@@ -127,30 +127,25 @@ class HomePage
                     // this.getCubit(context).getUserName();
 
                     return MaterialApp(
-                        routes: {
-                          '/splash': (context) => SplashScreen(),
-                          '/home': (context) => HomePage(
-                                goRouterState: GoRouterState(),
-                                pageContext: context,
-                              ),
-                          '/profile': (context) => ProfileScreen(),
-                          '/login': (context) => LoginScreen(),
-                          '/signup': (context) => SignupScreen(),
-                          '/test': (context) => TestScreen(),
-                          '/mychallenges': (context) => MyChallengesScreen(),
-                          '/createchallenge': (context) =>
-                              CreateChallengeScreen(),
-                          '/accepted': (context) => AcceptedChallengesScreen(),
-                          '/orders': (context) => CreateOrderScreen(),
-                          '/analytics': (context) =>
-                              ChallengesAnalyticsScreen(),
-                          '/requests': (context) =>
-                              ManageFriendRequestsScreen(),
-                          '/myfriends': (context) => UsersFriendsScreen(),
-                          '/managefriends': (context) => ManageFriendsScreen(
-                              goRouterState: GoRouterState(),
-                              pageContext: context),
-                        },
+                        // routes: {
+                        //   '/splash': (context) => SplashScreen(),
+                        //   '/home': (context) => HomePage(),
+                        //   '/profile': (context) => ProfileScreen(),
+                        //   '/login': (context) => LoginScreen(),
+                        //   '/signup': (context) => SignupScreen(),
+                        //   '/test': (context) => TestScreen(),
+                        //   '/mychallenges': (context) => MyChallengesScreen(),
+                        //   '/createchallenge': (context) =>
+                        //       CreateChallengeScreen(),
+                        //   '/accepted': (context) => AcceptedChallengesScreen(),
+                        //   '/orders': (context) => CreateOrderScreen(),
+                        //   '/analytics': (context) =>
+                        //       ChallengesAnalyticsScreen(),
+                        //   '/requests': (context) =>
+                        //       ManageFriendRequestsScreen(),
+                        //   '/myfriends': (context) => UsersFriendsScreen(),
+                        //   '/managefriends': (context) => ManageFriendsScreen(),
+                        // },
                         home: Directionality(
                             textDirection: TextDirection.ltr,
                             child: Builder(
@@ -173,7 +168,7 @@ class HomePage
                                           ),
                                         ),
                                         Container(
-                                          margin: edge_insets_r_4,
+                                            margin: edge_insets_r_4,
                                             child: Text("${state.coins}")),
                                         Image.asset(
                                           "images/coin.png",
@@ -195,8 +190,7 @@ class HomePage
                                           value: 'option1',
                                           child: InkWell(
                                               onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, '/mychallenges');
+                                                context.push('/mychallenges');
                                               },
                                               child: Text("My challenges")),
                                         ),
@@ -204,8 +198,7 @@ class HomePage
                                           value: 'option3',
                                           child: InkWell(
                                               onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, '/accepted');
+                                                context.push('/accepted');
                                               },
                                               child:
                                                   Text("Accepted challenges")),
@@ -214,17 +207,7 @@ class HomePage
                                           value: 'option3',
                                           child: InkWell(
                                               onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, '/profile');
-                                              },
-                                              child: Text("Your invites")),
-                                        ),
-                                        PopupMenuItem<String>(
-                                          value: 'option3',
-                                          child: InkWell(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, '/orders');
+                                                context.push('/orders');
                                               },
                                               child: Text("Orders")),
                                         ),
@@ -232,8 +215,7 @@ class HomePage
                                           value: 'option3',
                                           child: InkWell(
                                               onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, '/managefriends');
+                                                context.push('/managefriends');
                                               },
                                               child: Text("Manage friends")),
                                         ),
@@ -241,8 +223,7 @@ class HomePage
                                           value: 'option3',
                                           child: InkWell(
                                               onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, '/requests');
+                                                context.push('/requests');
                                               },
                                               child: Text("Friend requests")),
                                         ),
@@ -250,8 +231,7 @@ class HomePage
                                           value: 'option3',
                                           child: InkWell(
                                               onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, '/myfriends');
+                                                context.push('/myfriends');
                                               },
                                               child: Text("My Friends")),
                                         ),
@@ -262,8 +242,7 @@ class HomePage
                                 backgroundColor: Colors.white,
                                 floatingActionButton: FloatingActionButton(
                                   onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, '/createchallenge');
+                                    context.push('/createchallenge');
                                   },
                                   child: const Icon(Icons.add),
                                 ),
@@ -358,140 +337,140 @@ class HomePage
                                             ],
                                           ),
                                         ),
-                                        Container(
-                                          padding: edge_insets_x_16,
-                                          margin: edge_insets_t_32,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              InkWell(
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        border: state
-                                                                    .challenge_filter ==
-                                                                "ALL"
-                                                            ? borders
-                                                                .bb_1px_primary
-                                                            : borders
-                                                                .bb_1px_white),
-                                                    child: Text(
-                                                      'All',
-                                                      style: TextStyle(
-                                                        color:
-                                                            state.challenge_filter ==
-                                                                    "ALL"
-                                                                ? AppColors
-                                                                    .primary
-                                                                : AppColors
-                                                                    .grey1,
-                                                        fontSize:
-                                                            Fonts.fontSize18,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    this
-                                                        .getCubit(context)
-                                                        .changeChallengeFilter(
-                                                            'ALL');
-                                                  }),
-                                              InkWell(
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        border: state
-                                                                    .challenge_filter ==
-                                                                "TODAY"
-                                                            ? borders
-                                                                .bb_1px_primary
-                                                            : borders
-                                                                .bb_1px_white),
-                                                    child: Text(
-                                                      'Today',
-                                                      style: TextStyle(
-                                                        color:
-                                                            state.challenge_filter ==
-                                                                    "TODAY"
-                                                                ? AppColors
-                                                                    .primary
-                                                                : AppColors
-                                                                    .grey1,
-                                                        fontSize:
-                                                            Fonts.fontSize18,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    this
-                                                        .getCubit(context)
-                                                        .changeChallengeFilter(
-                                                            'TODAY');
-                                                  }),
-                                              InkWell(
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        border: state
-                                                                    .challenge_filter ==
-                                                                "TOP"
-                                                            ? borders
-                                                                .bb_1px_primary
-                                                            : borders
-                                                                .bb_1px_white),
-                                                    child: Text(
-                                                      'Top',
-                                                      style: TextStyle(
-                                                        color:
-                                                            state.challenge_filter ==
-                                                                    "TOP"
-                                                                ? AppColors
-                                                                    .primary
-                                                                : AppColors
-                                                                    .grey1,
-                                                        fontSize:
-                                                            Fonts.fontSize18,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    this
-                                                        .getCubit(context)
-                                                        .changeChallengeFilter(
-                                                            'TOP');
-                                                  }),
-                                              InkWell(
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        border: state
-                                                                    .challenge_filter ==
-                                                                "FAVOURITE"
-                                                            ? borders
-                                                                .bb_1px_primary
-                                                            : borders
-                                                                .bb_1px_white),
-                                                    child: Text(
-                                                      'Favourite',
-                                                      style: TextStyle(
-                                                        color:
-                                                            state.challenge_filter ==
-                                                                    "FAVOURITE"
-                                                                ? AppColors
-                                                                    .primary
-                                                                : AppColors
-                                                                    .grey1,
-                                                        fontSize:
-                                                            Fonts.fontSize18,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    this
-                                                        .getCubit(context)
-                                                        .changeChallengeFilter(
-                                                            'FAVOURITE');
-                                                  }),
-                                            ],
-                                          ),
-                                        ),
+                                        // Container(
+                                        //   padding: edge_insets_x_16,
+                                        //   margin: edge_insets_t_32,
+                                        //   child: Row(
+                                        //     mainAxisAlignment:
+                                        //         MainAxisAlignment.spaceBetween,
+                                        //     children: [
+                                        //       InkWell(
+                                        //           child: Container(
+                                        //             decoration: BoxDecoration(
+                                        //                 border: state
+                                        //                             .challenge_filter ==
+                                        //                         "ALL"
+                                        //                     ? borders
+                                        //                         .bb_1px_primary
+                                        //                     : borders
+                                        //                         .bb_1px_white),
+                                        //             child: Text(
+                                        //               'All',
+                                        //               style: TextStyle(
+                                        //                 color:
+                                        //                     state.challenge_filter ==
+                                        //                             "ALL"
+                                        //                         ? AppColors
+                                        //                             .primary
+                                        //                         : AppColors
+                                        //                             .grey1,
+                                        //                 fontSize:
+                                        //                     Fonts.fontSize18,
+                                        //               ),
+                                        //             ),
+                                        //           ),
+                                        //           onTap: () {
+                                        //             this
+                                        //                 .getCubit(context)
+                                        //                 .changeChallengeFilter(
+                                        //                     'ALL');
+                                        //           }),
+                                        //       InkWell(
+                                        //           child: Container(
+                                        //             decoration: BoxDecoration(
+                                        //                 border: state
+                                        //                             .challenge_filter ==
+                                        //                         "TODAY"
+                                        //                     ? borders
+                                        //                         .bb_1px_primary
+                                        //                     : borders
+                                        //                         .bb_1px_white),
+                                        //             child: Text(
+                                        //               'Today',
+                                        //               style: TextStyle(
+                                        //                 color:
+                                        //                     state.challenge_filter ==
+                                        //                             "TODAY"
+                                        //                         ? AppColors
+                                        //                             .primary
+                                        //                         : AppColors
+                                        //                             .grey1,
+                                        //                 fontSize:
+                                        //                     Fonts.fontSize18,
+                                        //               ),
+                                        //             ),
+                                        //           ),
+                                        //           onTap: () {
+                                        //             this
+                                        //                 .getCubit(context)
+                                        //                 .changeChallengeFilter(
+                                        //                     'TODAY');
+                                        //           }),
+                                        //       InkWell(
+                                        //           child: Container(
+                                        //             decoration: BoxDecoration(
+                                        //                 border: state
+                                        //                             .challenge_filter ==
+                                        //                         "TOP"
+                                        //                     ? borders
+                                        //                         .bb_1px_primary
+                                        //                     : borders
+                                        //                         .bb_1px_white),
+                                        //             child: Text(
+                                        //               'Top',
+                                        //               style: TextStyle(
+                                        //                 color:
+                                        //                     state.challenge_filter ==
+                                        //                             "TOP"
+                                        //                         ? AppColors
+                                        //                             .primary
+                                        //                         : AppColors
+                                        //                             .grey1,
+                                        //                 fontSize:
+                                        //                     Fonts.fontSize18,
+                                        //               ),
+                                        //             ),
+                                        //           ),
+                                        //           onTap: () {
+                                        //             this
+                                        //                 .getCubit(context)
+                                        //                 .changeChallengeFilter(
+                                        //                     'TOP');
+                                        //           }),
+                                        //       InkWell(
+                                        //           child: Container(
+                                        //             decoration: BoxDecoration(
+                                        //                 border: state
+                                        //                             .challenge_filter ==
+                                        //                         "FAVOURITE"
+                                        //                     ? borders
+                                        //                         .bb_1px_primary
+                                        //                     : borders
+                                        //                         .bb_1px_white),
+                                        //             child: Text(
+                                        //               'Favourite',
+                                        //               style: TextStyle(
+                                        //                 color:
+                                        //                     state.challenge_filter ==
+                                        //                             "FAVOURITE"
+                                        //                         ? AppColors
+                                        //                             .primary
+                                        //                         : AppColors
+                                        //                             .grey1,
+                                        //                 fontSize:
+                                        //                     Fonts.fontSize18,
+                                        //               ),
+                                        //             ),
+                                        //           ),
+                                        //           onTap: () {
+                                        //             this
+                                        //                 .getCubit(context)
+                                        //                 .changeChallengeFilter(
+                                        //                     'FAVOURITE');
+                                        //           }),
+                                        //     ],
+                                        //   ),
+                                        // ),
                                         StreamBuilder<QuerySnapshot>(
                                           stream: fireStoreService
                                               .getChallengesStream(),
@@ -541,17 +520,17 @@ class HomePage
                                                                       .toLowerCase())
                                                           ? GestureDetector(
                                                               onTap: () {
-                                                                Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              ChallengeScreen(
-                                                                                challengeId: challengeData['challengeId'],
-                                                                                pageContext: context,
-                                                                                goRouterState: GoRouterState(),
-                                                                              )),
-                                                                );
+                                                                // // Navigator.push(
+                                                                // //   context,
+                                                                // //   MaterialPageRoute(
+                                                                // //       builder:
+                                                                // //           (context) =>
+                                                                // //               ChallengeScreen(
+                                                                // //                 challengeId: challengeData['challengeId'],
+                                                                // //               )),
+                                                                // );
+                                                                context.push(
+                                                                    "/challengedetails/${challengeData['challengeId']}");
                                                               },
                                                               child: Container(
                                                                   margin:
@@ -671,43 +650,34 @@ class HomePage
                                                                             Row(
                                                                               children: [
                                                                                 challengeData['userId'] != state.userId
-                                                                                    ? state.likedChallenges != null && state.likedChallenges!.isNotEmpty && state.likedChallenges!
-                                                                                    .contains(challengeData['challengeId'])
-                                                                                    ? InkWell(
-                                                                                  onTap: () {
-                                                                                    getCubit(context)
-                                                                                        .removeFromLikedChallenges(
-                                                                                        challengeData['challengeId']);
-                                                                                    getCubit(context)
-                                                                                        .getUserLikedChallenges();
-                                                                                  },
-                                                                                  child: ClipOval(
-                                                                                    child: Icon(
-                                                                                      Icons.thumb_up_alt_rounded,
-                                                                                      color: AppColors.bmiTracker,
-                                                                                    ),
-                                                                                  ),
-                                                                                )
-                                                                                    : InkWell(
-                                                                                  onTap: () {
-                                                                                    getCubit(context)
-                                                                                        .addToLikedChallenges(
-                                                                                        challengeData['challengeId']);
-                                                                                    getCubit(context)
-                                                                                        .getUserLikedChallenges();
-                                                                                  },
-                                                                                  child: ClipOval(
-                                                                                    child: Icon(Icons
-                                                                                        .thumb_up_alt_outlined),
-                                                                                  ),
-                                                                                )
+                                                                                    ? state.likedChallenges != null && state.likedChallenges!.isNotEmpty && state.likedChallenges!.contains(challengeData['challengeId'])
+                                                                                        ? InkWell(
+                                                                                            onTap: () {
+                                                                                              getCubit(context).removeFromLikedChallenges(challengeData['challengeId']);
+                                                                                              getCubit(context).getUserLikedChallenges();
+                                                                                            },
+                                                                                            child: ClipOval(
+                                                                                              child: Icon(
+                                                                                                Icons.thumb_up_alt_rounded,
+                                                                                                color: AppColors.bmiTracker,
+                                                                                              ),
+                                                                                            ),
+                                                                                          )
+                                                                                        : InkWell(
+                                                                                            onTap: () {
+                                                                                              getCubit(context).addToLikedChallenges(challengeData['challengeId']);
+                                                                                              getCubit(context).getUserLikedChallenges();
+                                                                                            },
+                                                                                            child: ClipOval(
+                                                                                              child: Icon(Icons.thumb_up_alt_outlined),
+                                                                                            ),
+                                                                                          )
                                                                                     : Container(
-                                                                                  child: Text(
-                                                                                    "You",
-                                                                                    style:
-                                                                                    TextStyle(color: Colors.grey),
-                                                                                  ),
-                                                                                ),
+                                                                                        child: Text(
+                                                                                          "You",
+                                                                                          style: TextStyle(color: Colors.grey),
+                                                                                        ),
+                                                                                      ),
                                                                                 IconButton(
                                                                                   onPressed: () => {},
                                                                                   style: IconButton.styleFrom(padding: edge_insets_0),
@@ -744,7 +714,7 @@ class HomePage
                                     BottomNavigationBarItem(
                                       icon: InkWell(
                                         onTap: () {
-                                          Navigator.pushNamed(context, '/home');
+                                          context.push('/home');
                                         },
                                         child: Icon(
                                           Icons.home,
@@ -769,8 +739,7 @@ class HomePage
                                     BottomNavigationBarItem(
                                       icon: InkWell(
                                         onTap: () {
-                                          Navigator.pushNamed(
-                                              context, '/analytics');
+                                          context.push('/analytics');
                                         },
                                         child: Icon(
                                           Icons.auto_graph_outlined,
@@ -782,8 +751,7 @@ class HomePage
                                     BottomNavigationBarItem(
                                       icon: InkWell(
                                           onTap: () {
-                                            Navigator.pushNamed(
-                                                context, '/profile');
+                                            context.push('/profile');
                                           },
                                           child: Icon(
                                             Icons.person,

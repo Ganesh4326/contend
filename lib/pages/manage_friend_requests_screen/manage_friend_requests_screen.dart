@@ -41,7 +41,7 @@ class ManageFriendRequestsScreen extends BaseStatelessWidget<
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/home');
+                        context.push('/home');
                       },
                       child: Icon(
                         Icons.arrow_back_ios_new,

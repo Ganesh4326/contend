@@ -6,6 +6,7 @@ class Assets {
   static const String imagesChecked = 'images/checked.png';
   static const String imagesCoin = 'images/coin.png';
   static const String imagesContendLogo = 'images/contend-logo.png';
+  static const String imagesCy = 'images/cy.png';
   static const String imagesDeadline = 'images/deadline.png';
   static const String imagesEmpty = 'images/empty.png';
   static const String imagesFacebookLogo = 'images/facebook_logo.png';

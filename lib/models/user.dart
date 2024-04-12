@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Users {
   String userName;
-  String emailId;
+  String? emailId;
   String userId;
   String password;
   int noOfChallengesCreated;
@@ -13,6 +13,7 @@ class Users {
   List<String>? acceptedChallenges;
   List<dynamic>? dailyChallenges;
   String? address;
+  String? userMail;
 
   Users(
       {required this.userName,
@@ -23,46 +24,46 @@ class Users {
       required this.noOfChallengesCompleted,
       required this.coins,
       required this.about,
-        required this.emailId,
-        this.dailyChallenges,
+      this.emailId,
+      this.userMail,
+      this.dailyChallenges,
       this.acceptedChallenges,
       this.address});
 
   factory Users.fromMap(Map<String, dynamic> map) {
     return Users(
-      userName: map['userName'],
-      userId: map['userId'],
-      password: map['password'],
-      emailId: map['emailId'],
-      noOfChallengesCreated: map['noOfChallengesCreated'],
-      noOfChallengesAccepted: map['noOfChallengesAccepted'],
-      noOfChallengesCompleted: map['noOfChallengesCompleted'],
-      coins: map['coins'],
-      about: map['about'],
-      acceptedChallenges: map['acceptedChallenges'],
-      address: map['address'],
-      dailyChallenges: map['daily_challenges']
-    );
+        userName: map['userName'],
+        userId: map['userId'],
+        password: map['password'],
+        emailId: map['emailId'],
+        userMail: map['userMail'],
+        noOfChallengesCreated: map['noOfChallengesCreated'],
+        noOfChallengesAccepted: map['noOfChallengesAccepted'],
+        noOfChallengesCompleted: map['noOfChallengesCompleted'],
+        coins: map['coins'],
+        about: map['about'],
+        acceptedChallenges: map['acceptedChallenges'],
+        address: map['address'],
+        dailyChallenges: map['daily_challenges']);
   }
 
   factory Users.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     return Users(
-      userName: data['userName'],
-      userId: data['userId'],
-      password: data['password'],
-      emailId: data['emailId'],
-      noOfChallengesCreated: data['noOfChallengesCreated'],
-      noOfChallengesAccepted: data['noOfChallengesAccepted'],
-      noOfChallengesCompleted: data['noOfChallengesCompleted'],
-      coins: data['coins'],
-      about: data['about'],
-      acceptedChallenges: (data['acceptedChallenges'] as List<dynamic>?)
-          ?.map((dynamic item) => item.toString())
-          .toList(),
-      address: data['address'],
-      dailyChallenges: data['daily_challenges']
-    );
+        userName: data['userName'],
+        userId: data['userId'],
+        password: data['password'],
+        emailId: data['emailId'],
+        userMail: data['userMail'],
+        noOfChallengesCreated: data['noOfChallengesCreated'],
+        noOfChallengesAccepted: data['noOfChallengesAccepted'],
+        noOfChallengesCompleted: data['noOfChallengesCompleted'],
+        coins: data['coins'],
+        about: data['about'],
+        acceptedChallenges: (data['acceptedChallenges'] as List<dynamic>?)
+            ?.map((dynamic item) => item.toString())
+            .toList(),
+        address: data['address'],
+        dailyChallenges: data['daily_challenges']);
   }
-
 }

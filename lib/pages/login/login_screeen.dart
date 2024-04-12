@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../styles/edge_insets.dart';
 import '../../../themes/app_colors.dart';
@@ -35,10 +36,11 @@ class LoginScreen extends BaseStatelessWidget<LoginScreenController,
       logger.d(emailController.text);
       print('Navigate to home screen');
       // Navigator.pushNamed(context, '/home');
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage(goRouterState: GoRouterState(), pageContext: context,)),
-      );
+      context.push("/home");
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => HomePage()),
+      // );
       await AuthService.saveUserId(loginSuccess,
           await fireStoreService.getUserName(emailController.text));
     } else {
@@ -133,6 +135,7 @@ class LoginScreen extends BaseStatelessWidget<LoginScreenController,
                             width: 290,
                             margin: EdgeInsets.only(top: 40),
                             child: TextField(
+                              obscureText: true,
                               controller: passwordController,
                               onChanged: (value) {},
                               decoration: InputDecoration(
@@ -156,7 +159,7 @@ class LoginScreen extends BaseStatelessWidget<LoginScreenController,
                                         fontSize: Fonts.fontSize14),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Navigator.pushNamed(context, '/signup');
+                                        context.push('/signup');
                                       },
                                   ),
                                 )
@@ -172,7 +175,8 @@ class LoginScreen extends BaseStatelessWidget<LoginScreenController,
                               },
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 80.0, vertical: 10.0), backgroundColor: AppColors
+                                    horizontal: 80.0, vertical: 10.0),
+                                backgroundColor: AppColors
                                     .bmiTracker, // Set background color to white
                               ),
                               child: Text(
@@ -191,36 +195,36 @@ class LoginScreen extends BaseStatelessWidget<LoginScreenController,
                                 style: TextStyle(color: Colors.red),
                               ),
                             ),
-                          state.isError!
-                              ? Container(
-                                  margin: EdgeInsets.only(top: 20),
-                                  child: Text("Or continue with"),
-                                )
-                              : Container(),
-                          Container(
-                            margin:
-                                EdgeInsets.only(top: 20, left: 40, right: 40),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.asset(
-                                  'images/facebook_logo.png',
-                                  width: 60,
-                                  height: 60,
-                                ),
-                                Image.asset(
-                                  'images/google_logo.png',
-                                  width: 45,
-                                  height: 45,
-                                ),
-                                Image.asset(
-                                  'images/insta_logo.png',
-                                  width: 70,
-                                  height: 70,
-                                )
-                              ],
-                            ),
-                          ),
+                          // state.isError!
+                          //     ? Container(
+                          //         margin: EdgeInsets.only(top: 20),
+                          //         child: Text("Or continue with"),
+                          //       )
+                          //     : Container(),
+                          // Container(
+                          //   margin:
+                          //       EdgeInsets.only(top: 20, left: 40, right: 40),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //     children: [
+                          //       Image.asset(
+                          //         'images/facebook_logo.png',
+                          //         width: 60,
+                          //         height: 60,
+                          //       ),
+                          //       Image.asset(
+                          //         'images/google_logo.png',
+                          //         width: 45,
+                          //         height: 45,
+                          //       ),
+                          //       Image.asset(
+                          //         'images/insta_logo.png',
+                          //         width: 70,
+                          //         height: 70,
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

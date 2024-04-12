@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:contend/pages/splash_screen/splash_screen_controller.dart';
 import 'package:contend/pages/splash_screen/splash_screen_cubit.dart';
+import 'package:go_router/go_router.dart';
 import '../../../themes/app_colors.dart';
 import '../../../themes/fonts.dart';
 import '../../core/widgets/base_stateless_widget.dart';
@@ -46,7 +47,7 @@ class SplashScreen extends BaseStatelessWidget<SplashScreenController,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            "images/contend-logo.png",
+                            "images/cy.png",
                             width: 100,
                             height: 100,
                           ),
@@ -56,7 +57,7 @@ class SplashScreen extends BaseStatelessWidget<SplashScreenController,
                     Container(
                       margin: EdgeInsets.only(top: 40),
                       child: Text(
-                        'CHALLENGE MAKER',
+                        'CHALLENGE YOUSELF',
                         style: TextStyle(
                           fontSize: Fonts.fontSize24,
                           color: Colors.white,
@@ -68,17 +69,19 @@ class SplashScreen extends BaseStatelessWidget<SplashScreenController,
                       margin: EdgeInsets.only(top: 200),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => LoginScreen()),
+                          // );
+                          context.push("/login");
                         },
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(
                             horizontal: 130.0,
                             vertical: 17.0,
-                          ), backgroundColor: Colors.white,
+                          ),
+                          backgroundColor: Colors.white,
                         ),
                         child: Text(
                           'Login',
@@ -93,15 +96,17 @@ class SplashScreen extends BaseStatelessWidget<SplashScreenController,
                       margin: EdgeInsets.only(top: 40),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignupScreen(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => SignupScreen(),
+                          //   ),
+                          // );
+                          context.push("/signup");
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.black, backgroundColor: Colors.transparent,
+                          foregroundColor: Colors.black,
+                          backgroundColor: Colors.transparent,
                           padding: EdgeInsets.symmetric(
                             horizontal: 125.0,
                             vertical: 16.0,

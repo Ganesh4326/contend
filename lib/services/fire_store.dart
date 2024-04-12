@@ -37,6 +37,8 @@ class FireStoreService {
         'coins': user.coins,
         'about': user.about,
         'acceptedChallenges': user.acceptedChallenges ?? [],
+        'email': user.emailId,
+        'dailyChallenges': user.dailyChallenges,
       });
 
       // Update the userId field with the document ID
@@ -52,8 +54,8 @@ class FireStoreService {
   final CollectionReference challenges =
       FirebaseFirestore.instance.collection('challenges');
 
-  Future<void> createChallenge(Challenge challenge) {
-    return challenges.add({
+  Future<String> createChallenge(Challenge challenge) async {
+    DocumentReference docRef = await challenges.add({
       'userId': challenge.userId,
       'challengeTitle': challenge.challengeTitle,
       'creatorName': challenge.creatorName,
@@ -76,6 +78,10 @@ class FireStoreService {
       'about': challenge.about,
       'timeStamp': Timestamp.now(),
     });
+
+    await docRef.update({'challengeId': docRef.id});
+
+    return docRef.id;
   }
 
   Stream<QuerySnapshot> getChallengesStream() {
@@ -273,10 +279,11 @@ class FireStoreService {
 
     final FirebaseFirestore _db = FirebaseFirestore.instance;
     logger.d(emailId);
+    logger.d(password);
 
     final QuerySnapshot<Map<String, dynamic>> userQuerySnapshot = await _db
         .collection("users")
-        .where("emailId", isEqualTo: emailId)
+        .where("email", isEqualTo: emailId)
         .get();
 
     if (userQuerySnapshot.docs.isNotEmpty) {
@@ -517,18 +524,17 @@ class FireStoreService {
 
   Future<void> updateCoins(String userId, int newCoins) async {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    logger.d(newCoins);
 
     try {
-      // Get the user document reference
       DocumentReference userDocRef = _firestore.collection('users').doc(userId);
 
       DocumentSnapshot userData = await userDocRef.get();
 
       int currentCoins = userData['coins'] ?? 0;
 
-      // Add coinsToAdd to the current value
       int newCoins = currentCoins + 10;
-      // Update the 'coins' field
+      logger.d(newCoins);
       await userDocRef.update({'coins': newCoins});
 
       print('Coins updated successfully');
@@ -1117,4 +1123,25 @@ class FireStoreService {
       print('Error incrementing noOfChallengesCreated: $e');
     }
   }
+
+  Future<List<String>> getUserCreatedChallengesByUserId(String userId) async {
+    try {
+      var querySnapshot = await challenges.where('userId', isEqualTo: userId).get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        List<String> userCreatedChallengeIds = querySnapshot.docs.map((doc) => doc.id).toList();
+
+        print('User Created Challenge IDs: $userCreatedChallengeIds');
+
+        return userCreatedChallengeIds;
+      } else {
+        print("NO CHALLENGES FOUND CREATED BY GIVEN USER ID");
+        return [];
+      }
+    } catch (e) {
+      print("Error getting user created challenges by user ID: $e");
+      return [];
+    }
+  }
+
 }

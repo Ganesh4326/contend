@@ -7,6 +7,7 @@ import 'package:contend/pages/home_page/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/widgets/base_screen_widget.dart';
@@ -16,7 +17,9 @@ import '../../themes/app_colors.dart';
 import '../../themes/fonts.dart';
 
 class CreateChallengeScreen extends BaseStatelessWidget<
-    CreateChallengeScreenController, CreateChallengeScreenCubit, CreateChallengeScreenState> {
+    CreateChallengeScreenController,
+    CreateChallengeScreenCubit,
+    CreateChallengeScreenState> {
   CreateChallengeScreen({super.key});
 
   final FireStoreService fireStoreService = FireStoreService();
@@ -63,8 +66,7 @@ class CreateChallengeScreen extends BaseStatelessWidget<
 
       await fireStoreService.createChallenge(newChallenge);
     } catch (e) {
-      print('Error registering user: $e');
-      // Handle registration errors here
+      print('Error creating challenge: $e');
     }
   }
 
@@ -111,10 +113,14 @@ class CreateChallengeScreen extends BaseStatelessWidget<
                           padding:
                               EdgeInsets.only(left: 20, right: 40, bottom: 50),
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [
-                              AppColors.bmiTracker.withOpacity(0.5),
-                              AppColors.bmiTracker.withOpacity(0)
-                            ], begin: Alignment.bottomLeft, end: Alignment.topRight),),
+                            gradient: LinearGradient(
+                                colors: [
+                                  AppColors.bmiTracker.withOpacity(0.5),
+                                  AppColors.bmiTracker.withOpacity(0)
+                                ],
+                                begin: Alignment.bottomLeft,
+                                end: Alignment.topRight),
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -689,19 +695,18 @@ class CreateChallengeScreen extends BaseStatelessWidget<
                                                 state.no_of_days!,
                                                 state.no_of_tasks!,
                                                 state.privacy!);
-                                            getCubit(context).updateChallengesCreated();
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HomePage(goRouterState: GoRouterState(), pageContext: context,)));
+                                            getCubit(context)
+                                                .updateChallengesCreated();
+                                            context.push("/home");
                                             showSnackBar(
                                                 context, 'Challenge created!');
                                           },
                                           style: ElevatedButton.styleFrom(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 80.0,
-                                                vertical: 10.0), backgroundColor: AppColors.bmiTracker,
+                                                vertical: 10.0),
+                                            backgroundColor:
+                                                AppColors.bmiTracker,
                                           ),
                                           child: Text(
                                             'Create challenge',

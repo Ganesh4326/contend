@@ -5,6 +5,7 @@ import 'package:contend/pages/accepted_challenges_screen/accepted_challenges_scr
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../models/challenge.dart';
 import '../../../themes/borders.dart';
@@ -43,7 +44,7 @@ class AcceptedChallengesScreen extends BaseStatelessWidget<
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, '/home');
+                              context.push( '/home');
                             },
                             child: Icon(
                               Icons.arrow_back_ios_new,
@@ -111,20 +112,17 @@ class AcceptedChallengesScreen extends BaseStatelessWidget<
                                                   left: 25, right: 25),
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ChallengeScreen(
-                                                              challengeId:
-                                                                  challenge
-                                                                      .challengeId,
-                                                              pageContext:
-                                                                  context,
-                                                              goRouterState:
-                                                                  GoRouterState(),
-                                                            )),
-                                                  );
+                                                  // Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           ChallengeScreen(
+                                                  //             challengeId:
+                                                  //                 challenge
+                                                  //                     .challengeId,
+                                                  //           )),
+                                                  // );
+                                                  context.push("/challengedetails/${challenge.challengeId}");
                                                 },
                                                 child: Container(
                                                     margin: edge_insets_t_32,

@@ -12,17 +12,15 @@ import 'package:go_router/go_router.dart';
 import 'manage_friends_screen_controller.dart';
 import 'manage_friends_screen_cubit.dart';
 
-class ManageFriendsScreen extends BaseScreenWidget<
+class ManageFriendsScreen extends BaseStatelessWidget<
     ManageFriendsScreenController,
     ManageFriendsScreenCubit,
     ManageFriendsScreenState> {
-  ManageFriendsScreen(
-      {Key? key,
-      super.controller,
-      super.onStateChanged,
-      required super.goRouterState,
-      required super.pageContext})
-      : super(key: key);
+  ManageFriendsScreen({
+    Key? key,
+    super.controller,
+    super.onStateChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +43,7 @@ class ManageFriendsScreen extends BaseScreenWidget<
                     children: [
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/home');
+                          context.push('/home');
                         },
                         child: Icon(
                           Icons.arrow_back_ios_new,
@@ -74,9 +72,9 @@ class ManageFriendsScreen extends BaseScreenWidget<
                             itemCount: state.users!.length,
                             itemBuilder: (context, index) {
                               return !(state.friendsList!.contains(
-                                      state.users![index]!['userId']) &&
-                                          state.users![index]!['userId'] !=
-                                              state.userId)
+                                          state.users![index]!['userId']) &&
+                                      state.users![index]!['userId'] !=
+                                          state.userId)
                                   ? Container(
                                       margin: edge_insets_t_12,
                                       child: Row(
@@ -88,7 +86,8 @@ class ManageFriendsScreen extends BaseScreenWidget<
                                               children: [
                                                 CircleAvatar(
                                                   radius: 20,
-                                                  backgroundImage: AssetImage('images/user3.png'),
+                                                  backgroundImage: AssetImage(
+                                                      'images/user3.png'),
                                                 ),
                                                 Container(
                                                   margin: edge_insets_l_9,

@@ -6,12 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../firebase_options.dart';
 import '../../../../themes/app_colors.dart';
 import '../../../../themes/fonts.dart';
 import '../../auth/AuthService.dart';
+import '../../core/logger/log.dart';
 import '../../core/widgets/base_stateless_widget.dart';
 import '../../models/user.dart';
 import '../../services/fire_store.dart';
@@ -29,17 +31,21 @@ class SignupScreen extends BaseStatelessWidget<SignupController,
 
   Future<void> registerUser() async {
     print("In register USER");
+    logger.d(emailController.text);
     try {
       Users newUser = Users(
         userName: usernameController.text,
+        emailId: emailController.text,
         userId: emailController.text,
         password: passwordController.text,
         noOfChallengesCreated: 0,
         noOfChallengesAccepted: 0,
         noOfChallengesCompleted: 0,
         coins: 0,
-        about: '', emailId: emailController.text,
+        about: '',
       );
+
+      logger.d(newUser);
 
       String? userId = await fireStoreService.createUser(newUser);
 
@@ -164,6 +170,7 @@ class SignupScreen extends BaseStatelessWidget<SignupController,
                           width: 290,
                           margin: EdgeInsets.only(top: 40),
                           child: TextField(
+                            obscureText: true,
                             controller: passwordController,
                             onChanged: (value) {},
                             decoration: InputDecoration(
@@ -187,7 +194,7 @@ class SignupScreen extends BaseStatelessWidget<SignupController,
                                       fontSize: Fonts.fontSize14),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.pushNamed(context, '/login');
+                                      context.push('/login');
                                     },
                                 ),
                               )
@@ -199,12 +206,13 @@ class SignupScreen extends BaseStatelessWidget<SignupController,
                           child: ElevatedButton(
                             onPressed: () {
                               registerUser();
-                              Navigator.pushNamed(context, '/home');
+                              context.push('/home');
                               showSnackBar(context, 'Signup successful!');
                             },
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 80.0, vertical: 10.0), backgroundColor: AppColors
+                                  horizontal: 80.0, vertical: 10.0),
+                              backgroundColor: AppColors
                                   .bmiTracker, // Set background color to white
                             ),
                             child: Text(
@@ -215,39 +223,39 @@ class SignupScreen extends BaseStatelessWidget<SignupController,
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: Text("Or continue with"),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 20, left: 40, right: 40),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset(
-                                'images/facebook_logo.png',
-                                width: 60,
-                                height: 60,
-                              ),
-                              Image.asset(
-                                'images/google_logo.png',
-                                width: 45,
-                                height: 45,
-                              ),
-                              Image.asset(
-                                'images/insta_logo.png',
-                                width: 70,
-                                height: 70,
-                              )
-                            ],
-                          ),
-                        ),
-                        ElevatedButton(
-                            onPressed: () {
-                              addAcceptedChallenge('sgganesh240@gmail.com',
-                                  '003dbfa4-108d-437c-83a3-d08f5506fbca', 10);
-                            },
-                            child: Text('ADD'))
+                        // Container(
+                        //   margin: EdgeInsets.only(top: 20),
+                        //   child: Text("Or continue with"),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.only(top: 20, left: 40, right: 40),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //     children: [
+                        //       Image.asset(
+                        //         'images/facebook_logo.png',
+                        //         width: 60,
+                        //         height: 60,
+                        //       ),
+                        //       Image.asset(
+                        //         'images/google_logo.png',
+                        //         width: 45,
+                        //         height: 45,
+                        //       ),
+                        //       Image.asset(
+                        //         'images/insta_logo.png',
+                        //         width: 70,
+                        //         height: 70,
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                        // ElevatedButton(
+                        //     onPressed: () {
+                        //       addAcceptedChallenge('sgganesh240@gmail.com',
+                        //           '003dbfa4-108d-437c-83a3-d08f5506fbca', 10);
+                        //     },
+                        //     child: Text('ADD'))
                       ],
                     ),
                   ),
