@@ -8,11 +8,9 @@ import '../models/order.dart';
 import '../models/user.dart';
 
 class FireStoreService {
-  //get collection of notes
   final CollectionReference notes =
       FirebaseFirestore.instance.collection('notes');
 
-  //CREATE
   Future<void> addNote(String note) {
     return notes.add({
       'note': note,
@@ -20,7 +18,6 @@ class FireStoreService {
     });
   }
 
-  //get collection of users
   final CollectionReference users =
       FirebaseFirestore.instance.collection('users');
 
@@ -41,7 +38,6 @@ class FireStoreService {
         'dailyChallenges': user.dailyChallenges,
       });
 
-      // Update the userId field with the document ID
       await userRef.update({'userId': userRef.id});
       return userRef.id;
     } catch (e) {
@@ -50,7 +46,6 @@ class FireStoreService {
     }
   }
 
-  //get collection of challenges
   final CollectionReference challenges =
       FirebaseFirestore.instance.collection('challenges');
 
@@ -88,7 +83,6 @@ class FireStoreService {
     return FirebaseFirestore.instance.collection('challenges').snapshots();
   }
 
-  //READ
   Stream<QuerySnapshot> getNotesStream() {
     final notesStream =
         notes.orderBy('timestamp', descending: true).snapshots();
@@ -103,7 +97,6 @@ class FireStoreService {
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        // If there is a document matching the challengeId, return the Challenge
         var data = querySnapshot.docs.first.data() as Map<String, dynamic>;
         print('CHALLENGE:');
         return Challenge(
@@ -127,20 +120,16 @@ class FireStoreService {
             noOfshares: data['noOfShares'],
             challengeId: data['challengeId'],
             about: data['about']
-            // Add other fields as needed
             );
       } else {
-        // If no document found, return null
         return null;
       }
     } catch (e) {
-      // Handle errors here
       print("Error getting challenge by ID: $e");
       return null;
     }
   }
 
-  //create challenge joinee
   Future<void> createChallengeJoin(String userId, String challengeId) async {
     try {
       var challengeDocument =
@@ -161,12 +150,10 @@ class FireStoreService {
         print('Challenge not found.');
       }
     } catch (e) {
-      // Handle errors here
       print("Error joining challenge: $e");
     }
   }
 
-  // Retrieve challenges by user ID
   Future<List<Challenge>> getChallengesByUserId(String userId) async {
     try {
       var querySnapshot =
@@ -207,7 +194,6 @@ class FireStoreService {
     }
   }
 
-  //to check user joined a challenge
   Future<bool> hasUserJoinedChallenge(String userId, String challengeId) async {
     try {
       var challengeDocument = await challenges
@@ -233,7 +219,6 @@ class FireStoreService {
     }
   }
 
-  //create an accepted challenge
   Future<void> addAcceptedChallenge(
       String userId, String challengeId, int noOfDaysLeft) async {
     try {
@@ -255,7 +240,6 @@ class FireStoreService {
             'noOfDaysLeft': noOfDaysLeft,
           });
 
-          // Update the 'acceptedChallenges' field in Firestore
           await _db.collection("users").doc(userData.id).update({
             'acceptedChallenges': acceptedChallenges,
             'noOfChallengesAccepted': FieldValue.increment(1),
@@ -273,7 +257,6 @@ class FireStoreService {
     }
   }
 
-  //login
   Future<String> loginUser(String emailId, String password) async {
     print("IN LOGIN USER");
 
@@ -321,7 +304,6 @@ class FireStoreService {
     }
   }
 
-  //get accepted challenges
   Future<List<String>> getAcceptedChallengesByUserId(String userId) async {
     try {
       var querySnapshot = await users.where('userId', isEqualTo: userId).get();
@@ -392,22 +374,6 @@ class FireStoreService {
     }
   }
 
-  // Future<DocumentSnapshot> getUserData() async {
-  //   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  //
-  //   try {
-  //     DocumentReference userDocRef =
-  //         _firestore.collection('users').doc('OpKHoGrpRis7rhFmymRH');
-  //
-  //     DocumentSnapshot userData = await userDocRef.get();
-  //
-  //     return userData;
-  //   } catch (e) {
-  //     print('Error: $e');
-  //     throw e;
-  //   }
-  // }
-
   Future<Users> getUserData(String userId) async {
     try {
       CollectionReference usersCollection =
@@ -460,12 +426,10 @@ class FireStoreService {
       Map<String, dynamic>? userMap = userData.data() as Map<String, dynamic>?;
 
       if (userMap != null && userMap.containsKey('daily_challenges')) {
-        // Assuming 'daily_challenges' is a list of strings
         List<String> dailyChallenges =
             List<String>.from(userMap['daily_challenges']);
         return dailyChallenges;
       } else {
-        // Return an empty list if 'daily_challenges' is not present or null
         return [];
       }
     } catch (e) {
@@ -509,11 +473,9 @@ class FireStoreService {
       Map<String, dynamic>? userMap = userData.data() as Map<String, dynamic>?;
 
       if (userMap != null && userMap.containsKey('userName')) {
-        // Assuming 'daily_challenges' is a list of strings
         String userName = userMap['userName'];
         return userName;
       } else {
-        // Return an empty list if 'daily_challenges' is not present or null
         return 'empty';
       }
     } catch (e) {
@@ -555,7 +517,6 @@ class FireStoreService {
 
       if (querySnapshot.docs.isNotEmpty) {
         DocumentSnapshot orderSnapshot = querySnapshot.docs.first;
-        // Create an instance of the Order class using the factory method
         Orders order =
             Orders.fromMap(orderSnapshot.data() as Map<String, dynamic>);
         logger.d(order.itemName);
@@ -594,11 +555,9 @@ class FireStoreService {
   Future<void> reduceDaysLeft(String userId, String challengeId) async {
     logger.d(challengeId);
     try {
-      // Get reference to the user document
       final DocumentReference userRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
 
-      // Get the current acceptedChallenges list
       final DocumentSnapshot userSnapshot = await userRef.get();
       final List<dynamic> acceptedChallenges =
           userSnapshot['acceptedChallenges'] as List<dynamic>;
@@ -635,11 +594,9 @@ class FireStoreService {
 
   Future<int> getNoOfDaysLeft(String userId, String challengeId) async {
     try {
-      // Get reference to the user document
       final DocumentReference userRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
 
-      // Get the current acceptedChallenges list
       final DocumentSnapshot userSnapshot = await userRef.get();
       final List<dynamic> acceptedChallenges =
           userSnapshot['acceptedChallenges'] as List<dynamic>;
@@ -727,22 +684,19 @@ class FireStoreService {
     }
   }
 
-  //add to liked challenges
   Future<void> addToLikedChallenges(String userId, String challengeId) async {
     try {
-      // Get reference to user document
       DocumentReference userRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
 
-      // Update the likedChallenges array field by adding challengeId
       await FirebaseFirestore.instance.runTransaction((transaction) async {
         DocumentSnapshot userSnapshot = await transaction.get(userRef);
         if (userSnapshot.exists) {
           Map<String, dynamic>? userData =
-              userSnapshot.data() as Map<String, dynamic>?; // Cast data to Map
+              userSnapshot.data() as Map<String, dynamic>?;
           List<dynamic>? likedChallenges =
               userData?['likedChallenges']?.toList() ??
-                  []; // Access 'likedChallenges' field
+                  [];
           likedChallenges?.add(challengeId);
           transaction.update(userRef, {'likedChallenges': likedChallenges});
         }
@@ -754,7 +708,6 @@ class FireStoreService {
     }
   }
 
-  //get liked challenges list
   Future<List<String>> getUserLikedChallenges(String userId) async {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -778,7 +731,6 @@ class FireStoreService {
     }
   }
 
-  //delete from liked challenges
 
   Future<void> removeChallengeFromLikedChallenges(
       String? userId, String? challengeId) async {
@@ -828,7 +780,6 @@ class FireStoreService {
       DocumentReference userRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
 
-      // Update the user document to add the userId to the friend_requests list
       await userRef.update({
         'friend_requests': FieldValue.arrayUnion([userIdToAdd])
       });
@@ -841,11 +792,9 @@ class FireStoreService {
 
   void addUserIdToMyRequests(String? userId, String userIdToAdd) async {
     try {
-      // Get a reference to the user document in the users collection
       DocumentReference userRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
 
-      // Update the user document to add the userId to the friend_requests list
       await userRef.update({
         'requests': FieldValue.arrayUnion([userIdToAdd])
       });
@@ -928,13 +877,11 @@ class FireStoreService {
   Future<void> removeIdFromFriendRequests(
       String userId, String userIdRemove) async {
     try {
-      // Get a reference to the user document in the users collection
       DocumentReference userRef =
           FirebaseFirestore.instance.collection('users').doc(userIdRemove);
       DocumentReference userRef2 =
           FirebaseFirestore.instance.collection('users').doc(userId);
 
-      // Update the user document to remove the userIdToRemove from the friend_requests list
       await userRef.update({
         'friend_requests': FieldValue.arrayRemove([userId])
       });
@@ -953,7 +900,7 @@ class FireStoreService {
           'User Id $userId removed from friend_requests list successfully for user $userIdRemove');
     } catch (e) {
       print('Error removing user Id from friend_requests list: $e');
-      throw e; // Throw the error if needed for further handling
+      throw e;
     }
   }
 
@@ -982,27 +929,22 @@ class FireStoreService {
   Future<void> addChallengeComment(
       String challengeId, String username, String comment) async {
     try {
-      // Query the challenges collection to find documents where challengeId exists in the data
       QuerySnapshot challengeSnapshots = await FirebaseFirestore.instance
           .collection('challenges')
           .where('challengeId', isEqualTo: challengeId)
           .get();
 
-      // Check if any documents with the given challengeId were found
       if (challengeSnapshots.docs.isEmpty) {
         print('No challenge found with ID $challengeId');
-        return; // or throw an error if preferred
+        return;
       }
 
-      // Update the first found challenge document to add the comment to the challenge_comments field
       DocumentReference challengeRef = challengeSnapshots.docs.first.reference;
 
-      // Create a map with the username as key and the comment as value
       Map<String, dynamic> commentMap = {
         username: comment,
       };
 
-      // Update the challenge document to add the comment to the challenge_comments field
       await challengeRef.update({
         'challenge_comments': FieldValue.arrayUnion([commentMap])
       });
@@ -1010,7 +952,7 @@ class FireStoreService {
       print('Comment added to challenge successfully');
     } catch (e) {
       print('Error adding comment to challenge: $e');
-      throw e; // Throw the error if needed for further handling
+      throw e;
     }
   }
 
@@ -1113,7 +1055,6 @@ class FireStoreService {
       final DocumentReference userDocRef =
       FirebaseFirestore.instance.collection('users').doc(userId);
 
-      // Update the noOfChallengesCreated field by incrementing its value
       await userDocRef.update({
         'noOfChallengesCreated': FieldValue.increment(1),
       });
