@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:contend/core/blocs/base_cubit.dart';
 import 'package:contend/services/fire_store.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -11,21 +12,23 @@ part 'challenge_screen_state.dart';
 
 part 'challenge_screen_cubit.freezed.dart';
 
-class ChallengeScreenCubit extends Cubit<ChallengeScreenState> {
-  ChallengeScreenCubit({String? challengeId})
-      : super(ChallengeScreenState.initial(
+class ChallengeScreenCubit extends BaseCubit<ChallengeScreenState> {
+  ChallengeScreenCubit({required super.context, String? challengeId})
+      : super(initialState:ChallengeScreenState.initial(
             userId: '',
             joined: false,
             checkChallenge: false,
             challengeId: challengeId,
             allAcceptedChallengeIdsList: [],
-  likedChallenges: [])) {
+            noOfDaysLeft: 100000,
+            daily_challenges: [],
+            likedChallenges: [])) {
     getUserId();
   }
 
   getUserId() async {
     String? userId = await AuthService.getUserId();
-    emit(state.copyWith(userId: userId));
+    emitState(state.copyWith(userId: userId));
 
     bool joined = await FireStoreService().hasUserJoinedChallenge(
       state.userId!,
@@ -40,25 +43,21 @@ class ChallengeScreenCubit extends Cubit<ChallengeScreenState> {
   getUserDailyChallenges() async {
     List<String> dailyChallenges =
         await FireStoreService().getUserDailyChallenges(state.userId!);
-    emit(state.copyWith(daily_challenges: dailyChallenges));
+    emitState(state.copyWith(daily_challenges: dailyChallenges));
   }
 
   getUserLikedChallenges() async {
     List<String> likedChallenges =
         await FireStoreService().getUserLikedChallenges(state.userId!);
-    emit(state.copyWith(likedChallenges: likedChallenges));
+    emitState(state.copyWith(likedChallenges: likedChallenges));
     logger.d(state.likedChallenges!.toList());
   }
 
   isJoined(String? userId, String challengeId, String challengeUserId) async {
-    emit(state.copyWith(userId: await AuthService.getUserId()));
-    emit(state.copyWith(
+    emitState(state.copyWith(userId: await AuthService.getUserId()));
+    emitState(state.copyWith(
         joined: await FireStoreService()
             .hasUserJoinedChallenge(userId!, challengeId)));
-    print("CHALLENGEID: " + challengeId);
-    print("USER ID: " + state.userId!);
-    print("CH USER ID:" + challengeUserId);
-    print("JOINED: " + state.joined.toString()!);
   }
 
   joinChallenge(String? userId, String challengeId) async {
@@ -72,23 +71,25 @@ class ChallengeScreenCubit extends Cubit<ChallengeScreenState> {
   }
 
   changeCheckChallenge(bool? value) {
-    emit(state.copyWith(checkChallenge: value));
+    emitState(state.copyWith(checkChallenge: value));
   }
 
   getNoOfDaysLeft() async {
-    int noOfDaysLeft =
-        await FireStoreService().getNoOfDaysLeft(state.userId!, state.challengeId!);
-    emit(state.copyWith(noOfDaysLeft: noOfDaysLeft));
+    int noOfDaysLeft = await FireStoreService()
+        .getNoOfDaysLeft(state.userId!, state.challengeId!);
+    emitState(state.copyWith(noOfDaysLeft: noOfDaysLeft));
+    logger.d(state.noOfDaysLeft);
   }
 
   getAllAcceptedChallengesIdsList() async {
     List<String>? allAcceptedChallengesIds =
         await FireStoreService().getAllAcceptedChallengeIds(state.userId!);
-    emit(state.copyWith(allAcceptedChallengeIdsList: allAcceptedChallengesIds));
+    emitState(state.copyWith(allAcceptedChallengeIdsList: allAcceptedChallengesIds));
   }
 
   addToAcceptedChallenges(String challengeId, int noOfDaysLeft) {
-    FireStoreService().addToAcceptedChallenge(state.userId!, challengeId, noOfDaysLeft);
+    FireStoreService()
+        .addToAcceptedChallenge(state.userId!, challengeId, noOfDaysLeft);
   }
 
   addToLikedChallenges(String challengeId) {
@@ -96,10 +97,19 @@ class ChallengeScreenCubit extends Cubit<ChallengeScreenState> {
   }
 
   removeFromLikedChallenges(String challengeId) {
-    FireStoreService().removeChallengeFromLikedChallenges(state.userId!, challengeId);
+    FireStoreService()
+        .removeChallengeFromLikedChallenges(state.userId!, challengeId);
   }
 
 // removeChallengeFromAcceptedChallenges(String challengeId) {
 //   FireStoreService().removeChallengeFromAcceptedChallenges("", challengeId);
 // }
+
+  deleteChallenge(String challengeId) {
+    FireStoreService().deleteChallenge(challengeId);
+  }
+
+  updateNoOfPeopleInChallenge(String challengeId){
+    FireStoreService().updateChallengeNoOfPeople(challengeId);
+  }
 }

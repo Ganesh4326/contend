@@ -21,12 +21,12 @@ class ManageFriendsScreenCubit extends BaseCubit<ManageFriendsScreenState> {
 
   getUserId() async {
     String? userId = await AuthService.getUserId();
-    emit(state.copyWith(userId: userId));
+    emitState(state.copyWith(userId: userId));
     getAllUsers();
     List<String>? friendsList = await FireStoreService().getUserFriendList(state.userId!);
     emitState(state.copyWith(friendsList: friendsList));
-    getMyRequests();
-    getUserRequestedList();
+    // getMyRequests();
+    // getUserRequestedList();
   }
 
   getAllUsers() async {
@@ -40,38 +40,39 @@ class ManageFriendsScreenCubit extends BaseCubit<ManageFriendsScreenState> {
   void addToList(String userId) async {
     final List<String> updatedUserNames = List.from(state.userNames ?? []);
     updatedUserNames.add(userId);
-    emit(state.copyWith(userNames: updatedUserNames));
+    emitState(state.copyWith(userNames: updatedUserNames));
+    logger.d(state.userNames);
     FireStoreService().addUserIdToFriendRequests(userId, state.userId!);
     FireStoreService().addUserIdToMyRequests(state.userId!, userId);
-    getUserRequestedList();
-    getMyRequests();
+    // getUserRequestedList();
+    // getMyRequests();
   }
 
-  getMyRequests() async {
-    emitState(state.copyWith(
-        requests:
-            await FireStoreService().getUserRequestedList(state.userId!)));
-    logger.d(state.requests);
-    List<Users> users = [];
-    for (int i = 0; i < state.requests!.length; i++) {
-      Users? user = await FireStoreService().getUserData(state.requests![i]);
-      users.add(user);
-    }
-    emitState(state.copyWith(requestUsers: users));
-    logger.d(state.requestUsers!.toList());
-  }
-
-  getUserRequestedList() async {
-
-    emitState(state.copyWith(
-        friendRequests:
-            await FireStoreService().getUserRequestsForFriend(state.userId!)));
-    List<Users> users = [];
-    for (int i = 0; i < state.friendRequests!.length; i++) {
-      Users? user =
-          await FireStoreService().getUserData(state.friendRequests![i]);
-      users.add(user);
-    }
-    emitState(state.copyWith(friendRequestsUsers: users));
-  }
+  // getMyRequests() async {
+  //   emitState(state.copyWith(
+  //       requests:
+  //           await FireStoreService().getUserRequestedList(state.userId!)));
+  //   logger.d(state.requests);
+  //   List<Users> users = [];
+  //   for (int i = 0; i < state.requests!.length; i++) {
+  //     Users? user = await FireStoreService().getUserData(state.requests![i]);
+  //     users.add(user);
+  //   }
+  //   emitState(state.copyWith(requestUsers: users));
+  //   logger.d(state.requestUsers!.toList());
+  // }
+  //
+  // getUserRequestedList() async {
+  //
+  //   emitState(state.copyWith(
+  //       friendRequests:
+  //           await FireStoreService().getUserRequestsForFriend(state.userId!)));
+  //   List<Users> users = [];
+  //   for (int i = 0; i < state.friendRequests!.length; i++) {
+  //     Users? user =
+  //         await FireStoreService().getUserData(state.friendRequests![i]);
+  //     users.add(user);
+  //   }
+  //   emitState(state.copyWith(friendRequestsUsers: users));
+  // }
 }

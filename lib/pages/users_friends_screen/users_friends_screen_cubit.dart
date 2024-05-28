@@ -20,7 +20,7 @@ class UsersFriendsScreenCubit extends BaseCubit<UsersFriendsScreenState> {
 
   getUserId() async {
     String? userId = await AuthService.getUserId();
-    emit(state.copyWith(userId: userId));
+    emitState(state.copyWith(userId: userId));
     getUserFriendList();
   }
 

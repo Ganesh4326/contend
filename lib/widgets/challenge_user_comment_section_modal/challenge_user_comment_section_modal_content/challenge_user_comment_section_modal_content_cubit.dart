@@ -29,7 +29,7 @@ class ChallengeUserCommentSectionModalContentCubit
 
   getUserNameFromFirebase(String userId) async {
     String userName = await FireStoreService().getUserNameFromFirebase(userId);
-    emit(state.copyWith(userName: userName));
+    emitState(state.copyWith(userName: userName));
     logger.d(state.userName!);
   }
 

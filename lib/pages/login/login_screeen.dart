@@ -195,36 +195,6 @@ class LoginScreen extends BaseStatelessWidget<LoginScreenController,
                                 style: TextStyle(color: Colors.red),
                               ),
                             ),
-                          // state.isError!
-                          //     ? Container(
-                          //         margin: EdgeInsets.only(top: 20),
-                          //         child: Text("Or continue with"),
-                          //       )
-                          //     : Container(),
-                          // Container(
-                          //   margin:
-                          //       EdgeInsets.only(top: 20, left: 40, right: 40),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          //     children: [
-                          //       Image.asset(
-                          //         'images/facebook_logo.png',
-                          //         width: 60,
-                          //         height: 60,
-                          //       ),
-                          //       Image.asset(
-                          //         'images/google_logo.png',
-                          //         width: 45,
-                          //         height: 45,
-                          //       ),
-                          //       Image.asset(
-                          //         'images/insta_logo.png',
-                          //         width: 70,
-                          //         height: 70,
-                          //       )
-                          //     ],
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

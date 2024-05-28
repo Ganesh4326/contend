@@ -23,7 +23,7 @@ class ManageFriendRequestsScreenCubit
 
   getUserId() async {
     String? userId = await AuthService.getUserId();
-    emit(state.copyWith(userId: userId));
+    emitState(state.copyWith(userId: userId));
     getUserRequestedList();
   }
 

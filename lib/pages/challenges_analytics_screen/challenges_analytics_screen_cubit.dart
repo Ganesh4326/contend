@@ -13,7 +13,9 @@ part 'challenges_analytics_screen_cubit.freezed.dart';
 class ChallengesAnalyticsScreenCubit
     extends BaseCubit<ChallengesAnalyticsScreenState> {
   ChallengesAnalyticsScreenCubit({required super.context})
-      : super(initialState: ChallengesAnalyticsScreenState.initial()) {
+      : super(
+            initialState:
+                ChallengesAnalyticsScreenState.initial(percentages: [], noOfDaysLeft: [])) {
     getAllAcceptedChallengesIdsList();
   }
 
@@ -21,7 +23,7 @@ class ChallengesAnalyticsScreenCubit
     String? userId = await AuthService.getUserId();
     List<String>? allAcceptedChallengesIds =
         await FireStoreService().getAllAcceptedChallengeIds(userId!);
-    emit(state.copyWith(allAcceptedChallengeIdsList: allAcceptedChallengesIds));
+    emitState(state.copyWith(allAcceptedChallengeIdsList: allAcceptedChallengesIds));
     logger.d(state.allAcceptedChallengeIdsList);
     getAllChallengesData();
   }
@@ -31,7 +33,10 @@ class ChallengesAnalyticsScreenCubit
     for (int i = 0; i < state.allAcceptedChallengeIdsList!.length; i++) {
       Challenge? challenge = await FireStoreService()
           .getChallengeById(state.allAcceptedChallengeIdsList![i]);
-      allChallenges.add(challenge!);
+      if (challenge != null) {
+        logger.d(i);
+        allChallenges.add(challenge);
+      }
     }
     emitState(state.copyWith(allChallenges: allChallenges));
     logger.d(state.allChallenges);
@@ -40,10 +45,11 @@ class ChallengesAnalyticsScreenCubit
 
   getNoOfDaysLeft() async {
     List<int> list = [];
+    String? userId = await AuthService.getUserId();
     for (int i = 0; i < state.allAcceptedChallengeIdsList!.length; i++) {
       int? noOfDaysLeft = await FireStoreService()
-          .getNoOfDaysLeft('', state.allAcceptedChallengeIdsList![i]);
-      list.add(noOfDaysLeft!);
+          .getNoOfDaysLeft(userId!, state.allAcceptedChallengeIdsList![i]);
+      list.add(noOfDaysLeft);
     }
     emitState(state.copyWith(noOfDaysLeft: list));
     logger.d(state.noOfDaysLeft);
@@ -51,30 +57,23 @@ class ChallengesAnalyticsScreenCubit
   }
 
   int? extractNumber(String input) {
-    String number = '';
-    for (int i = 0; i < input.length; i++) {
-      if (input[i].contains(RegExp(r'[0-9]'))) {
-        number += input[i];
-      } else {
-        break;
-      }
-    }
-    logger.d(number);
-    return int.tryParse(number);
+    RegExp regex = RegExp(r'\d+');
+    String matchedDigits =
+        regex.allMatches(input).map((match) => match.group(0)!).join('');
+    return int.parse(matchedDigits);
   }
 
   calculatePercentage() {
     List<double> perc = [];
 
     for (int i = 0; i < state.allAcceptedChallengeIdsList!.length; i++) {
-      int noOfDays = 0;
       int? n = extractNumber(state.allChallenges![i].noOfDays);
       if (state.allChallenges![i].noOfDays.contains("month")) {
-        noOfDays = n! * 30;
+        n = n! * 30;
       }
-      logger.d(noOfDays);
+      logger.d(n);
 
-      double per = (noOfDays - state.noOfDaysLeft![i]) / noOfDays;
+      double per = (n! - state.noOfDaysLeft![i]) / n;
 
       if (!(per.isNaN)) {
         perc.add(per);

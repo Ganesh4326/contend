@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../auth/AuthService.dart';
 import '../../core/logger/log.dart';
+import '../../models/challenge.dart';
 
 part 'home_page_state.dart';
 
@@ -15,21 +16,26 @@ class HomePageCubit extends BaseCubit<HomePageState> {
   HomePageCubit({required super.context})
       : super(
             initialState: HomePageState.initial(
-                challenge_filter: 'ALL', userId: '', isUserExist: false, searchTerm: '')) {
+                challenge_filter: 'ALL',
+                userId: '',
+                isUserExist: false,
+                searchTerm: '',
+                likedChallengeList: [],
+                topChallenges: ['fGFRgxFVdpoQSkS8hlu9'])) {
     getUserId();
-    getUserLikedChallenges();
   }
 
   getUserId() async {
     String? userId = await AuthService.getUserId();
-    emit(state.copyWith(userId: userId));
+    emitState(state.copyWith(userId: userId));
+    await getUserLikedChallenges();
     await getUserNameFromFirebase();
     await getUserCoins();
   }
 
   getUserCoins() async {
     int coins = await FireStoreService().getUserCoins(state.userId!);
-    emit(state.copyWith(coins: coins));
+    emitState(state.copyWith(coins: coins));
   }
 
   getUserNameFromFirebase() async {
@@ -37,12 +43,12 @@ class HomePageCubit extends BaseCubit<HomePageState> {
     logger.d(userId);
     String userName = await FireStoreService().getUserNameFromFirebase(userId!);
     logger.d(AuthService.getUserId().toString());
-    emit(state.copyWith(userName: userName));
+    emitState(state.copyWith(userName: userName));
   }
 
   changeChallengeFilter(String challenge_filter) {
-    emit(state.copyWith(challenge_filter: challenge_filter));
-    print(challenge_filter);
+    emitState(state.copyWith(challenge_filter: challenge_filter));
+    logger.d(state.likedChallengeList);
   }
 
   logoutUser() {
@@ -57,13 +63,14 @@ class HomePageCubit extends BaseCubit<HomePageState> {
 
   getUserLikedChallenges() async {
     List<String> likedChallenges =
-    await FireStoreService().getUserLikedChallenges(state.userId!);
-    emit(state.copyWith(likedChallenges: likedChallenges));
+        await FireStoreService().getUserLikedChallenges(state.userId!);
+    emitState(state.copyWith(likedChallenges: likedChallenges));
     logger.d(state.likedChallenges!.toList());
   }
 
   removeFromLikedChallenges(String challengeId) {
-    FireStoreService().removeChallengeFromLikedChallenges(state.userId!, challengeId);
+    FireStoreService()
+        .removeChallengeFromLikedChallenges(state.userId!, challengeId);
   }
 
   addToLikedChallenges(String challengeId) {

@@ -230,7 +230,7 @@ class CreateOrderScreen extends BaseStatelessWidget {
   @override
   CreateOrderScreenCubit createCubitAndAssignToController(
       BuildContext context) {
-    CreateOrderScreenCubit cubit = CreateOrderScreenCubit();
+    CreateOrderScreenCubit cubit = CreateOrderScreenCubit(context: context);
     controller?.cubit = cubit;
     return cubit;
   }

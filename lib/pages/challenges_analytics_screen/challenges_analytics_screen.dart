@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/logger/log.dart';
 import '../../core/widgets/base_stateless_widget.dart';
 
 import '../../styles/edge_insets.dart';
@@ -96,13 +97,20 @@ class ChallengesAnalyticsScreen extends BaseStatelessWidget<
                                             children: [
                                               LinearPercentIndicator(
                                                 width: 270.0,
-                                                lineHeight: 26.0,
-                                                percent: state.percentages![
-                                                            index] ==
-                                                        'NaN'
-                                                    ? 0.0
-                                                    : state.percentages![index],
-                                                progressColor: Colors.red,
+                                                lineHeight: 12.0,
+                                                percent: state.percentages!
+                                                            .length >
+                                                        index
+                                                    ? state.percentages![index]
+                                                    : 0.0,
+                                                progressColor:
+                                                    state.noOfDaysLeft!.length >
+                                                                index &&
+                                                            state.noOfDaysLeft![
+                                                                    index] ==
+                                                                0
+                                                        ? AppColors.green
+                                                        : Colors.red,
                                                 barRadius: Radius.circular(10),
                                               ),
                                             ],
@@ -138,11 +146,14 @@ class ChallengesAnalyticsScreen extends BaseStatelessWidget<
                                                 style: TextStyle(
                                                     color: AppColors.grey1),
                                               ),
-                                              Text(
-                                                "${state.noOfDaysLeft![index]}",
-                                                style: TextStyle(
-                                                    fontSize: Fonts.fontSize18),
-                                              ),
+                                              state.noOfDaysLeft!.length > index
+                                                  ? Text(
+                                                      "${state.noOfDaysLeft![index]}",
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              Fonts.fontSize18),
+                                                    )
+                                                  : Text(''),
                                             ],
                                           ),
                                         ),

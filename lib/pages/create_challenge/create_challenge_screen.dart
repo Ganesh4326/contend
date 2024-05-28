@@ -110,617 +110,631 @@ class CreateChallengeScreen extends BaseStatelessWidget<
                         backgroundColor: Colors.white,
                         body: SingleChildScrollView(
                             child: Container(
-                          padding:
+                              padding:
                               EdgeInsets.only(left: 20, right: 40, bottom: 50),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                colors: [
-                                  AppColors.bmiTracker.withOpacity(0.5),
-                                  AppColors.bmiTracker.withOpacity(0)
-                                ],
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(
-                                      top: 60, left: 0, right: 40),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Create challenge",
-                                        style: TextStyle(
-                                            fontSize: 24,
-                                            fontFamily: Fonts.fontNunito,
-                                            color: AppColors.bmiTracker,
-                                            fontWeight: FontWeight.w700),
-                                      ),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                      AppColors.bmiTracker.withOpacity(0.5),
+                                      AppColors.bmiTracker.withOpacity(0)
                                     ],
-                                  )),
-                              Container(
-                                width: 290,
-                                margin: EdgeInsets.only(top: 40),
-                                padding: EdgeInsets.only(left: 15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  // Background color
-                                  borderRadius: BorderRadius.circular(15),
-                                  // Rounded corners
-                                  border: Border.all(
-                                    color: AppColors.bmiTracker,
-                                    // Border color
-                                    width: 1.5, // Border width
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.primary.withOpacity(0.2),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(
-                                          0, 3), // Changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: TextField(
-                                  controller: challengeTitleController,
-                                  onChanged: (value) {},
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: AppColors.bmiTracker),
-                                  decoration: InputDecoration(
-                                      labelText: "Challenge title",
-                                      border: InputBorder.none,
-                                      hintText: "75 days challenge"),
-                                ),
+                                    begin: Alignment.bottomLeft,
+                                    end: Alignment.topRight),
                               ),
-                              Container(
-                                width: 290,
-                                margin: EdgeInsets.only(top: 40),
-                                padding: EdgeInsets.only(left: 15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  // Background color
-                                  borderRadius: BorderRadius.circular(15),
-                                  // Rounded corners
-                                  border: Border.all(
-                                    color: AppColors.bmiTracker,
-                                    // Border color
-                                    width: 1.5, // Border width
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.primary.withOpacity(0.2),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(
-                                          0, 3), // Changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: TextField(
-                                  controller: creatorNameController,
-                                  onChanged: (value) {},
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: AppColors.bmiTracker),
-                                  decoration: InputDecoration(
-                                      labelText: "Creator name",
-                                      border: InputBorder.none,
-                                      hintText: "John Doe"),
-                                ),
-                              ),
-                              Container(
-                                width: 290,
-                                margin: EdgeInsets.only(top: 40),
-                                padding: EdgeInsets.only(left: 15),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  // Background color
-                                  borderRadius: BorderRadius.circular(15),
-                                  // Rounded corners
-                                  border: Border.all(
-                                    color: AppColors.bmiTracker,
-                                    // Border color
-                                    width: 1.5, // Border width
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.primary.withOpacity(0.2),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(
-                                          0, 3), // Changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: TextField(
-                                  controller: aboutController,
-                                  onChanged: (value) {},
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: AppColors.bmiTracker),
-                                  decoration: InputDecoration(
-                                      labelText: "Description",
-                                      border: InputBorder.none,
-                                      hintText: "This is my first challenge"),
-                                ),
-                              ),
-                              Container(
-                                  margin: EdgeInsets.only(
-                                      top: 30, left: 4, right: 10),
-                                  padding: EdgeInsets.only(left: 15, right: 30),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    // Background color
-                                    borderRadius: BorderRadius.circular(15),
-                                    // Rounded corners
-                                    border: Border.all(
-                                      color: AppColors.bmiTracker,
-                                      // Border color
-                                      width: 1.5, // Border width
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color:
-                                            AppColors.primary.withOpacity(0.2),
-                                        spreadRadius: 5,
-                                        blurRadius: 7,
-                                        offset: Offset(
-                                            0, 3), // Changes position of shadow
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "No of days",
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                      DropdownButton<String>(
-                                        value: state.no_of_days,
-                                        onChanged: (String? newValue) {
-                                          this
-                                              .getCubit(context)
-                                              .setNoOfDays(newValue!);
-                                        },
-                                        items: <String>[
-                                          '1 day',
-                                          '5 days',
-                                          '10 days',
-                                          '15 days',
-                                          '1 month',
-                                          '2 months',
-                                          '3 months',
-                                          '4 months',
-                                          '5 month',
-                                          '6 months',
-                                          '7 months',
-                                          '8 months',
-                                          '9 months',
-                                          '10 months',
-                                          '11 months',
-                                          '12 months',
-                                        ].map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      )
-                                    ],
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(
-                                    top: 30, left: 4, right: 10),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                    color: AppColors.bmiTracker,
-                                    width: 1.5, // Border width
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.primary.withOpacity(0.2),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: Offset(
-                                          0, 3), // Changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(top: 10),
-                                      padding: EdgeInsets.only(left: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 60, left: 0, right: 40),
                                       child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "Challenge type",
-                                            style: TextStyle(fontSize: 14),
+                                            "Create challenge",
+                                            style: TextStyle(
+                                                fontSize: 24,
+                                                fontFamily: Fonts.fontNunito,
+                                                color: AppColors.bmiTracker,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ],
+                                      )),
+                                  Container(
+                                    width: 290,
+                                    margin: EdgeInsets.only(top: 40),
+                                    padding: EdgeInsets.only(left: 15),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      // Background color
+                                      borderRadius: BorderRadius.circular(15),
+                                      // Rounded corners
+                                      border: Border.all(
+                                        color: AppColors.bmiTracker,
+                                        // Border color
+                                        width: 1.5, // Border width
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.primary.withOpacity(
+                                              0.2),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(
+                                              0,
+                                              3), // Changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextField(
+                                      controller: challengeTitleController,
+                                      onChanged: (value) {},
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.bmiTracker),
+                                      decoration: InputDecoration(
+                                          labelText: "Challenge title",
+                                          border: InputBorder.none,
+                                          hintText: "75 days challenge"),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 290,
+                                    margin: EdgeInsets.only(top: 40),
+                                    padding: EdgeInsets.only(left: 15),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      // Background color
+                                      borderRadius: BorderRadius.circular(15),
+                                      // Rounded corners
+                                      border: Border.all(
+                                        color: AppColors.bmiTracker,
+                                        // Border color
+                                        width: 1.5, // Border width
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.primary.withOpacity(
+                                              0.2),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(
+                                              0,
+                                              3), // Changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextField(
+                                      controller: creatorNameController,
+                                      onChanged: (value) {},
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.bmiTracker),
+                                      decoration: InputDecoration(
+                                          labelText: "Creator name",
+                                          border: InputBorder.none,
+                                          hintText: "John Doe"),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 290,
+                                    margin: EdgeInsets.only(top: 40),
+                                    padding: EdgeInsets.only(left: 15),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      // Background color
+                                      borderRadius: BorderRadius.circular(15),
+                                      // Rounded corners
+                                      border: Border.all(
+                                        color: AppColors.bmiTracker,
+                                        // Border color
+                                        width: 1.5, // Border width
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.primary.withOpacity(
+                                              0.2),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(
+                                              0,
+                                              3), // Changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: TextField(
+                                      controller: aboutController,
+                                      onChanged: (value) {},
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.bmiTracker),
+                                      decoration: InputDecoration(
+                                          labelText: "Description",
+                                          border: InputBorder.none,
+                                          hintText: "This is my first challenge"),
+                                    ),
+                                  ),
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                          top: 30, left: 4, right: 10),
+                                      padding: EdgeInsets.only(
+                                          left: 15, right: 30),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        // Background color
+                                        borderRadius: BorderRadius.circular(15),
+                                        // Rounded corners
+                                        border: Border.all(
+                                          color: AppColors.bmiTracker,
+                                          // Border color
+                                          width: 1.5, // Border width
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                            AppColors.primary.withOpacity(0.2),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(
+                                                0,
+                                                3), // Changes position of shadow
                                           ),
                                         ],
                                       ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "No of days",
+                                            style: TextStyle(fontSize: 18),
+                                          ),
+                                          DropdownButton<String>(
+                                            value: state.no_of_days,
+                                            onChanged: (String? newValue) {
+                                              this
+                                                  .getCubit(context)
+                                                  .setNoOfDays(newValue!);
+                                            },
+                                            items: <String>[
+                                              '1 day',
+                                              '5 days',
+                                              '10 days',
+                                              '15 days',
+                                              '1 month',
+                                              '2 months',
+                                              '3 months',
+                                              '4 months',
+                                              '5 month',
+                                              '6 months',
+                                              '7 months',
+                                              '8 months',
+                                              '9 months',
+                                              '10 months',
+                                              '11 months',
+                                              '12 months',
+                                            ].map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<
+                                                      String>(
+                                                    value: value,
+                                                    child: Text(value),
+                                                  );
+                                                }).toList(),
+                                          )
+                                        ],
+                                      )),
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        top: 30, left: 4, right: 10),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                        color: AppColors.bmiTracker,
+                                        width: 1.5, // Border width
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.primary.withOpacity(
+                                              0.2),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(
+                                              0,
+                                              3), // Changes position of shadow
+                                        ),
+                                      ],
                                     ),
-                                    Container(
-                                        margin: EdgeInsets.only(right: 50),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Radio(
-                                              value: 'PUBLIC',
-                                              groupValue: state.privacy,
-                                              onChanged: (value) {
-                                                this
-                                                    .getCubit(context)
-                                                    .setPrivacy('PUBLIC');
-                                              },
-                                            ),
-                                            Text(
-                                              'Public',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: AppColors.bgPrimary2),
-                                            ),
-                                            Radio(
-                                              value: 'PRIVATE',
-                                              groupValue: state.privacy,
-                                              onChanged: (value) {
-                                                this
-                                                    .getCubit(context)
-                                                    .setPrivacy('PRIVATE');
-                                              },
-                                            ),
-                                            Text(
-                                              'Private',
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: AppColors.bgPrimary2),
-                                            ),
-                                          ],
-                                        )),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 30, left: 10),
-                                child: Text("Create tasks"),
-                              ),
-                              Container(
-                                child: Column(
-                                  children: [
-                                    state.no_of_tasks! > 0
-                                        ? Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              // Background color
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              // Rounded corners
-                                              border: Border.all(
-                                                color: AppColors.bmiTracker,
-                                                // Border color
-                                                width: 1.5, // Border width
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppColors.primary
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 5,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0,
-                                                      3), // Changes position of shadow
-                                                ),
-                                              ],
-                                            ),
-                                            width: 290,
-                                            padding: EdgeInsets.only(left: 20),
-                                            margin: EdgeInsets.only(
-                                                top: 40, bottom: 20),
-                                            child: TextField(
-                                              controller: task1Controller,
-                                              onChanged: (value) {},
-                                              decoration: InputDecoration(
-                                                  labelText: "Task 1",
-                                                  border: InputBorder.none),
-                                            ),
-                                          )
-                                        : Container(),
-                                    state.no_of_tasks! > 1
-                                        ? Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              // Background color
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              // Rounded corners
-                                              border: Border.all(
-                                                color: AppColors.bmiTracker,
-                                                // Border color
-                                                width: 1.5, // Border width
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppColors.primary
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 5,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0,
-                                                      3), // Changes position of shadow
-                                                ),
-                                              ],
-                                            ),
-                                            width: 290,
-                                            padding: EdgeInsets.only(left: 20),
-                                            margin: EdgeInsets.only(
-                                                top: 40, bottom: 20),
-                                            child: TextField(
-                                              controller: task2Controller,
-                                              onChanged: (value) {},
-                                              decoration: InputDecoration(
-                                                  labelText: "Task 2",
-                                                  border: InputBorder.none),
-                                            ),
-                                          )
-                                        : Container(),
-                                    state.no_of_tasks! > 2
-                                        ? Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              // Background color
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              // Rounded corners
-                                              border: Border.all(
-                                                color: AppColors.bmiTracker,
-                                                // Border color
-                                                width: 1.5, // Border width
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppColors.primary
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 5,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0,
-                                                      3), // Changes position of shadow
-                                                ),
-                                              ],
-                                            ),
-                                            width: 290,
-                                            padding: EdgeInsets.only(left: 20),
-                                            margin: EdgeInsets.only(
-                                                top: 40, bottom: 20),
-                                            child: TextField(
-                                              controller: task3Controller,
-                                              onChanged: (value) {},
-                                              decoration: InputDecoration(
-                                                  labelText: "Task 3",
-                                                  border: InputBorder.none),
-                                            ),
-                                          )
-                                        : Container(),
-                                    state.no_of_tasks! > 3
-                                        ? Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              // Background color
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              // Rounded corners
-                                              border: Border.all(
-                                                color: AppColors.bmiTracker,
-                                                // Border color
-                                                width: 1.5, // Border width
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppColors.primary
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 5,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0,
-                                                      3), // Changes position of shadow
-                                                ),
-                                              ],
-                                            ),
-                                            width: 290,
-                                            padding: EdgeInsets.only(left: 20),
-                                            margin: EdgeInsets.only(
-                                                top: 40, bottom: 20),
-                                            child: TextField(
-                                              controller: task4Controller,
-                                              onChanged: (value) {},
-                                              decoration: InputDecoration(
-                                                  labelText: "Task 4",
-                                                  border: InputBorder.none),
-                                            ),
-                                          )
-                                        : Container(),
-                                    state.no_of_tasks! > 4
-                                        ? Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              // Background color
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              // Rounded corners
-                                              border: Border.all(
-                                                color: AppColors.bmiTracker,
-                                                // Border color
-                                                width: 1.5, // Border width
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppColors.primary
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 5,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0,
-                                                      3), // Changes position of shadow
-                                                ),
-                                              ],
-                                            ),
-                                            width: 290,
-                                            padding: EdgeInsets.only(left: 20),
-                                            margin: EdgeInsets.only(
-                                                top: 40, bottom: 20),
-                                            child: TextField(
-                                              controller: task5Controller,
-                                              onChanged: (value) {},
-                                              decoration: InputDecoration(
-                                                  labelText: "Task 5",
-                                                  border: InputBorder.none),
-                                            ),
-                                          )
-                                        : Container(),
-                                    state.no_of_tasks! > 5
-                                        ? Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              // Background color
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              // Rounded corners
-                                              border: Border.all(
-                                                color: AppColors.bmiTracker,
-                                                // Border color
-                                                width: 1.5, // Border width
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppColors.primary
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 5,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0,
-                                                      3), // Changes position of shadow
-                                                ),
-                                              ],
-                                            ),
-                                            width: 290,
-                                            padding: EdgeInsets.only(left: 20),
-                                            margin: EdgeInsets.only(
-                                                top: 40, bottom: 20),
-                                            child: TextField(
-                                              controller: task6Controller,
-                                              onChanged: (value) {},
-                                              decoration: InputDecoration(
-                                                  labelText: "Task 6",
-                                                  border: InputBorder.none),
-                                            ),
-                                          )
-                                        : Container(),
-                                    state.no_of_tasks! > 6
-                                        ? Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              // Background color
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              // Rounded corners
-                                              border: Border.all(
-                                                color: AppColors.bmiTracker,
-                                                // Border color
-                                                width: 1.5, // Border width
-                                              ),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: AppColors.primary
-                                                      .withOpacity(0.2),
-                                                  spreadRadius: 5,
-                                                  blurRadius: 7,
-                                                  offset: Offset(0,
-                                                      3), // Changes position of shadow
-                                                ),
-                                              ],
-                                            ),
-                                            width: 290,
-                                            padding: EdgeInsets.only(left: 20),
-                                            margin: EdgeInsets.only(
-                                                top: 40, bottom: 20),
-                                            child: TextField(
-                                              controller: task7Controller,
-                                              onChanged: (value) {},
-                                              decoration: InputDecoration(
-                                                  labelText: "Task 7",
-                                                  border: InputBorder.none),
-                                            ),
-                                          )
-                                        : Container(),
-                                    state.no_of_tasks! < 7
-                                        ? Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(top: 10),
+                                          padding: EdgeInsets.only(left: 20),
+                                          child: Row(
                                             children: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  // Add your button click logic here
-                                                  this
-                                                      .getCubit(context)
-                                                      .increaseTasks(
-                                                          state.no_of_tasks);
-                                                },
-                                                child: Icon(Icons.add),
-                                                // Use the Icons.add for the '+' symbol
-                                                style: ElevatedButton.styleFrom(
-                                                  shape: CircleBorder(),
-                                                  // Make it a circular button
-                                                  padding: EdgeInsets.all(
-                                                      16.0), // Adjust padding as needed
-                                                ),
-                                              )
+                                              Text(
+                                                "Challenge type",
+                                                style: TextStyle(fontSize: 14),
+                                              ),
                                             ],
-                                          )
-                                        : Container(),
-                                    Container(
-                                        margin: EdgeInsets.only(top: 30),
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            createChallenge(
-                                                context,
-                                                state.no_of_days!,
-                                                state.no_of_tasks!,
-                                                state.privacy!);
-                                            getCubit(context)
-                                                .updateChallengesCreated();
-                                            context.push("/home");
-                                            showSnackBar(
-                                                context, 'Challenge created!');
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 80.0,
-                                                vertical: 10.0),
-                                            backgroundColor:
+                                          ),
+                                        ),
+                                        Container(
+                                            margin: EdgeInsets.only(right: 50),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              children: [
+                                                Radio(
+                                                  value: 'PUBLIC',
+                                                  groupValue: state.privacy,
+                                                  onChanged: (value) {
+                                                    this
+                                                        .getCubit(context)
+                                                        .setPrivacy('PUBLIC');
+                                                  },
+                                                ),
+                                                Text(
+                                                  'Public',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: AppColors
+                                                          .bgPrimary2),
+                                                ),
+                                                Radio(
+                                                  value: 'PRIVATE',
+                                                  groupValue: state.privacy,
+                                                  onChanged: (value) {
+                                                    this
+                                                        .getCubit(context)
+                                                        .setPrivacy('PRIVATE');
+                                                  },
+                                                ),
+                                                Text(
+                                                  'Private',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: AppColors
+                                                          .bgPrimary2),
+                                                ),
+                                              ],
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(top: 30, left: 10),
+                                    child: Text("Create tasks"),
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      children: [
+                                        state.no_of_tasks! > 0
+                                            ? Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            // Background color
+                                            borderRadius:
+                                            BorderRadius.circular(15),
+                                            // Rounded corners
+                                            border: Border.all(
+                                              color: AppColors.bmiTracker,
+                                              // Border color
+                                              width: 1.5, // Border width
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.primary
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0,
+                                                    3), // Changes position of shadow
+                                              ),
+                                            ],
+                                          ),
+                                          width: 290,
+                                          padding: EdgeInsets.only(left: 20),
+                                          margin: EdgeInsets.only(
+                                              top: 40, bottom: 20),
+                                          child: TextField(
+                                            controller: task1Controller,
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                                labelText: "Task 1",
+                                                border: InputBorder.none),
+                                          ),
+                                        )
+                                            : Container(),
+                                        state.no_of_tasks! > 1
+                                            ? Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            // Background color
+                                            borderRadius:
+                                            BorderRadius.circular(15),
+                                            // Rounded corners
+                                            border: Border.all(
+                                              color: AppColors.bmiTracker,
+                                              // Border color
+                                              width: 1.5, // Border width
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.primary
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0,
+                                                    3), // Changes position of shadow
+                                              ),
+                                            ],
+                                          ),
+                                          width: 290,
+                                          padding: EdgeInsets.only(left: 20),
+                                          margin: EdgeInsets.only(
+                                              top: 40, bottom: 20),
+                                          child: TextField(
+                                            controller: task2Controller,
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                                labelText: "Task 2",
+                                                border: InputBorder.none),
+                                          ),
+                                        )
+                                            : Container(),
+                                        state.no_of_tasks! > 2
+                                            ? Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            // Background color
+                                            borderRadius:
+                                            BorderRadius.circular(15),
+                                            // Rounded corners
+                                            border: Border.all(
+                                              color: AppColors.bmiTracker,
+                                              // Border color
+                                              width: 1.5, // Border width
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.primary
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0,
+                                                    3), // Changes position of shadow
+                                              ),
+                                            ],
+                                          ),
+                                          width: 290,
+                                          padding: EdgeInsets.only(left: 20),
+                                          margin: EdgeInsets.only(
+                                              top: 40, bottom: 20),
+                                          child: TextField(
+                                            controller: task3Controller,
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                                labelText: "Task 3",
+                                                border: InputBorder.none),
+                                          ),
+                                        )
+                                            : Container(),
+                                        state.no_of_tasks! > 3
+                                            ? Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            // Background color
+                                            borderRadius:
+                                            BorderRadius.circular(15),
+                                            // Rounded corners
+                                            border: Border.all(
+                                              color: AppColors.bmiTracker,
+                                              // Border color
+                                              width: 1.5, // Border width
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.primary
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0,
+                                                    3), // Changes position of shadow
+                                              ),
+                                            ],
+                                          ),
+                                          width: 290,
+                                          padding: EdgeInsets.only(left: 20),
+                                          margin: EdgeInsets.only(
+                                              top: 40, bottom: 20),
+                                          child: TextField(
+                                            controller: task4Controller,
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                                labelText: "Task 4",
+                                                border: InputBorder.none),
+                                          ),
+                                        )
+                                            : Container(),
+                                        state.no_of_tasks! > 4
+                                            ? Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            // Background color
+                                            borderRadius:
+                                            BorderRadius.circular(15),
+                                            // Rounded corners
+                                            border: Border.all(
+                                              color: AppColors.bmiTracker,
+                                              // Border color
+                                              width: 1.5, // Border width
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.primary
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0,
+                                                    3), // Changes position of shadow
+                                              ),
+                                            ],
+                                          ),
+                                          width: 290,
+                                          padding: EdgeInsets.only(left: 20),
+                                          margin: EdgeInsets.only(
+                                              top: 40, bottom: 20),
+                                          child: TextField(
+                                            controller: task5Controller,
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                                labelText: "Task 5",
+                                                border: InputBorder.none),
+                                          ),
+                                        )
+                                            : Container(),
+                                        state.no_of_tasks! > 5
+                                            ? Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            // Background color
+                                            borderRadius:
+                                            BorderRadius.circular(15),
+                                            // Rounded corners
+                                            border: Border.all(
+                                              color: AppColors.bmiTracker,
+                                              // Border color
+                                              width: 1.5, // Border width
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.primary
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0,
+                                                    3), // Changes position of shadow
+                                              ),
+                                            ],
+                                          ),
+                                          width: 290,
+                                          padding: EdgeInsets.only(left: 20),
+                                          margin: EdgeInsets.only(
+                                              top: 40, bottom: 20),
+                                          child: TextField(
+                                            controller: task6Controller,
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                                labelText: "Task 6",
+                                                border: InputBorder.none),
+                                          ),
+                                        )
+                                            : Container(),
+                                        state.no_of_tasks! > 6
+                                            ? Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            // Background color
+                                            borderRadius:
+                                            BorderRadius.circular(15),
+                                            // Rounded corners
+                                            border: Border.all(
+                                              color: AppColors.bmiTracker,
+                                              // Border color
+                                              width: 1.5, // Border width
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: AppColors.primary
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0,
+                                                    3), // Changes position of shadow
+                                              ),
+                                            ],
+                                          ),
+                                          width: 290,
+                                          padding: EdgeInsets.only(left: 20),
+                                          margin: EdgeInsets.only(
+                                              top: 40, bottom: 20),
+                                          child: TextField(
+                                            controller: task7Controller,
+                                            onChanged: (value) {},
+                                            decoration: InputDecoration(
+                                                labelText: "Task 7",
+                                                border: InputBorder.none),
+                                          ),
+                                        )
+                                            : Container(),
+                                        state.no_of_tasks! < 7
+                                            ? Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.end,
+                                          children: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                // Add your button click logic here
+                                                this
+                                                    .getCubit(context)
+                                                    .increaseTasks(
+                                                    state.no_of_tasks);
+                                              },
+                                              child: Icon(Icons.add),
+                                              // Use the Icons.add for the '+' symbol
+                                              style: ElevatedButton.styleFrom(
+                                                shape: CircleBorder(),
+                                                // Make it a circular button
+                                                padding: EdgeInsets.all(
+                                                    16.0), // Adjust padding as needed
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                            : Container(),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 30),
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                createChallenge(
+                                                    context,
+                                                    state.no_of_days!,
+                                                    state.no_of_tasks!,
+                                                    state.privacy!);
+                                                getCubit(context)
+                                                    .updateChallengesCreated();
+                                                context.push("/home");
+                                                showSnackBar(
+                                                    context,
+                                                    'Challenge created!');
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 80.0,
+                                                    vertical: 10.0),
+                                                backgroundColor:
                                                 AppColors.bmiTracker,
-                                          ),
-                                          child: Text(
-                                            'Create challenge',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: Fonts.fontSize20),
-                                          ),
-                                        ))
-                                  ],
-                                ),
+                                              ),
+                                              child: Text(
+                                                'Create challenge',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: Fonts.fontSize20),
+                                              ),
+                                            ))
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        )),
+                            )),
                       ),
                     );
                   },
@@ -732,7 +746,7 @@ class CreateChallengeScreen extends BaseStatelessWidget<
   @override
   CreateChallengeScreenCubit createCubitAndAssignToController(
       BuildContext context) {
-    CreateChallengeScreenCubit cubit = CreateChallengeScreenCubit();
+    CreateChallengeScreenCubit cubit = CreateChallengeScreenCubit(context: context);
     controller?.cubit = cubit;
     return cubit;
   }

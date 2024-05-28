@@ -1,28 +1,23 @@
-import 'dart:math';
-
+import 'package:contend/core/models/common/boolean_status.dart';
 import 'package:contend/core/widgets/base_stateless_widget.dart';
 import 'package:contend/models/challenge.dart';
 import 'package:contend/pages/challenge_screen/challenge_screen_controller.dart';
 import 'package:contend/pages/challenge_screen/challenge_screen_cubit.dart';
-import 'package:contend/pages/home_page/home_page.dart';
 import 'package:contend/services/fire_store.dart';
-import 'package:contend/services/user_provider.dart';
+import 'package:contend/styles/edge_insets.dart';
 import 'package:contend/widgets/checkbox_wid/checkbox_wid_controller.dart';
-import 'package:contend/widgets/checkbox_wid/checkbox_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:contend/widgets/confirm_challenge_complete_modal/confirm_challenge_complete_modal_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../auth/AuthService.dart';
 import '../../core/logger/log.dart';
-import '../../core/widgets/base_screen_widget.dart';
 import '../../themes/app_colors.dart';
 import '../../themes/fonts.dart';
 import '../../widgets/challenge_user_comment_section_modal/challenge_user_comment_section_modal.dart';
+import '../../widgets/confirm_challenge_complete_modal/confirm_challenge_complete_modal.dart';
 
 class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
     ChallengeScreenCubit, ChallengeScreenState> {
@@ -33,6 +28,10 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
   bool isChecked = false;
 
   ChallengeScreen({required this.challengeId, super.key});
+
+  ConfirmChallengeCompleteModalController
+      confirmChallengeCompleteModalController =
+      ConfirmChallengeCompleteModalController();
 
   Future<Challenge?> challenge =
       FireStoreService().getChallengeById('sgganesh@gmail.com');
@@ -57,32 +56,21 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
     print("JOINED:");
   }
 
-  _launchWhatsapp(BuildContext context) async {
-    var whatsapp = "+919347976049";
-    var whatsappAndroid =
-        Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
-    if (await canLaunchUrl(whatsappAndroid)) {
-      await launchUrl(whatsappAndroid);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("WhatsApp is not installed on the device"),
-        ),
-      );
-    }
+  int extractSingleNumber(String input) {
+    RegExp regex = RegExp(r'\d+');
+    String matchedDigits =
+        regex.allMatches(input).map((match) => match.group(0)!).join('');
+    return int.parse(matchedDigits);
   }
 
-  int? extractNumber(String input) {
-    String number = '';
-    for (int i = 0; i < input.length; i++) {
-      if (input[i].contains(RegExp(r'[0-9]'))) {
-        number += input[i];
-      } else {
-        break;
-      }
+  int extractNumber(String input) {
+    RegExp regex = RegExp(r'\d+');
+    String matchedDigits =
+        regex.allMatches(input).map((match) => match.group(0)!).join('');
+    if (input.contains("month")) {
+      return int.parse(matchedDigits * 30);
     }
-    logger.d(number);
-    return int.tryParse(number);
+    return int.parse(matchedDigits);
   }
 
   showAlertDialogForJoinChallenge(BuildContext context) {
@@ -118,6 +106,22 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
     );
   }
 
+  void showSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(
+        message,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16.0,
+        ),
+      ),
+      duration: Duration(seconds: 2),
+    );
+
+    // Show the SnackBar in the context of the Scaffold
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   showAlertDialogForChallengeComplete(BuildContext context) {
     Widget okButton = TextButton(
       child: Text("OK"),
@@ -150,6 +154,64 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                 width: 10,
               ),
               Text("Received 10 coins")
+            ],
+          )
+        ],
+      ),
+      actions: [
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showAlertDialogForWholeChallengeComplete(BuildContext context) {
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        // Navigator.of(context).pop();
+        context.pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text(
+        "Congratulations!",
+        style: TextStyle(color: AppColors.white),
+      ),
+      content: Column(
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.check_circle,
+                color: AppColors.green,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Challenge completed!",
+                style: TextStyle(color: AppColors.white),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Icon(Icons.currency_bitcoin),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Received 100 coins",
+                style: TextStyle(color: AppColors.white),
+              )
             ],
           )
         ],
@@ -524,8 +586,44 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                                                 ),
                                               ],
                                             )),
+                                        ConfirmChallengeCompleteModal(
+                                            controller:
+                                                confirmChallengeCompleteModalController,
+                                            userId: state.userId!,
+                                            challengeId: challengeId!,
+                                            onModalClosed:
+                                                (confirmChallengeCompleteModalData) async {
+                                              if (confirmChallengeCompleteModalData
+                                                      .status ==
+                                                  BooleanStatus.success) {
+                                                await this
+                                                    .getCubit(context)
+                                                    .getNoOfDaysLeft();
+                                                await this
+                                                    .getCubit(context)
+                                                    .getUserDailyChallenges();
+                                                logger.d(state.noOfDaysLeft);
+                                                if (state.noOfDaysLeft == 1) {
+                                                  showAlertDialogForWholeChallengeComplete(
+                                                      context);
+                                                  await fireStoreService
+                                                      .increaseChallengesCompleted(
+                                                          state.userId!);
+                                                  await fireStoreService
+                                                      .updateChallengeNoOfPeopleCompleted(
+                                                          challengeId!);
+                                                  await fireStoreService
+                                                      .updateCoins(
+                                                          state.userId!, 100);
+                                                } else {
+                                                  showAlertDialogForChallengeComplete(
+                                                      context);
+                                                }
+                                              }
+                                            }),
                                         (state.allAcceptedChallengeIdsList!
-                                                .contains(challengeId))
+                                                    .contains(challengeId)) &&
+                                                state.noOfDaysLeft! > 0
                                             ? Container(
                                                 padding: EdgeInsets.only(
                                                     right: 30, top: 40),
@@ -541,27 +639,9 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                                                                   challengeId) ??
                                                           false,
                                                       onChanged: (value) async {
-                                                        await fireStoreService
-                                                            .updateCoins(
-                                                                state.userId!,
-                                                                10);
-                                                        await fireStoreService
-                                                            .addChallengeToDailyChallenges(
-                                                                challengeId!,
-                                                                state.userId!);
-                                                        await FireStoreService()
-                                                            .reduceDaysLeft(
-                                                                state.userId!,
-                                                                challenge
-                                                                    .challengeId);
-                                                        await this
-                                                            .getCubit(context)
-                                                            .getNoOfDaysLeft();
-                                                        await this
-                                                            .getCubit(context)
-                                                            .getUserDailyChallenges();
-                                                        showAlertDialogForChallengeComplete(
-                                                            context);
+                                                        confirmChallengeCompleteModalController
+                                                            .getChildCubit()
+                                                            .openModalManual();
                                                       },
                                                     ),
                                                   ],
@@ -594,11 +674,9 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                                                                   Image.asset(
                                                                 'images/one.png',
                                                                 width: 20,
-                                                                // Set your desired width
                                                                 height: 20,
-                                                                // Set your desired height
                                                                 fit: BoxFit
-                                                                    .cover, // Adjust the fit as needed
+                                                                    .cover,
                                                               ),
                                                             ),
                                                           ),
@@ -607,11 +685,6 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                                                             style: TextStyle(
                                                                 fontSize: 18),
                                                           ),
-                                                          // Checkbox(
-                                                          //   value: isChecked,
-                                                          //   onChanged:
-                                                          //       (bool? value) {},
-                                                          // ),
                                                         ],
                                                       ),
                                                     ),
@@ -890,8 +963,6 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                                   children: [
                                     ElevatedButton(
                                         onPressed: () async {
-                                          // printChallenge();
-                                          // _launchWhatsapp(context);
                                           final String appLink =
                                               'https://play.google.com/store/apps/details?id=com.example.myapp';
                                           final String message =
@@ -923,24 +994,27 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                                           ],
                                         )),
                                     !(state.allAcceptedChallengeIdsList!
-                                            .contains(challengeId))
+                                                .contains(challengeId)) &&
+                                            state.noOfDaysLeft! > 0
                                         ? ElevatedButton(
                                             onPressed: () async {
-                                              int noOfDays = 0;
-                                              int? n = extractNumber(
+                                              int? n = extractSingleNumber(
                                                   challenge.noOfDays);
                                               if (challenge.noOfDays
                                                   .contains("month")) {
-                                                noOfDays = n! * 30;
+                                                n = n * 30;
                                               }
 
                                               this
                                                   .getCubit(context)
                                                   .addToAcceptedChallenges(
-                                                      challengeId!, noOfDays);
+                                                      challengeId!, n);
                                               await this
                                                   .getCubit(context)
                                                   .getNoOfDaysLeft();
+                                              await getCubit(context)
+                                                  .updateNoOfPeopleInChallenge(
+                                                      challengeId!);
                                               await this
                                                   .getCubit(context)
                                                   .getAllAcceptedChallengesIdsList();
@@ -969,12 +1043,23 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                                                 ),
                                               ],
                                             ))
-                                        : Container(
+                                        : Container(),
+                                    state.userId == challenge.userId &&
+                                            state.allAcceptedChallengeIdsList!
+                                                .contains(challengeId) &&
+                                            state.noOfDaysLeft! > 0
+                                        ? Container(
                                             child: ElevatedButton(
                                                 onPressed: () {
                                                   // getCubit(context)
                                                   //     .removeChallengeFromAcceptedChallenges(
                                                   //         challengeId);
+                                                  getCubit(context)
+                                                      .deleteChallenge(
+                                                          challengeId!);
+                                                  showSnackBar(context,
+                                                      'challenge deleted successfully!');
+                                                  context.pop();
                                                 },
                                                 style: ElevatedButton.styleFrom(
                                                   padding: EdgeInsets.symmetric(
@@ -998,7 +1083,18 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                                                     ),
                                                   ],
                                                 )),
-                                          ),
+                                          )
+                                        : Container(),
+                                    state.noOfDaysLeft == 0
+                                        ? Container(
+                                            margin: edge_insets_r_16,
+                                            child: Text("Completed",
+                                                style: TextStyle(
+                                                    color: AppColors.green,
+                                                    fontSize:
+                                                        Fonts.fontSize16)),
+                                          )
+                                        : Container(),
                                   ],
                                 )),
                           ],
@@ -1008,7 +1104,6 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
                   ),
                 );
               } else {
-                // If no data is available, display a message
                 return Text('No challenge data available.');
               }
             },
@@ -1020,7 +1115,8 @@ class ChallengeScreen extends BaseStatelessWidget<ChallengeScreenController,
 
   @override
   ChallengeScreenCubit createCubitAndAssignToController(BuildContext context) {
-    ChallengeScreenCubit cubit = ChallengeScreenCubit(challengeId: challengeId);
+    ChallengeScreenCubit cubit =
+        ChallengeScreenCubit(context: context, challengeId: challengeId);
     controller?.cubit = cubit;
     return cubit;
   }

@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomePageState {
   String? get challenge_filter => throw _privateConstructorUsedError;
+  List<String>? get topChallenges => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
   bool? get isUserExist => throw _privateConstructorUsedError;
@@ -25,17 +26,20 @@ mixin _$HomePageState {
       throw _privateConstructorUsedError;
   String? get searchTerm => throw _privateConstructorUsedError;
   List<String>? get likedChallenges => throw _privateConstructorUsedError;
+  List<Challenge>? get likedChallengeList => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
             String? challenge_filter,
+            List<String>? topChallenges,
             String? userName,
             String? userId,
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
             String? searchTerm,
-            List<String>? likedChallenges)
+            List<String>? likedChallenges,
+            List<Challenge>? likedChallengeList)
         initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -43,13 +47,15 @@ mixin _$HomePageState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
             String? challenge_filter,
+            List<String>? topChallenges,
             String? userName,
             String? userId,
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
             String? searchTerm,
-            List<String>? likedChallenges)?
+            List<String>? likedChallenges,
+            List<Challenge>? likedChallengeList)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -57,13 +63,15 @@ mixin _$HomePageState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String? challenge_filter,
+            List<String>? topChallenges,
             String? userName,
             String? userId,
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
             String? searchTerm,
-            List<String>? likedChallenges)?
+            List<String>? likedChallenges,
+            List<Challenge>? likedChallengeList)?
         initial,
     required TResult orElse(),
   }) =>
@@ -98,13 +106,15 @@ abstract class $HomePageStateCopyWith<$Res> {
   @useResult
   $Res call(
       {String? challenge_filter,
+      List<String>? topChallenges,
       String? userName,
       String? userId,
       bool? isUserExist,
       int? coins,
       List<QueryDocumentSnapshot<Object?>>? challenges,
       String? searchTerm,
-      List<String>? likedChallenges});
+      List<String>? likedChallenges,
+      List<Challenge>? likedChallengeList});
 }
 
 /// @nodoc
@@ -121,6 +131,7 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
   @override
   $Res call({
     Object? challenge_filter = freezed,
+    Object? topChallenges = freezed,
     Object? userName = freezed,
     Object? userId = freezed,
     Object? isUserExist = freezed,
@@ -128,12 +139,17 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     Object? challenges = freezed,
     Object? searchTerm = freezed,
     Object? likedChallenges = freezed,
+    Object? likedChallengeList = freezed,
   }) {
     return _then(_value.copyWith(
       challenge_filter: freezed == challenge_filter
           ? _value.challenge_filter
           : challenge_filter // ignore: cast_nullable_to_non_nullable
               as String?,
+      topChallenges: freezed == topChallenges
+          ? _value.topChallenges
+          : topChallenges // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
@@ -162,6 +178,10 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.likedChallenges
           : likedChallenges // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      likedChallengeList: freezed == likedChallengeList
+          ? _value.likedChallengeList
+          : likedChallengeList // ignore: cast_nullable_to_non_nullable
+              as List<Challenge>?,
     ) as $Val);
   }
 }
@@ -176,13 +196,15 @@ abstract class _$$InitialImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? challenge_filter,
+      List<String>? topChallenges,
       String? userName,
       String? userId,
       bool? isUserExist,
       int? coins,
       List<QueryDocumentSnapshot<Object?>>? challenges,
       String? searchTerm,
-      List<String>? likedChallenges});
+      List<String>? likedChallenges,
+      List<Challenge>? likedChallengeList});
 }
 
 /// @nodoc
@@ -197,6 +219,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? challenge_filter = freezed,
+    Object? topChallenges = freezed,
     Object? userName = freezed,
     Object? userId = freezed,
     Object? isUserExist = freezed,
@@ -204,12 +227,17 @@ class __$$InitialImplCopyWithImpl<$Res>
     Object? challenges = freezed,
     Object? searchTerm = freezed,
     Object? likedChallenges = freezed,
+    Object? likedChallengeList = freezed,
   }) {
     return _then(_$InitialImpl(
       challenge_filter: freezed == challenge_filter
           ? _value.challenge_filter
           : challenge_filter // ignore: cast_nullable_to_non_nullable
               as String?,
+      topChallenges: freezed == topChallenges
+          ? _value._topChallenges
+          : topChallenges // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
@@ -238,6 +266,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value._likedChallenges
           : likedChallenges // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      likedChallengeList: freezed == likedChallengeList
+          ? _value._likedChallengeList
+          : likedChallengeList // ignore: cast_nullable_to_non_nullable
+              as List<Challenge>?,
     ));
   }
 }
@@ -247,18 +279,32 @@ class __$$InitialImplCopyWithImpl<$Res>
 class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {this.challenge_filter,
+      final List<String>? topChallenges,
       this.userName,
       this.userId,
       this.isUserExist,
       this.coins,
       final List<QueryDocumentSnapshot<Object?>>? challenges,
       this.searchTerm,
-      final List<String>? likedChallenges})
-      : _challenges = challenges,
-        _likedChallenges = likedChallenges;
+      final List<String>? likedChallenges,
+      final List<Challenge>? likedChallengeList})
+      : _topChallenges = topChallenges,
+        _challenges = challenges,
+        _likedChallenges = likedChallenges,
+        _likedChallengeList = likedChallengeList;
 
   @override
   final String? challenge_filter;
+  final List<String>? _topChallenges;
+  @override
+  List<String>? get topChallenges {
+    final value = _topChallenges;
+    if (value == null) return null;
+    if (_topChallenges is EqualUnmodifiableListView) return _topChallenges;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? userName;
   @override
@@ -289,9 +335,20 @@ class _$InitialImpl implements _Initial {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Challenge>? _likedChallengeList;
+  @override
+  List<Challenge>? get likedChallengeList {
+    final value = _likedChallengeList;
+    if (value == null) return null;
+    if (_likedChallengeList is EqualUnmodifiableListView)
+      return _likedChallengeList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'HomePageState.initial(challenge_filter: $challenge_filter, userName: $userName, userId: $userId, isUserExist: $isUserExist, coins: $coins, challenges: $challenges, searchTerm: $searchTerm, likedChallenges: $likedChallenges)';
+    return 'HomePageState.initial(challenge_filter: $challenge_filter, topChallenges: $topChallenges, userName: $userName, userId: $userId, isUserExist: $isUserExist, coins: $coins, challenges: $challenges, searchTerm: $searchTerm, likedChallenges: $likedChallenges, likedChallengeList: $likedChallengeList)';
   }
 
   @override
@@ -301,6 +358,8 @@ class _$InitialImpl implements _Initial {
             other is _$InitialImpl &&
             (identical(other.challenge_filter, challenge_filter) ||
                 other.challenge_filter == challenge_filter) &&
+            const DeepCollectionEquality()
+                .equals(other._topChallenges, _topChallenges) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.userId, userId) || other.userId == userId) &&
@@ -312,20 +371,24 @@ class _$InitialImpl implements _Initial {
             (identical(other.searchTerm, searchTerm) ||
                 other.searchTerm == searchTerm) &&
             const DeepCollectionEquality()
-                .equals(other._likedChallenges, _likedChallenges));
+                .equals(other._likedChallenges, _likedChallenges) &&
+            const DeepCollectionEquality()
+                .equals(other._likedChallengeList, _likedChallengeList));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       challenge_filter,
+      const DeepCollectionEquality().hash(_topChallenges),
       userName,
       userId,
       isUserExist,
       coins,
       const DeepCollectionEquality().hash(_challenges),
       searchTerm,
-      const DeepCollectionEquality().hash(_likedChallenges));
+      const DeepCollectionEquality().hash(_likedChallenges),
+      const DeepCollectionEquality().hash(_likedChallengeList));
 
   @JsonKey(ignore: true)
   @override
@@ -338,17 +401,28 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function(
             String? challenge_filter,
+            List<String>? topChallenges,
             String? userName,
             String? userId,
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
             String? searchTerm,
-            List<String>? likedChallenges)
+            List<String>? likedChallenges,
+            List<Challenge>? likedChallengeList)
         initial,
   }) {
-    return initial(challenge_filter, userName, userId, isUserExist, coins,
-        challenges, searchTerm, likedChallenges);
+    return initial(
+        challenge_filter,
+        topChallenges,
+        userName,
+        userId,
+        isUserExist,
+        coins,
+        challenges,
+        searchTerm,
+        likedChallenges,
+        likedChallengeList);
   }
 
   @override
@@ -356,17 +430,28 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
             String? challenge_filter,
+            List<String>? topChallenges,
             String? userName,
             String? userId,
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
             String? searchTerm,
-            List<String>? likedChallenges)?
+            List<String>? likedChallenges,
+            List<Challenge>? likedChallengeList)?
         initial,
   }) {
-    return initial?.call(challenge_filter, userName, userId, isUserExist, coins,
-        challenges, searchTerm, likedChallenges);
+    return initial?.call(
+        challenge_filter,
+        topChallenges,
+        userName,
+        userId,
+        isUserExist,
+        coins,
+        challenges,
+        searchTerm,
+        likedChallenges,
+        likedChallengeList);
   }
 
   @override
@@ -374,19 +459,30 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String? challenge_filter,
+            List<String>? topChallenges,
             String? userName,
             String? userId,
             bool? isUserExist,
             int? coins,
             List<QueryDocumentSnapshot<Object?>>? challenges,
             String? searchTerm,
-            List<String>? likedChallenges)?
+            List<String>? likedChallenges,
+            List<Challenge>? likedChallengeList)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(challenge_filter, userName, userId, isUserExist, coins,
-          challenges, searchTerm, likedChallenges);
+      return initial(
+          challenge_filter,
+          topChallenges,
+          userName,
+          userId,
+          isUserExist,
+          coins,
+          challenges,
+          searchTerm,
+          likedChallenges,
+          likedChallengeList);
     }
     return orElse();
   }
@@ -423,16 +519,20 @@ class _$InitialImpl implements _Initial {
 abstract class _Initial implements HomePageState {
   const factory _Initial(
       {final String? challenge_filter,
+      final List<String>? topChallenges,
       final String? userName,
       final String? userId,
       final bool? isUserExist,
       final int? coins,
       final List<QueryDocumentSnapshot<Object?>>? challenges,
       final String? searchTerm,
-      final List<String>? likedChallenges}) = _$InitialImpl;
+      final List<String>? likedChallenges,
+      final List<Challenge>? likedChallengeList}) = _$InitialImpl;
 
   @override
   String? get challenge_filter;
+  @override
+  List<String>? get topChallenges;
   @override
   String? get userName;
   @override
@@ -447,6 +547,8 @@ abstract class _Initial implements HomePageState {
   String? get searchTerm;
   @override
   List<String>? get likedChallenges;
+  @override
+  List<Challenge>? get likedChallengeList;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>

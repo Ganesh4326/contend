@@ -355,7 +355,7 @@ class AcceptedChallengesScreen extends BaseStatelessWidget<
   @override
   AcceptedChallengesScreenCubit createCubitAndAssignToController(
       BuildContext context) {
-    AcceptedChallengesScreenCubit cubit = AcceptedChallengesScreenCubit();
+    AcceptedChallengesScreenCubit cubit = AcceptedChallengesScreenCubit(context: context);
     controller?.cubit = cubit;
     return cubit;
   }

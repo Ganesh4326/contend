@@ -133,7 +133,7 @@ class SplashScreen extends BaseStatelessWidget<SplashScreenController,
 
   @override
   SplashScreenCubit createCubitAndAssignToController(BuildContext context) {
-    SplashScreenCubit cubit = SplashScreenCubit();
+    SplashScreenCubit cubit = SplashScreenCubit(context);
     controller?.cubit = cubit;
     return cubit;
   }

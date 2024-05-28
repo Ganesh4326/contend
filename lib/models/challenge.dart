@@ -49,11 +49,11 @@ class Challenge {
       creatorName: data['creatorName'] ?? '',
       challengeTitle: data['challengeTitle'] ?? '',
       userId: data['userId'] ?? '',
-      noOfDays: data['noOfDays']?.toString() ?? '', // Ensure 'noOfDays' is a String
-      noOfPeopleCompleted: data['noOfPeopleCompleted'] ?? 0, // Ensure 'noOfPeopleCompleted' is an int
-      noOfTasks: data['noOfTasks'] ?? 0, // Ensure 'noOfTasks' is an int
-      noOfPeopleJoined: data['noOfPeopleJoined'] ?? 0, // Ensure 'noOfPeopleJoined' is an int
-      noOfCoins: data['noOfCoins'] ?? 0, // Ensure 'noOfCoins' is an int
+      noOfDays: data['noOfDays']?.toString() ?? '',
+      noOfPeopleCompleted: data['noOfPeopleCompleted'] ?? 0,
+      noOfTasks: data['noOfTasks'] ?? 0,
+      noOfPeopleJoined: data['noOfPeopleJoined'] ?? 0,
+      noOfCoins: data['noOfCoins'] ?? 0,
       task1: data['task1'] ?? '',
       task2: data['task2'] ?? '',
       task3: data['task3'] ?? '',
@@ -64,7 +64,7 @@ class Challenge {
       privacy: data['privacy'] ?? '',
       noOflikes: data['noOfLikes'] ?? 0,
       about: data['about'] ?? '',
-      noOfshares: data['noOfshares'] ?? 0, // Ensure 'noOfshares' is an int
+      noOfshares: data['noOfshares'] ?? 0,
     );
   }
 

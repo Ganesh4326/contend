@@ -102,8 +102,12 @@ class ManageFriendsScreen extends BaseStatelessWidget<
                                               ],
                                             ),
                                           ),
-                                          !(state.requests!.contains(state
-                                                  .users![index]!['userId']))
+                                          !(state.requests!.contains(
+                                                      state.users![index]![
+                                                          'userId'])) &&
+                                                  !(state.userNames!.contains(
+                                                      state.users![index]![
+                                                          'userId']))
                                               ? InkWell(
                                                   onTap: () {
                                                     getCubit(context).addToList(

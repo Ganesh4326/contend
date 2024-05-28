@@ -21,6 +21,7 @@ import 'package:contend/widgets/users_user_requests_friends/users_user_requests_
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_count_down/timer_count_down.dart';
@@ -127,25 +128,6 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                     // this.getCubit(context).getUserName();
 
                     return MaterialApp(
-                        // routes: {
-                        //   '/splash': (context) => SplashScreen(),
-                        //   '/home': (context) => HomePage(),
-                        //   '/profile': (context) => ProfileScreen(),
-                        //   '/login': (context) => LoginScreen(),
-                        //   '/signup': (context) => SignupScreen(),
-                        //   '/test': (context) => TestScreen(),
-                        //   '/mychallenges': (context) => MyChallengesScreen(),
-                        //   '/createchallenge': (context) =>
-                        //       CreateChallengeScreen(),
-                        //   '/accepted': (context) => AcceptedChallengesScreen(),
-                        //   '/orders': (context) => CreateOrderScreen(),
-                        //   '/analytics': (context) =>
-                        //       ChallengesAnalyticsScreen(),
-                        //   '/requests': (context) =>
-                        //       ManageFriendRequestsScreen(),
-                        //   '/myfriends': (context) => UsersFriendsScreen(),
-                        //   '/managefriends': (context) => ManageFriendsScreen(),
-                        // },
                         home: Directionality(
                             textDirection: TextDirection.ltr,
                             child: Builder(
@@ -156,25 +138,37 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                                         top: 20, right: 10, left: 10),
                                     height: 90,
                                     child: Row(
-                                      // mainAxisAlignment:
-                                      //     MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Container(
-                                          margin: EdgeInsets.only(right: 30),
-                                          child: Image.asset(
-                                            "images/contend-logo.png",
-                                            width: 40,
-                                            height: 40,
-                                          ),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 30),
+                                              child: Image.asset(
+                                                "images/contend-logo.png",
+                                                width: 40,
+                                                height: 40,
+                                              ),
+                                            ),
+                                            Container(
+                                                margin: edge_insets_r_4,
+                                                child: Text("${state.coins}")),
+                                            Image.asset(
+                                              "images/coin.png",
+                                              width: 20,
+                                              height: 20,
+                                            ),
+                                          ],
                                         ),
                                         Container(
-                                            margin: edge_insets_r_4,
-                                            child: Text("${state.coins}")),
-                                        Image.asset(
-                                          "images/coin.png",
-                                          width: 20,
-                                          height: 20,
-                                        ),
+                                          child: InkWell(
+                                              onTap: () {
+                                                context.push("/notifications");
+                                              },
+                                              child: Icon(Icons.notifications)),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -234,6 +228,14 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                                                 context.push('/myfriends');
                                               },
                                               child: Text("My Friends")),
+                                        ),
+                                        PopupMenuItem<String>(
+                                          value: 'option3',
+                                          child: InkWell(
+                                              onTap: () {
+                                                context.push('/help');
+                                              },
+                                              child: Text("Help")),
                                         ),
                                       ],
                                     ),
@@ -337,140 +339,140 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                                             ],
                                           ),
                                         ),
-                                        // Container(
-                                        //   padding: edge_insets_x_16,
-                                        //   margin: edge_insets_t_32,
-                                        //   child: Row(
-                                        //     mainAxisAlignment:
-                                        //         MainAxisAlignment.spaceBetween,
-                                        //     children: [
-                                        //       InkWell(
-                                        //           child: Container(
-                                        //             decoration: BoxDecoration(
-                                        //                 border: state
-                                        //                             .challenge_filter ==
-                                        //                         "ALL"
-                                        //                     ? borders
-                                        //                         .bb_1px_primary
-                                        //                     : borders
-                                        //                         .bb_1px_white),
-                                        //             child: Text(
-                                        //               'All',
-                                        //               style: TextStyle(
-                                        //                 color:
-                                        //                     state.challenge_filter ==
-                                        //                             "ALL"
-                                        //                         ? AppColors
-                                        //                             .primary
-                                        //                         : AppColors
-                                        //                             .grey1,
-                                        //                 fontSize:
-                                        //                     Fonts.fontSize18,
-                                        //               ),
-                                        //             ),
-                                        //           ),
-                                        //           onTap: () {
-                                        //             this
-                                        //                 .getCubit(context)
-                                        //                 .changeChallengeFilter(
-                                        //                     'ALL');
-                                        //           }),
-                                        //       InkWell(
-                                        //           child: Container(
-                                        //             decoration: BoxDecoration(
-                                        //                 border: state
-                                        //                             .challenge_filter ==
-                                        //                         "TODAY"
-                                        //                     ? borders
-                                        //                         .bb_1px_primary
-                                        //                     : borders
-                                        //                         .bb_1px_white),
-                                        //             child: Text(
-                                        //               'Today',
-                                        //               style: TextStyle(
-                                        //                 color:
-                                        //                     state.challenge_filter ==
-                                        //                             "TODAY"
-                                        //                         ? AppColors
-                                        //                             .primary
-                                        //                         : AppColors
-                                        //                             .grey1,
-                                        //                 fontSize:
-                                        //                     Fonts.fontSize18,
-                                        //               ),
-                                        //             ),
-                                        //           ),
-                                        //           onTap: () {
-                                        //             this
-                                        //                 .getCubit(context)
-                                        //                 .changeChallengeFilter(
-                                        //                     'TODAY');
-                                        //           }),
-                                        //       InkWell(
-                                        //           child: Container(
-                                        //             decoration: BoxDecoration(
-                                        //                 border: state
-                                        //                             .challenge_filter ==
-                                        //                         "TOP"
-                                        //                     ? borders
-                                        //                         .bb_1px_primary
-                                        //                     : borders
-                                        //                         .bb_1px_white),
-                                        //             child: Text(
-                                        //               'Top',
-                                        //               style: TextStyle(
-                                        //                 color:
-                                        //                     state.challenge_filter ==
-                                        //                             "TOP"
-                                        //                         ? AppColors
-                                        //                             .primary
-                                        //                         : AppColors
-                                        //                             .grey1,
-                                        //                 fontSize:
-                                        //                     Fonts.fontSize18,
-                                        //               ),
-                                        //             ),
-                                        //           ),
-                                        //           onTap: () {
-                                        //             this
-                                        //                 .getCubit(context)
-                                        //                 .changeChallengeFilter(
-                                        //                     'TOP');
-                                        //           }),
-                                        //       InkWell(
-                                        //           child: Container(
-                                        //             decoration: BoxDecoration(
-                                        //                 border: state
-                                        //                             .challenge_filter ==
-                                        //                         "FAVOURITE"
-                                        //                     ? borders
-                                        //                         .bb_1px_primary
-                                        //                     : borders
-                                        //                         .bb_1px_white),
-                                        //             child: Text(
-                                        //               'Favourite',
-                                        //               style: TextStyle(
-                                        //                 color:
-                                        //                     state.challenge_filter ==
-                                        //                             "FAVOURITE"
-                                        //                         ? AppColors
-                                        //                             .primary
-                                        //                         : AppColors
-                                        //                             .grey1,
-                                        //                 fontSize:
-                                        //                     Fonts.fontSize18,
-                                        //               ),
-                                        //             ),
-                                        //           ),
-                                        //           onTap: () {
-                                        //             this
-                                        //                 .getCubit(context)
-                                        //                 .changeChallengeFilter(
-                                        //                     'FAVOURITE');
-                                        //           }),
-                                        //     ],
-                                        //   ),
-                                        // ),
+                                        Container(
+                                          padding: edge_insets_x_16,
+                                          margin: edge_insets_t_32,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              InkWell(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        border: state
+                                                                    .challenge_filter ==
+                                                                "ALL"
+                                                            ? borders
+                                                                .bb_1px_primary
+                                                            : borders
+                                                                .bb_1px_white),
+                                                    child: Text(
+                                                      'All',
+                                                      style: TextStyle(
+                                                        color:
+                                                            state.challenge_filter ==
+                                                                    "ALL"
+                                                                ? AppColors
+                                                                    .primary
+                                                                : AppColors
+                                                                    .grey1,
+                                                        fontSize:
+                                                            Fonts.fontSize18,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    this
+                                                        .getCubit(context)
+                                                        .changeChallengeFilter(
+                                                            'ALL');
+                                                  }),
+                                              // InkWell(
+                                              //     child: Container(
+                                              //       decoration: BoxDecoration(
+                                              //           border: state
+                                              //                       .challenge_filter ==
+                                              //                   "TODAY"
+                                              //               ? borders
+                                              //                   .bb_1px_primary
+                                              //               : borders
+                                              //                   .bb_1px_white),
+                                              //       child: Text(
+                                              //         'Today',
+                                              //         style: TextStyle(
+                                              //           color:
+                                              //               state.challenge_filter ==
+                                              //                       "TODAY"
+                                              //                   ? AppColors
+                                              //                       .primary
+                                              //                   : AppColors
+                                              //                       .grey1,
+                                              //           fontSize:
+                                              //               Fonts.fontSize18,
+                                              //         ),
+                                              //       ),
+                                              //     ),
+                                              //     onTap: () {
+                                              //       this
+                                              //           .getCubit(context)
+                                              //           .changeChallengeFilter(
+                                              //               'TODAY');
+                                              //     }),
+                                              InkWell(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        border: state
+                                                                    .challenge_filter ==
+                                                                "TOP"
+                                                            ? borders
+                                                                .bb_1px_primary
+                                                            : borders
+                                                                .bb_1px_white),
+                                                    child: Text(
+                                                      'Top',
+                                                      style: TextStyle(
+                                                        color:
+                                                            state.challenge_filter ==
+                                                                    "TOP"
+                                                                ? AppColors
+                                                                    .primary
+                                                                : AppColors
+                                                                    .grey1,
+                                                        fontSize:
+                                                            Fonts.fontSize18,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    this
+                                                        .getCubit(context)
+                                                        .changeChallengeFilter(
+                                                            'TOP');
+                                                  }),
+                                              InkWell(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        border: state
+                                                                    .challenge_filter ==
+                                                                "FAVOURITE"
+                                                            ? borders
+                                                                .bb_1px_primary
+                                                            : borders
+                                                                .bb_1px_white),
+                                                    child: Text(
+                                                      'Favourite',
+                                                      style: TextStyle(
+                                                        color:
+                                                            state.challenge_filter ==
+                                                                    "FAVOURITE"
+                                                                ? AppColors
+                                                                    .primary
+                                                                : AppColors
+                                                                    .grey1,
+                                                        fontSize:
+                                                            Fonts.fontSize18,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    this
+                                                        .getCubit(context)
+                                                        .changeChallengeFilter(
+                                                            'FAVOURITE');
+                                                  }),
+                                            ],
+                                          ),
+                                        ),
                                         StreamBuilder<QuerySnapshot>(
                                           stream: fireStoreService
                                               .getChallengesStream(),
@@ -485,7 +487,6 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                                               return CircularProgressIndicator();
                                             }
 
-                                            // Extract the list of challenges from the snapshot
                                             List<QueryDocumentSnapshot>
                                                 challenges =
                                                 snapshot.data!.docs;
@@ -508,193 +509,493 @@ class HomePage extends BaseStatelessWidget<HomePageController, HomePageCubit,
                                                               as Map<String,
                                                                   dynamic>;
 
-                                                      return challengeData[
-                                                                      'privacy'] ==
-                                                                  'PUBLIC' &&
-                                                              challengeData[
-                                                                      'challengeTitle']
-                                                                  .toString()
-                                                                  .toLowerCase()
-                                                                  .contains(state
-                                                                      .searchTerm!
-                                                                      .toLowerCase())
-                                                          ? GestureDetector(
-                                                              onTap: () {
-                                                                // // Navigator.push(
-                                                                // //   context,
-                                                                // //   MaterialPageRoute(
-                                                                // //       builder:
-                                                                // //           (context) =>
-                                                                // //               ChallengeScreen(
-                                                                // //                 challengeId: challengeData['challengeId'],
-                                                                // //               )),
-                                                                // );
-                                                                context.push(
-                                                                    "/challengedetails/${challengeData['challengeId']}");
-                                                              },
-                                                              child: Container(
-                                                                  margin:
-                                                                      edge_insets_t_32,
-                                                                  padding: const EdgeInsets
-                                                                      .only(
-                                                                      top: 20,
-                                                                      right: 20,
-                                                                      left: 20,
-                                                                      bottom:
-                                                                          5),
-                                                                  decoration: BoxDecoration(
-                                                                      gradient: LinearGradient(
-                                                                          colors: [
-                                                                            AppColors.bmiTracker.withOpacity(0.9),
-                                                                            AppColors.bmiTracker.withOpacity(0.3)
-                                                                          ],
-                                                                          begin: Alignment
-                                                                              .bottomLeft,
-                                                                          end: Alignment
-                                                                              .topRight),
-                                                                      borderRadius: BorderRadius.only(
-                                                                          bottomLeft: Radius.circular(
-                                                                              10),
-                                                                          bottomRight: Radius.circular(
-                                                                              10),
-                                                                          topRight: Radius.circular(
-                                                                              50),
-                                                                          topLeft:
-                                                                              Radius.circular(10)),
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                            offset: Offset(
-                                                                                10, 10),
-                                                                            blurRadius:
-                                                                                20,
-                                                                            color:
-                                                                                AppColors.bmiTracker.withOpacity(0.4))
-                                                                      ]),
-                                                                  child: Column(
-                                                                    children: [
-                                                                      Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Row(
-                                                                            children: [
-// Icon(Icons.title, color: Colors.white,),
-                                                                              Text(
-                                                                                '${challengeData['challengeTitle']}',
-                                                                                style: TextStyle(fontSize: Fonts.fontSize22, color: Colors.white),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Container(
-                                                                            child:
-                                                                                Row(
-                                                                              children: [
-                                                                                Container(
-                                                                                    padding: edge_insets_5,
-                                                                                    decoration: BoxDecoration(color: AppColors.grey2, borderRadius: borderRadius.br_100, border: borders.b_1px_green),
-                                                                                    margin: edge_insets_l_4,
-                                                                                    child: Text(
-                                                                                      '${challengeData['noOfDays']}',
-                                                                                      style: TextStyle(fontSize: Fonts.fontSize14, color: Colors.black),
-                                                                                    ))
-                                                                              ],
-                                                                            ),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                      Container(
-                                                                        padding:
-                                                                            edge_insets_t_12,
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          children: [
-                                                                            Icon(
-                                                                              Icons.person,
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                            Container(
-                                                                              margin: edge_insets_l_5,
-                                                                              child: Text(
-                                                                                '${challengeData['creatorName']}',
-                                                                                style: TextStyle(fontSize: Fonts.fontSize18, color: Colors.white),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Container(
+                                                      if (state
+                                                              .challenge_filter ==
+                                                          'ALL') {
+                                                        return challengeData[
+                                                                        'privacy'] ==
+                                                                    'PUBLIC' &&
+                                                                challengeData[
+                                                                        'challengeTitle']
+                                                                    .toString()
+                                                                    .toLowerCase()
+                                                                    .contains(state
+                                                                        .searchTerm!
+                                                                        .toLowerCase())
+                                                            ? GestureDetector(
+                                                                onTap: () {
+                                                                  context.push(
+                                                                      "/challengedetails/${challengeData['challengeId']}");
+                                                                },
+                                                                child:
+                                                                    Container(
                                                                         margin:
-                                                                            edge_insets_t_24,
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
+                                                                            edge_insets_t_32,
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            top:
+                                                                                20,
+                                                                            right:
+                                                                                20,
+                                                                            left:
+                                                                                20,
+                                                                            bottom:
+                                                                                5),
+                                                                        decoration: BoxDecoration(
+                                                                            gradient:
+                                                                                LinearGradient(colors: [
+                                                                              AppColors.bmiTracker.withOpacity(0.9),
+                                                                              AppColors.bmiTracker.withOpacity(0.3)
+                                                                            ], begin: Alignment.bottomLeft, end: Alignment.topRight),
+                                                                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10), topRight: Radius.circular(50), topLeft: Radius.circular(10)),
+                                                                            boxShadow: [
+                                                                              BoxShadow(offset: Offset(10, 10), blurRadius: 20, color: AppColors.bmiTracker.withOpacity(0.4))
+                                                                            ]),
+                                                                        child: Column(
                                                                           children: [
                                                                             Row(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                               children: [
-                                                                                Icon(
-                                                                                  Icons.timelapse_sharp,
-                                                                                  color: Colors.white,
+                                                                                Row(
+                                                                                  children: [
+// Icon(Icons.title, color: Colors.white,),
+                                                                                    Text(
+                                                                                      '${challengeData['challengeTitle']}',
+                                                                                      style: TextStyle(fontSize: Fonts.fontSize22, color: Colors.white),
+                                                                                    ),
+                                                                                  ],
                                                                                 ),
                                                                                 Container(
-                                                                                  margin: edge_insets_l_5,
-                                                                                  child: Text(
-                                                                                    '2 weeks ago',
-                                                                                    style: TextStyle(color: Colors.white, fontSize: Fonts.fontSize12),
+                                                                                  child: Row(
+                                                                                    children: [
+                                                                                      Container(
+                                                                                          padding: edge_insets_5,
+                                                                                          decoration: BoxDecoration(color: AppColors.grey2, borderRadius: borderRadius.br_100, border: borders.b_1px_green),
+                                                                                          margin: edge_insets_l_4,
+                                                                                          child: Text(
+                                                                                            '${challengeData['noOfDays']}',
+                                                                                            style: TextStyle(fontSize: Fonts.fontSize14, color: Colors.black),
+                                                                                          ))
+                                                                                    ],
                                                                                   ),
                                                                                 )
                                                                               ],
                                                                             ),
-                                                                            Row(
-                                                                              children: [
-                                                                                challengeData['userId'] != state.userId
-                                                                                    ? state.likedChallenges != null && state.likedChallenges!.isNotEmpty && state.likedChallenges!.contains(challengeData['challengeId'])
-                                                                                        ? InkWell(
-                                                                                            onTap: () {
-                                                                                              getCubit(context).removeFromLikedChallenges(challengeData['challengeId']);
-                                                                                              getCubit(context).getUserLikedChallenges();
-                                                                                            },
-                                                                                            child: ClipOval(
-                                                                                              child: Icon(
-                                                                                                Icons.thumb_up_alt_rounded,
-                                                                                                color: AppColors.bmiTracker,
+                                                                            Container(
+                                                                              padding: edge_insets_t_12,
+                                                                              child: Row(
+                                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                                children: [
+                                                                                  Icon(
+                                                                                    Icons.person,
+                                                                                    color: Colors.white,
+                                                                                  ),
+                                                                                  Container(
+                                                                                    margin: edge_insets_l_5,
+                                                                                    child: Text(
+                                                                                      '${challengeData['creatorName']}',
+                                                                                      style: TextStyle(fontSize: Fonts.fontSize18, color: Colors.white),
+                                                                                    ),
+                                                                                  )
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                            Container(
+                                                                              margin: edge_insets_t_24,
+                                                                              child: Row(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                children: [
+                                                                                  Row(
+                                                                                    children: [
+                                                                                      Icon(
+                                                                                        Icons.timelapse_sharp,
+                                                                                        color: Colors.white,
+                                                                                      ),
+                                                                                      Container(
+                                                                                        margin: edge_insets_l_5,
+                                                                                        child: Text(
+                                                                                          '2 weeks ago',
+                                                                                          style: TextStyle(color: Colors.white, fontSize: Fonts.fontSize12),
+                                                                                        ),
+                                                                                      )
+                                                                                    ],
+                                                                                  ),
+                                                                                  Row(
+                                                                                    children: [
+                                                                                      challengeData['userId'] != state.userId
+                                                                                          ? state.likedChallenges != null && state.likedChallenges!.isNotEmpty && state.likedChallenges!.contains(challengeData['challengeId'])
+                                                                                              ? InkWell(
+                                                                                                  onTap: () {
+                                                                                                    getCubit(context).removeFromLikedChallenges(challengeData['challengeId']);
+                                                                                                    getCubit(context).getUserLikedChallenges();
+                                                                                                  },
+                                                                                                  child: ClipOval(
+                                                                                                    child: Icon(
+                                                                                                      Icons.thumb_up_alt_rounded,
+                                                                                                      color: AppColors.bmiTracker,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                )
+                                                                                              : InkWell(
+                                                                                                  onTap: () {
+                                                                                                    getCubit(context).addToLikedChallenges(challengeData['challengeId']);
+                                                                                                    getCubit(context).getUserLikedChallenges();
+                                                                                                  },
+                                                                                                  child: ClipOval(
+                                                                                                    child: Icon(Icons.thumb_up_alt_outlined),
+                                                                                                  ),
+                                                                                                )
+                                                                                          : Container(
+                                                                                              child: Text(
+                                                                                                "You",
+                                                                                                style: TextStyle(color: Colors.grey),
                                                                                               ),
                                                                                             ),
-                                                                                          )
-                                                                                        : InkWell(
-                                                                                            onTap: () {
-                                                                                              getCubit(context).addToLikedChallenges(challengeData['challengeId']);
-                                                                                              getCubit(context).getUserLikedChallenges();
-                                                                                            },
-                                                                                            child: ClipOval(
-                                                                                              child: Icon(Icons.thumb_up_alt_outlined),
+                                                                                      IconButton(
+                                                                                        onPressed: () => {},
+                                                                                        style: IconButton.styleFrom(padding: edge_insets_0),
+                                                                                        icon: const Icon(
+                                                                                          Icons.share,
+                                                                                          color: Colors.white,
+                                                                                        ),
+                                                                                      )
+                                                                                    ],
+                                                                                  )
+                                                                                ],
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        )),
+                                                              )
+                                                            : Container();
+                                                      } else if (state
+                                                              .challenge_filter ==
+                                                          'FAVOURITE') {
+                                                        return state
+                                                                .likedChallenges!
+                                                                .contains(
+                                                                    challengeData[
+                                                                        'challengeId'])
+                                                            ? challengeData['privacy'] ==
+                                                                        'PUBLIC' &&
+                                                                    challengeData[
+                                                                            'challengeTitle']
+                                                                        .toString()
+                                                                        .toLowerCase()
+                                                                        .contains(state
+                                                                            .searchTerm!
+                                                                            .toLowerCase())
+                                                                ? GestureDetector(
+                                                                    onTap: () {
+                                                                      context.push(
+                                                                          "/challengedetails/${challengeData['challengeId']}");
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                            margin:
+                                                                                edge_insets_t_32,
+                                                                            padding: const EdgeInsets.only(
+                                                                                top:
+                                                                                    20,
+                                                                                right:
+                                                                                    20,
+                                                                                left:
+                                                                                    20,
+                                                                                bottom:
+                                                                                    5),
+                                                                            decoration: BoxDecoration(
+                                                                                gradient: LinearGradient(colors: [
+                                                                                  AppColors.bmiTracker.withOpacity(0.9),
+                                                                                  AppColors.bmiTracker.withOpacity(0.3)
+                                                                                ], begin: Alignment.bottomLeft, end: Alignment.topRight),
+                                                                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10), topRight: Radius.circular(50), topLeft: Radius.circular(10)),
+                                                                                boxShadow: [
+                                                                                  BoxShadow(offset: Offset(10, 10), blurRadius: 20, color: AppColors.bmiTracker.withOpacity(0.4))
+                                                                                ]),
+                                                                            child: Column(
+                                                                              children: [
+                                                                                Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      children: [
+// Icon(Icons.title, color: Colors.white,),
+                                                                                        Text(
+                                                                                          '${challengeData['challengeTitle']}',
+                                                                                          style: TextStyle(fontSize: Fonts.fontSize22, color: Colors.white),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    Container(
+                                                                                      child: Row(
+                                                                                        children: [
+                                                                                          Container(
+                                                                                              padding: edge_insets_5,
+                                                                                              decoration: BoxDecoration(color: AppColors.grey2, borderRadius: borderRadius.br_100, border: borders.b_1px_green),
+                                                                                              margin: edge_insets_l_4,
+                                                                                              child: Text(
+                                                                                                '${challengeData['noOfDays']}',
+                                                                                                style: TextStyle(fontSize: Fonts.fontSize14, color: Colors.black),
+                                                                                              ))
+                                                                                        ],
+                                                                                      ),
+                                                                                    )
+                                                                                  ],
+                                                                                ),
+                                                                                Container(
+                                                                                  padding: edge_insets_t_12,
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    children: [
+                                                                                      Icon(
+                                                                                        Icons.person,
+                                                                                        color: Colors.white,
+                                                                                      ),
+                                                                                      Container(
+                                                                                        margin: edge_insets_l_5,
+                                                                                        child: Text(
+                                                                                          '${challengeData['creatorName']}',
+                                                                                          style: TextStyle(fontSize: Fonts.fontSize18, color: Colors.white),
+                                                                                        ),
+                                                                                      )
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                                Container(
+                                                                                  margin: edge_insets_t_24,
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      Row(
+                                                                                        children: [
+                                                                                          Icon(
+                                                                                            Icons.timelapse_sharp,
+                                                                                            color: Colors.white,
+                                                                                          ),
+                                                                                          Container(
+                                                                                            margin: edge_insets_l_5,
+                                                                                            child: Text(
+                                                                                              '2 weeks ago',
+                                                                                              style: TextStyle(color: Colors.white, fontSize: Fonts.fontSize12),
                                                                                             ),
                                                                                           )
-                                                                                    : Container(
-                                                                                        child: Text(
-                                                                                          "You",
-                                                                                          style: TextStyle(color: Colors.grey),
-                                                                                        ),
+                                                                                        ],
                                                                                       ),
-                                                                                IconButton(
-                                                                                  onPressed: () => {},
-                                                                                  style: IconButton.styleFrom(padding: edge_insets_0),
-                                                                                  icon: const Icon(
-                                                                                    Icons.share,
-                                                                                    color: Colors.white,
+                                                                                      Row(
+                                                                                        children: [
+                                                                                          challengeData['userId'] != state.userId
+                                                                                              ? state.likedChallenges != null && state.likedChallenges!.isNotEmpty && state.likedChallenges!.contains(challengeData['challengeId'])
+                                                                                                  ? InkWell(
+                                                                                                      onTap: () {
+                                                                                                        getCubit(context).removeFromLikedChallenges(challengeData['challengeId']);
+                                                                                                        getCubit(context).getUserLikedChallenges();
+                                                                                                      },
+                                                                                                      child: ClipOval(
+                                                                                                        child: Icon(
+                                                                                                          Icons.thumb_up_alt_rounded,
+                                                                                                          color: AppColors.bmiTracker,
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    )
+                                                                                                  : InkWell(
+                                                                                                      onTap: () {
+                                                                                                        getCubit(context).addToLikedChallenges(challengeData['challengeId']);
+                                                                                                        getCubit(context).getUserLikedChallenges();
+                                                                                                      },
+                                                                                                      child: ClipOval(
+                                                                                                        child: Icon(Icons.thumb_up_alt_outlined),
+                                                                                                      ),
+                                                                                                    )
+                                                                                              : Container(
+                                                                                                  child: Text(
+                                                                                                    "You",
+                                                                                                    style: TextStyle(color: Colors.grey),
+                                                                                                  ),
+                                                                                                ),
+                                                                                          IconButton(
+                                                                                            onPressed: () async {
+                                                                                              final String appLink = 'https://play.google.com/store/apps/details?id=com.example.myapp';
+                                                                                              final String message = 'Check out my new app: $appLink';
+
+                                                                                              await FlutterShare.share(title: 'Share App', text: message, linkUrl: appLink);
+                                                                                            },
+                                                                                            style: IconButton.styleFrom(padding: edge_insets_0),
+                                                                                            icon: const Icon(
+                                                                                              Icons.share,
+                                                                                              color: Colors.white,
+                                                                                            ),
+                                                                                          )
+                                                                                        ],
+                                                                                      )
+                                                                                    ],
                                                                                   ),
                                                                                 )
                                                                               ],
-                                                                            )
-                                                                          ],
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  )),
-                                                            )
-                                                          : Container();
+                                                                            )),
+                                                                  )
+                                                                : Container()
+                                                            : Container();
+                                                      } else if (state
+                                                              .challenge_filter ==
+                                                          'TOP') {
+                                                        return challengeData[
+                                                                    'noOfPeopleJoined'] >=
+                                                                3
+                                                            ? challengeData['privacy'] ==
+                                                                        'PUBLIC' &&
+                                                                    challengeData[
+                                                                            'challengeTitle']
+                                                                        .toString()
+                                                                        .toLowerCase()
+                                                                        .contains(state
+                                                                            .searchTerm!
+                                                                            .toLowerCase())
+                                                                ? GestureDetector(
+                                                                    onTap: () {
+                                                                      context.push(
+                                                                          "/challengedetails/${challengeData['challengeId']}");
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                            margin:
+                                                                                edge_insets_t_32,
+                                                                            padding: const EdgeInsets.only(
+                                                                                top:
+                                                                                    20,
+                                                                                right:
+                                                                                    20,
+                                                                                left:
+                                                                                    20,
+                                                                                bottom:
+                                                                                    5),
+                                                                            decoration: BoxDecoration(
+                                                                                gradient: LinearGradient(colors: [
+                                                                                  AppColors.bmiTracker.withOpacity(0.9),
+                                                                                  AppColors.bmiTracker.withOpacity(0.3)
+                                                                                ], begin: Alignment.bottomLeft, end: Alignment.topRight),
+                                                                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10), topRight: Radius.circular(50), topLeft: Radius.circular(10)),
+                                                                                boxShadow: [
+                                                                                  BoxShadow(offset: Offset(10, 10), blurRadius: 20, color: AppColors.bmiTracker.withOpacity(0.4))
+                                                                                ]),
+                                                                            child: Column(
+                                                                              children: [
+                                                                                Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      children: [
+// Icon(Icons.title, color: Colors.white,),
+                                                                                        Text(
+                                                                                          '${challengeData['challengeTitle']}',
+                                                                                          style: TextStyle(fontSize: Fonts.fontSize22, color: Colors.white),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                    Container(
+                                                                                      child: Row(
+                                                                                        children: [
+                                                                                          Container(
+                                                                                              padding: edge_insets_5,
+                                                                                              decoration: BoxDecoration(color: AppColors.grey2, borderRadius: borderRadius.br_100, border: borders.b_1px_green),
+                                                                                              margin: edge_insets_l_4,
+                                                                                              child: Text(
+                                                                                                '${challengeData['noOfDays']}',
+                                                                                                style: TextStyle(fontSize: Fonts.fontSize14, color: Colors.black),
+                                                                                              ))
+                                                                                        ],
+                                                                                      ),
+                                                                                    )
+                                                                                  ],
+                                                                                ),
+                                                                                Container(
+                                                                                  padding: edge_insets_t_12,
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    children: [
+                                                                                      Icon(
+                                                                                        Icons.person,
+                                                                                        color: Colors.white,
+                                                                                      ),
+                                                                                      Container(
+                                                                                        margin: edge_insets_l_5,
+                                                                                        child: Text(
+                                                                                          '${challengeData['creatorName']}',
+                                                                                          style: TextStyle(fontSize: Fonts.fontSize18, color: Colors.white),
+                                                                                        ),
+                                                                                      )
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                                Container(
+                                                                                  margin: edge_insets_t_24,
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      Row(
+                                                                                        children: [
+                                                                                          Icon(
+                                                                                            Icons.timelapse_sharp,
+                                                                                            color: Colors.white,
+                                                                                          ),
+                                                                                          Container(
+                                                                                            margin: edge_insets_l_5,
+                                                                                            child: Text(
+                                                                                              '2 weeks ago',
+                                                                                              style: TextStyle(color: Colors.white, fontSize: Fonts.fontSize12),
+                                                                                            ),
+                                                                                          )
+                                                                                        ],
+                                                                                      ),
+                                                                                      Row(
+                                                                                        children: [
+                                                                                          challengeData['userId'] != state.userId
+                                                                                              ? state.likedChallenges != null && state.likedChallenges!.isNotEmpty && state.likedChallenges!.contains(challengeData['challengeId'])
+                                                                                                  ? InkWell(
+                                                                                                      onTap: () {
+                                                                                                        getCubit(context).removeFromLikedChallenges(challengeData['challengeId']);
+                                                                                                        getCubit(context).getUserLikedChallenges();
+                                                                                                      },
+                                                                                                      child: ClipOval(
+                                                                                                        child: Icon(
+                                                                                                          Icons.thumb_up_alt_rounded,
+                                                                                                          color: AppColors.bmiTracker,
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    )
+                                                                                                  : InkWell(
+                                                                                                      onTap: () {
+                                                                                                        getCubit(context).addToLikedChallenges(challengeData['challengeId']);
+                                                                                                        getCubit(context).getUserLikedChallenges();
+                                                                                                      },
+                                                                                                      child: ClipOval(
+                                                                                                        child: Icon(Icons.thumb_up_alt_outlined),
+                                                                                                      ),
+                                                                                                    )
+                                                                                              : Container(
+                                                                                                  child: Text(
+                                                                                                    "You",
+                                                                                                    style: TextStyle(color: Colors.grey),
+                                                                                                  ),
+                                                                                                ),
+                                                                                          IconButton(
+                                                                                            onPressed: () => {},
+                                                                                            style: IconButton.styleFrom(padding: edge_insets_0),
+                                                                                            icon: const Icon(
+                                                                                              Icons.share,
+                                                                                              color: Colors.white,
+                                                                                            ),
+                                                                                          )
+                                                                                        ],
+                                                                                      )
+                                                                                    ],
+                                                                                  ),
+                                                                                )
+                                                                              ],
+                                                                            )),
+                                                                  )
+                                                                : Container()
+                                                            : Container();
+                                                      }
                                                     })
                                                 : Container(
                                                     margin: EdgeInsets.only(
